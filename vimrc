@@ -98,21 +98,6 @@ let g:_myvim_eng_text_script = "source " . s:scriptsdir . "/eng_text.vim"
 nmap <Leader>eng :exec g:_myvim_eng_text_script<C-M>
 "}}}2
 
-"{{{2 Scratch buffer
-map <F4> <C-\><C-N>:ScratchTab<CR>
-map <F5> <C-\><C-N>:ScratchWindow<CR>
-map <F6> <C-\><C-N>:CloseScratch<CR>
-map <F13> <C-\><C-N>:ScratchTab<CR>
-map <F14> <C-\><C-N>:ScratchWindow<CR>
-map <F15> <C-\><C-N>:CloseScratch<CR>
-imap <F4> <C-\><C-N>:ScratchTab<CR>
-imap <F5> <C-\><C-N>:ScratchWindow<CR>
-imap <F6> <C-\><C-N>:CloseScratch<CR>
-imap <F13> <C-\><C-N>:ScratchTab<CR>
-imap <F14> <C-\><C-N>:ScratchWindow<CR>
-imap <F15> <C-\><C-N>:CloseScratch<CR>
-"}}}2
-
 " tagbar
 nmap <F12> :TagbarToggle<CR>
 
