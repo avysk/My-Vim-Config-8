@@ -1,12 +1,12 @@
 if has("win32")
         language C
-        let s:configdir=$HOME/vimfiles
+        let g:_myvim_configdir=$HOME/vimfiles
 else
-        let s:configdir=$HOME . '/.vim'
+        let g:_myvim_configdir=$HOME . '/.vim'
 endif
 
-let s:localdir=s:configdir . '/local'
-let s:scriptsdir=s:configdir . '/scripts'
+let s:localdir=g:_myvim_configdir . '/local'
+let s:scriptsdir=g:_myvim_configdir . '/scripts'
 
 
 "                        *** Please behave ***
@@ -77,11 +77,11 @@ nmap <unique> <Leader>vb :vertical sb
 nmap <unique> <Leader>lv :ls<CR>:vertical sb 
 
 " text in Russian
-let g:rus_text_script = "source " . s:scriptsdir . "/rus_text.vim"
-nmap <Leader>rus :exec g:rus_text_script<C-M>
+let g:_myvim_rus_text_script = "source " . s:scriptsdir . "/rus_text.vim"
+nmap <Leader>rus :exec g:_myvim_rus_text_script<C-M>
 " text in English
-let g:eng_text_script = "source " . s:scriptsdir . "/eng_text.vim"
-nmap <Leader>eng :exec g:eng_text_script<C-M>
+let g:_myvim_eng_text_script = "source " . s:scriptsdir . "/eng_text.vim"
+nmap <Leader>eng :exec g:_myvim_eng_text_script<C-M>
 
 " scratch
 map <F4> <C-\><C-N>:ScratchTab<CR>
