@@ -1,37 +1,46 @@
 if has("win32")
         language C
+        let s:configdir=$HOME/vimfiles
+else
+        let s:configdir=$HOME . '/.vim'
 endif
 
+let s:localdir=s:configdir . '/local'
+let s:scriptsdir=s:configdir . '/scripts'
+
+
 "                        *** Please behave ***
-set nocompatible
+
+set expandtab
+
+set modeline  " this is off for Debian by default
 
 " Use space for leader
 nnoremap <Space> <Nop>
 nmap <Space> <Leader>
 
-set backspace=indent,eol,start
-set expandtab
-
-set modeline
-set modelines=5
-
 set path+=** " Search in all subdirectories
 
-set showmatch
-set noequalalways
-set wildmode=list:longest
+set showmatch  " Jump to matching paren
+set matchtime=1  " ...but very fast
+let loaded_matchparen=1  " ...and do no highlights
+
+set noequalalways  " Do not resize my windows
+
+set wildmode=list:longest  " Proper completion
+
 set relativenumber
 set number
 
-" Remember marks in 20 last files
+" Remember marks in 1000 last files
 " Remember up to 1000 lines per register
-set viminfo='20,<1000
+set viminfo='1000,<1000
 
 " Permanent undo
 if has('persistent_undo')
-    set undofile
-    set undodir=$HOME/.vim_undo_files
-    set undolevels=5000
+        set undofile
+        let &undodir=s:localdir . "/undo"
+        set undolevels=5000
 endif
 
 " Search options
@@ -41,50 +50,39 @@ set incsearch
 set hlsearch
 
 " Folding
-set foldenable
 set foldmethod=syntax
 
 " Buffers
 set hidden " Use hidden buffers liberally
 set switchbuf=usetab,split
-nmap <unique> <Leader>ls :ls<CR>:buf 
-nmap <unique> <Leader>bb :buf 
-nmap <unique> <Leader>vb :vertical sb 
 
-" Tabs
-set tabpagemax=20
 
 "                        *** Decorations ***
-"set listchars=
 if has("win32")
         " Nothing
 else
         set list
         set listchars=tab:⇒⋄,trail:∴,extends:→,precedes:←,nbsp:·
 endif
-"if ($TERM=="screen")
-"        set nolist
-"else
-"        set list
-"        set listchars=tab:⇒…,trail:∴,extends:→,precedes:←,nbsp:·
-"endif
 set ruler
 set laststatus=2
 set showcmd
 
 "                         *** Bindings ***
+
+" helpers for working with buffers buffers
+nmap <unique> <Leader>ls :ls<CR>:buf 
+nmap <unique> <Leader>bb :buf 
+nmap <unique> <Leader>vb :vertical sb 
+nmap <unique> <Leader>lv :ls<CR>:vertical sb 
+
 " text in Russian
-if has("win32")
-        map <Leader>rus :so $HOME/vimfiles/scripts/rus_text.vim<C-M>
-else
-        map <Leader>rus :so ~/.vim/scripts/rus_text.vim<C-M>
-endif
+let g:rus_text_script = "source " . s:scriptsdir . "/rus_text.vim"
+nmap <Leader>rus :exec g:rus_text_script<C-M>
 " text in English
-if has("win32")
-        map <Leader>eng :so $HOME/vimfiles/scripts/eng_text.vim<C-M>
-else
-        map <Leader>eng :so ~/.vim/scripts/eng_text.vim<C-M>
-endif
+let g:eng_text_script = "source " . s:scriptsdir . "/eng_text.vim"
+nmap <Leader>eng :exec g:eng_text_script<C-M>
+
 " scratch
 map <F4> <C-\><C-N>:ScratchTab<CR>
 map <F5> <C-\><C-N>:ScratchWindow<CR>
@@ -286,9 +284,9 @@ let g:voom_tab_key = "<C-Tab>"
 
 " KEEP THOSE AT THE BOTTOM
 if has("win32")
-        let s:localrc=$HOME."/vimfiles/vim_local"
+        let s:localrc=$HOME."/vimfiles/local/vimrc"
 else
-        let s:localrc=$HOME."/.vim/vim_local"
+        let s:localrc=$HOME."/.vim/local/vimrc"
 endif
 if filereadable(s:localrc)
         exec 'source ' . s:localrc
