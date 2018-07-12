@@ -285,9 +285,9 @@ let g:voom_return_key = "<C-Return>"
 let g:voom_tab_key = "<C-Tab>"
 
 " KEEP THOSE AT THE BOTTOM
-let localrc=$HOME."/.vim_local"
-if filereadable(localrc)
-        source $HOME/.vim_local
+let s:localrc=$HOME."/.vim/vim_local"
+if filereadable(s:localrc)
+        exec 'source ' . s:localrc
 endif
 syntax on
 filetype plugin on
