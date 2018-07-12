@@ -285,10 +285,15 @@ let g:voom_return_key = "<C-Return>"
 let g:voom_tab_key = "<C-Tab>"
 
 " KEEP THOSE AT THE BOTTOM
-let s:localrc=$HOME."/.vim/vim_local"
+if has("win32")
+        let s:localrc=$HOME."/vimfiles/vim_local"
+else
+        let s:localrc=$HOME."/.vim/vim_local"
+endif
 if filereadable(s:localrc)
         exec 'source ' . s:localrc
 endif
+
 syntax on
 filetype plugin on
 filetype indent on
