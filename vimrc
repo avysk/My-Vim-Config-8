@@ -133,13 +133,13 @@ let g:UltiSnipsJumpForwardTrigger="<Down>"
 let g:UltiSnipsJumpBackwardTrigger="<Up>"
 "}}}2
 
-
-"       *** YouCompleteMe
+"{{{2 YouCompleteMe
 " let it work in virtualenv
 let g:ycm_python_binary_path = 'python'
 nnoremap <Leader>] :YcmCompleter GoTo<CR>
+"}}}2
 
-"       *** VimWiki
+"{{{2 VimWiki
 let g:vimwiki_list = [{'path': '~/vimwiki', 'list_margin': 2},
       \ {'path': '~/Dropbox/vimwiki', 'list_margin': 2},
       \ {'path': '~/Dropbox/vimwiki-md', 'list_margin': 2, 'syntax': 'markdown', 'ext': '.mdw'}]
@@ -150,6 +150,7 @@ autocmd FileType vimwiki set nowrap
 nmap <F1> <Plug>VimwikiTabMakeDiaryNote
 nmap <S-F1> <Plug>VimwikiDiaryIndex
 nmap <leader><F1> <Plug>VimwikiDiaryIndex
+"}}}2
 
 "       *** Syntastic
 let g:syntastic_always_populate_loc_list = 1
