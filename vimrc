@@ -125,16 +125,13 @@ set updatetime=1000
 let g:gitgutter_highlight_lines=1
 "}}}2
 
-"       *** Lusty explorer
-" Silence message about non-available Ruby
-let g:LustyJugglerSuppressRubyWarning = 1
-
-"       *** Ultisnips
+"{{{2 Ultisnips
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsExpandTrigger="<Right>"
 let g:UltiSnipsListSnippets="<Left>"
 let g:UltiSnipsJumpForwardTrigger="<Down>"
 let g:UltiSnipsJumpBackwardTrigger="<Up>"
+"}}}2
 
 
 "       *** YouCompleteMe
