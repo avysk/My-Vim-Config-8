@@ -116,13 +116,14 @@ inoremap <PageUp> <C-O><C-^>
 
 "}}}1
 
-"                        *** Plugins settings ***
+"{{{1 Plugins
 
-"       *** Gitgutter
+"{{{2 Gitgutter
 " faster realtime updates
 set updatetime=1000
 " Highlight changed lines
 let g:gitgutter_highlight_lines=1
+"}}}2
 
 "       *** Lusty explorer
 " Silence message about non-available Ruby
@@ -160,6 +161,8 @@ let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 
 "       *** Vimoutliner
 autocmd FileType votl set listchars=tab:\ \ ,trail:∴,extends:→,precedes:←,nbsp:·
+
+"}}}1
 
 "                         *** Languages ***
 
