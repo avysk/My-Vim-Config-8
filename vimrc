@@ -164,7 +164,7 @@ autocmd FileType votl set listchars=tab:\ \ ,trail:∴,extends:→,precedes:←,
 
 "}}}1
 
-"                         *** Languages ***
+"{{{1 Languages
 
 "         *** INTERCAL
 au BufRead,BufNewFile *.i set syntax=intercal
@@ -283,6 +283,8 @@ let g:syntastic_rust_checkers = ['cargo']
 let g:syntastic_clojure_checkers = ['eastwood']
 let g:rainbow_active = 0
 autocmd VimEnter *.clj RainbowToggleOn
+
+"}}}1
 
 " TSLIME
 vmap <unique> <C-c><C-c> <Plug>SendSelectionToTmux
