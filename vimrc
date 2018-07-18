@@ -137,6 +137,7 @@ let g:UltiSnipsJumpBackwardTrigger="<Up>"
 " let it work in virtualenv
 let g:ycm_python_binary_path = 'python'
 nnoremap <Leader>] :YcmCompleter GoTo<CR>
+nnoremap <Leader>` :YcmCompleter GetDoc<CR>
 "}}}2
 
 "{{{2 VimWiki
