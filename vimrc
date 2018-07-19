@@ -98,8 +98,9 @@ let g:_myvim_eng_text_script = "source " . s:scriptsdir . "/eng_text.vim"
 nmap <Leader>eng :exec g:_myvim_eng_text_script<C-M>
 "}}}2
 
-" tagbar
+"{{{2 tagbar
 nmap <F12> :TagbarToggle<CR>
+"}}}2
 
 "{{{2 Remapping arrows and similar keys to something useful
 " Right/Left to move through ALE errors list
@@ -156,8 +157,9 @@ nmap <leader><F1> <Plug>VimwikiDiaryIndex
 let g:ale_lint_on_text_changed = 'never'
 "}}}2
 
-"       *** Vimoutliner
+"{{{2
 autocmd FileType votl set listchars=tab:\ \ ,trail:∴,extends:→,precedes:←,nbsp:·
+"}}}2
 
 "}}}1
 
