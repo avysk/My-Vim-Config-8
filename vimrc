@@ -114,6 +114,12 @@ nnoremap <PageUp> <C-^>
 inoremap <PageUp> <C-O><C-^>
 "}}}2
 
+"{{{2 tslime
+vmap <unique> <C-c><C-c> <Plug>SendSelectionToTmux
+nmap <unique> <C-c><C-c> <Plug>NormalModeSendToTmux
+nmap <unique> <C-c>r <Plug>SetTmuxVars
+"}}}2
+
 "}}}1
 
 "{{{1 Plugins
@@ -283,11 +289,6 @@ let g:rainbow_active = 0
 autocmd VimEnter *.clj RainbowToggleOn
 
 "}}}1
-
-" TSLIME
-vmap <unique> <C-c><C-c> <Plug>SendSelectionToTmux
-nmap <unique> <C-c><C-c> <Plug>NormalModeSendToTmux
-nmap <unique> <C-c>r <Plug>SetTmuxVars
 
 " VOoM
 let g:voom_return_key = "<C-Return>"
