@@ -191,12 +191,12 @@ if has("win32")
 else
   let g:ocaml_folding=1
   let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
-  "let s:ocp_indent = 'source ' . g:opamshare . '/vim/syntax/ocp-indent.vim'
+  let s:ocp_indent = 'source ' . g:opamshare . '/ocp-indent/vim/indent/ocaml.vim'
   autocmd FileType ocaml iabbrev <buffer> _ML (*<C-M><BS><BS>vim:sw=2<C-M>*)
   autocmd FileType ocaml setlocal tw=0
   autocmd FileType ocaml setlocal softtabstop=2
   autocmd FileType ocaml setlocal shiftwidth=2
-  "autocmd FileType ocaml exec s:ocp_indent
+  autocmd FileType ocaml exec s:ocp_indent
 
   execute "set rtp+=" . g:opamshare . "/merlin/vim"
 
