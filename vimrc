@@ -102,10 +102,9 @@ nmap <Leader>eng :exec g:_myvim_eng_text_script<C-M>
 nmap <F12> :TagbarToggle<CR>
 
 "{{{2 Remapping arrows and similar keys to something useful
-" Right/Left to move through location list (e.g. Syntastic errors)
-" FIXME: the following don't work with only one location in location list
-nnoremap <Right> :lnext<CR>
-nnoremap <Left> :lprev<CR>
+" Right/Left to move through ALE errors list
+nnoremap <Right> <Plug>(ale_next_wrap)
+nnoremap <Left> <Plug>(ale_previous_wrap)
 " PgDown to drop search highlighting
 nnoremap <PageDown> :nohl<CR>
 inoremap <PageDown> <C-O>:nohl<CR>
@@ -153,6 +152,9 @@ nmap <S-F1> <Plug>VimwikiDiaryIndex
 nmap <leader><F1> <Plug>VimwikiDiaryIndex
 "}}}2
 
+"{{{2 ALE
+let g:ale_lint_on_text_changed = 'never'
+"}}}2
 
 "       *** Vimoutliner
 autocmd FileType votl set listchars=tab:\ \ ,trail:∴,extends:→,precedes:←,nbsp:·
@@ -183,7 +185,7 @@ autocmd FileType python setlocal softtabstop=4
 autocmd FileType python setlocal shiftwidth=4
 let g:syntastic_python_checkers=['pycodestyle', 'pylint', 'python']
 
-"         *** OCaml
+"{{{2 OCaml
 if has("win32")
   " Nothing
 else
@@ -198,9 +200,8 @@ else
 
   execute "set rtp+=" . g:opamshare . "/merlin/vim"
 
-  " use merlin for syntastic
-  let g:syntastic_ocaml_checkers = ['merlin']
 endif
+"}}}2
 
 "         *** Lisp
 let g:lisp_rainbow=1
