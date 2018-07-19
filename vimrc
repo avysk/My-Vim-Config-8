@@ -292,11 +292,7 @@ let g:voom_return_key = "<C-Return>"
 let g:voom_tab_key = "<C-Tab>"
 
 " KEEP THOSE AT THE BOTTOM
-if has("win32")
-  let s:localrc=$HOME."/vimfiles/local/vimrc"
-else
-  let s:localrc=$HOME."/.vim/local/vimrc"
-endif
+let s:localrc = s:localdir . "/vimrc"
 if filereadable(s:localrc)
   exec 'source ' . s:localrc
 endif
