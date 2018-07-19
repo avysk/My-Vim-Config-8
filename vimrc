@@ -153,10 +153,6 @@ nmap <S-F1> <Plug>VimwikiDiaryIndex
 nmap <leader><F1> <Plug>VimwikiDiaryIndex
 "}}}2
 
-"       *** Syntastic
-let g:syntastic_always_populate_loc_list = 1
-" be passive on go
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 
 "       *** Vimoutliner
 autocmd FileType votl set listchars=tab:\ \ ,trail:∴,extends:→,precedes:←,nbsp:·
