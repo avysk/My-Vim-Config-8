@@ -7,4 +7,4 @@ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 colo pencil
 
-exec 'source' . g:_myvim_configdir . '/scripts/text_generic.vim'
+exec 'source ' . g:_myvim_configdir . '/scripts/text_generic.vim'
