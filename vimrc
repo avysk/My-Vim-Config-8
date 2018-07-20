@@ -6,7 +6,7 @@ else
   let g:_myvim_configdir=$HOME . '/.vim'
 endif
 
-let s:localdir=g:_myvim_configdir . '/local'
+let g:_myvim_localdir=g:_myvim_configdir . '/local'
 let s:scriptsdir=g:_myvim_configdir . '/scripts'
 "}}}
 
@@ -30,7 +30,7 @@ set viminfo='1000,<1000
 " Permanent undo
 if has('persistent_undo')
   set undofile
-  let &undodir=s:localdir . "/undo"
+  let &undodir=g:_myvim_localdir . "/undo"
   set undolevels=5000
 endif
 "}}}2
@@ -244,7 +244,7 @@ autocmd FileType fsharp setlocal sts=4
 "}}}1
 
 " KEEP THOSE AT THE BOTTOM
-let s:localrc = s:localdir . "/vimrc"
+let s:localrc = g:_myvim_localdir . "/vimrc"
 if filereadable(s:localrc)
   exec 'source ' . s:localrc
 endif
