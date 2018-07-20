@@ -163,7 +163,7 @@ nmap <leader><F1> <Plug>VimwikiDiaryIndex
 let g:ale_lint_on_text_changed = 'never'
 "}}}2
 
-"{{{2
+"{{{2 VimOutliner
 autocmd FileType votl set listchars=tab:\ \ ,trail:∴,extends:→,precedes:←,nbsp:·
 "}}}2
 
@@ -171,27 +171,27 @@ autocmd FileType votl set listchars=tab:\ \ ,trail:∴,extends:→,precedes:←,
 
 "{{{1 Languages
 
-"         *** INTERCAL
+"{{{2 INTERCAL
 au BufRead,BufNewFile *.i set syntax=intercal
+"}}}2
 
-"         *** C
+"{{{2 C
 set cino=:0
-" use gcc for syntastic
-let g:syntastic_c_compiler = 'gcc'
-let g:syntastic_c_compiler_options = '-std=gnu99 -Wall -I/opt/local/include'
+"}}}2
 
-"         *** FORTRAN
+"{{{2 FORTRAN
 let fortran_free_source=1
 let fortran_fold=1
 let fortran_fold_conditionals=1
 let fortran_fold_multilinecomments=1
 let fortran_more_precise=1
 let fortran_do_enddo=1
+"}}}2
 
-"         *** Python
+"{{{2 Python
 autocmd FileType python setlocal softtabstop=4
 autocmd FileType python setlocal shiftwidth=4
-let g:syntastic_python_checkers=['pycodestyle', 'pylint', 'python']
+"}}}2
 
 "{{{2 OCaml
 if has("win32")
@@ -199,25 +199,24 @@ if has("win32")
 else
   let g:ocaml_folding=1
   let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+
   let s:ocp_indent = 'source ' . g:opamshare . '/ocp-indent/vim/indent/ocaml.vim'
+  autocmd FileType ocaml exec s:ocp_indent
+  execute "set rtp+=" . g:opamshare . "/merlin/vim"
+
   autocmd FileType ocaml iabbrev <buffer> _ML (*<C-M><BS><BS>vim:sw=2<C-M>*)
   autocmd FileType ocaml setlocal tw=0
   autocmd FileType ocaml setlocal softtabstop=2
   autocmd FileType ocaml setlocal shiftwidth=2
-  autocmd FileType ocaml exec s:ocp_indent
-
-  execute "set rtp+=" . g:opamshare . "/merlin/vim"
 
 endif
 "}}}2
 
-"         *** Lisp
+"{{{2 Lisp
 let g:lisp_rainbow=1
+"}}}2
 
-"         *** Scala
-au BufRead,BufNewFile *.sc set filetype=scala
-
-"         *** Elixir
+"{{{2 Elixir
 let g:tagbar_type_elixir = {
       \ 'ctagstype' : 'elixir',
       \ 'kinds' : [
@@ -235,64 +234,14 @@ let g:tagbar_type_elixir = {
       \ 't:tests'
       \ ]
       \ }
+"}}}2
 
-"         *** Javascript
-let g:syntastic_javascript_checkers = ['eslint']
-" ...and jsx extensions
-let g:jsx_ext_required = 0
-
-"         *** Julia
-let g:latex_to_unicode_auto = 1
-
-"         *** Typescript
-let g:typescript_use_builtin_tagbar_defs=1
-
-"         *** Ruby
-autocmd FileType ruby setlocal softtabstop=2
-autocmd FileType ruby setlocal shiftwidth=2
-"autocmd FileType ruby setlocal makeprg=rake\ -s
-autocmd FileType ruby compiler rspec
-let g:syntastic_ruby_checkers=['rubocop', 'mri']
-" let g:rubycomplete_buffer_loading = 1
-let g:rubycomplete_classes_in_global = 1
-
-" ...and now to make MacVim happy
-if has("gui_macvim")
-  set rubydll=/opt/local/lib/libruby.2.4.dylib
-endif
-
-"         *** Go
-autocmd FileType go set listchars=tab:⋄\ ,trail:∴,extends:→,precedes:←,nbsp:·
-au FileType go nmap <leader>r <Plug>(go-run)
-au FileType go nmap <leader>b <Plug>(go-build)
-au FileType go nmap <leader>t <Plug>(go-test)
-au FileType go nmap <leader>c <Plug>(go-coverage)
-let g:go_list_type = "quickfix"
-if has("win32")
-  " vimproc seems to be broken on Windows
-  let g:go#use_vimproc = 0
-endif
-
-"         *** FSharp
+"{{{2 F#
 autocmd FileType fsharp setlocal sw=4
 autocmd FileType fsharp setlocal sts=4
-
-"         *** CSharp
-let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues']
-
-" Rust
-let g:syntastic_rust_checkers = ['cargo']
-
-" Clojure
-let g:syntastic_clojure_checkers = ['eastwood']
-let g:rainbow_active = 0
-autocmd VimEnter *.clj RainbowToggleOn
+"}}}2
 
 "}}}1
-
-" VOoM
-let g:voom_return_key = "<C-Return>"
-let g:voom_tab_key = "<C-Tab>"
 
 " KEEP THOSE AT THE BOTTOM
 let s:localrc = s:localdir . "/vimrc"
