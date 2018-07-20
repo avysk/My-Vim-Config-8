@@ -1,0 +1,15 @@
+snippet ex "Exercise"
+% {{{4 ${1}
+\begin{exercise}{${2}}
+  \lilypondfile[noragged-right]{fragments/${3}}
+\end{exercise}
+% }}}4
+endsnippet
+
+snippet exl "Exercise with label"
+% {{{4 ${1}
+\begin{exercise}{${2}}\label{${3}}
+  \lilypondfile[noragged-right]{fragments/${4}}
+\end{exercise}
+% }}}4
+endsnippet
