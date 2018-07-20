@@ -236,11 +236,6 @@ let g:tagbar_type_elixir = {
       \ }
 "}}}2
 
-"{{{2 F#
-autocmd FileType fsharp setlocal sw=4
-autocmd FileType fsharp setlocal sts=4
-"}}}2
-
 "}}}1
 
 " KEEP THOSE AT THE BOTTOM
