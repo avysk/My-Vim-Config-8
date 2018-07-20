@@ -1,7 +1,7 @@
 "{{{ Windows/non-Windows specific settings
 if has("win32")
   language C
-  let g:_myvim_configdir=$HOME/vimfiles
+  let g:_myvim_configdir=$HOME . '/vimfiles'
 else
   let g:_myvim_configdir=$HOME . '/.vim'
 endif
