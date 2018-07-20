@@ -238,6 +238,10 @@ let g:tagbar_type_elixir = {
 
 "}}}1
 
+"{{{1 Built-in packages
+packadd! matchit
+"}}}1
+
 " KEEP THOSE AT THE BOTTOM
 let s:localrc = g:_myvim_localdir . "/vimrc"
 if filereadable(s:localrc)
