@@ -251,4 +251,7 @@ filetype indent on
 set encoding=utf-8
 set fileencoding=utf-8
 
+" ...and update documentation, don't complain about anything
+silent! helptags ALL
+
 " vim:sw=2:sts=2:foldmethod=marker
