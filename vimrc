@@ -12,6 +12,9 @@ let s:scriptsdir=g:_myvim_configdir . '/scripts'
 
 "{{{1 General vim behaviour
 
+" Proper backspace
+set bs=indent,eol,start
+
 " I don't want no tab characters
 set expandtab
 
