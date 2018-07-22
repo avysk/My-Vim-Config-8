@@ -107,8 +107,8 @@ nmap <F12> :TagbarToggle<CR>
 
 "{{{2 Remapping arrows and similar keys to something useful
 " Right/Left to move through ALE errors list
-nnoremap <Right> <Plug>(ale_next_wrap)
-nnoremap <Left> <Plug>(ale_previous_wrap)
+nmap <Down> <Plug>(ale_next_wrap)
+nmap <Up> <Plug>(ale_previous_wrap)
 " PgDown to drop search highlighting
 nnoremap <PageDown> :nohl<CR>
 inoremap <PageDown> <C-O>:nohl<CR>
