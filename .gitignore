@@ -1,7 +1,8 @@
-local/
-.netrwhist
+/local/
+/.netrwhist
 .*.swp
-spell/ru.utf-8.spl
-spell/ru.utf-8.sug
-spell/my.eng.utf-8.add
-spell/my.eng.utf-8.add.spl
+/spell/ru.utf-8.spl
+/spell/ru.utf-8.sug
+/spell/my.eng.utf-8.add
+/spell/my.eng.utf-8.add.spl
+/black/
