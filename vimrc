@@ -170,6 +170,10 @@ let g:ale_lint_on_text_changed = 'never'
 autocmd FileType votl set listchars=tab:\ \ ,trail:∴,extends:→,precedes:←,nbsp:·
 "}}}2
 
+"{{{2 vim-black
+let g:black_linelength = 79
+"}}}2
+
 "}}}1
 
 "{{{1 Languages
