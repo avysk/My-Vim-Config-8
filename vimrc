@@ -212,6 +212,7 @@ else
   let s:ocp_indent = 'source ' . g:opamshare . '/ocp-indent/vim/indent/ocaml.vim'
   autocmd FileType ocaml exec s:ocp_indent
   execute "set rtp+=" . g:opamshare . "/merlin/vim"
+  execute "set rtp+=" . g:opamshare . "/merlin/vimbufsync"
 
   autocmd FileType ocaml iabbrev <buffer> _ML (*<C-M><BS><BS>vim:sw=2<C-M>*)
   autocmd FileType ocaml setlocal tw=0
