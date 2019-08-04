@@ -164,6 +164,8 @@ nmap <leader><F1> <Plug>VimwikiDiaryIndex
 
 "{{{2 ALE
 let g:ale_lint_on_text_changed = 'never'
+let g:ale_python_pylint_change_directory = 0
+let g:ale_python_mypy_change_directory = 0
 "}}}2
 
 "{{{2 VimOutliner
