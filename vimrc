@@ -166,7 +166,15 @@ nmap <leader><F1> <Plug>VimwikiDiaryIndex
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_python_pylint_change_directory = 0
 let g:ale_python_mypy_change_directory = 0
-"}}}2
+
+let g:ale_cpp_clangtidy_checks = ['*', '-fuchsia*']
+let g:ale_fixers = {
+      \ 'cpp': ['clang-format'] }
+let g:ale_fix_on_save = 1
+
+let g:ale_linters = {
+      \ 'cpp': ['clangcheck', 'clangtidy', 'cppcheck'] }
+"}}}
 
 "{{{2 VimOutliner
 autocmd FileType votl set listchars=tab:\ \ ,trail:∴,extends:→,precedes:←,nbsp:·
@@ -218,6 +226,8 @@ else
   autocmd FileType ocaml setlocal tw=0
   autocmd FileType ocaml setlocal softtabstop=2
   autocmd FileType ocaml setlocal shiftwidth=2
+
+  autocmd FileType cpp setlocal shiftwidth=2
 
 endif
 "}}}2
