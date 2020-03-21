@@ -196,6 +196,11 @@ au BufRead,BufNewFile *.i set syntax=intercal
 set cino=:0
 "}}}2
 
+"{{{2 C++
+autocmd FileType cpp setlocal shiftwidth=2
+autocmd FileType cpp setlocal softtabstop=2
+"}}}
+
 "{{{2 FORTRAN
 let fortran_free_source=1
 let fortran_fold=1
@@ -226,8 +231,6 @@ else
   autocmd FileType ocaml setlocal tw=0
   autocmd FileType ocaml setlocal softtabstop=2
   autocmd FileType ocaml setlocal shiftwidth=2
-
-  autocmd FileType cpp setlocal shiftwidth=2
 
 endif
 "}}}2
