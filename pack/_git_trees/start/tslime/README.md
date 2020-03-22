@@ -19,8 +19,10 @@ Settings
 You can tell tslime.vim to use the current session and current window, this let's you 
 avoid specifying this on every upstart of vim.
 
+```vim
 let g:tslime_always_current_session = 1
 let g:tslime_always_current_window = 1
+```
 
 These are disabled by default, meaning you will have the ability to choose from every 
 session/window/pane combination.

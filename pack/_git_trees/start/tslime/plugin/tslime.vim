@@ -124,7 +124,7 @@ function! s:Tmux_Vars()
 endfunction
 
 vnoremap <silent> <Plug>SendSelectionToTmux "ry :call Send_to_Tmux(@r)<CR>
-nmap     <silent> <Plug>NormalModeSendToTmux vip <Plug>SendSelectionToTmux
+nmap     <silent> <Plug>NormalModeSendToTmux vip<Plug>SendSelectionToTmux
 
 nnoremap          <Plug>SetTmuxVars :call <SID>Tmux_Vars()<CR>
 
