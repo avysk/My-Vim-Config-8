@@ -57,7 +57,7 @@ to the `.vimrc` file and installing this plug-in, the folds in a `TeX`, `Vim`, `
 - If you prefer that folds are only updated manually but not when saving the buffer,
   then add `let g:fastfold_savehook = 0` to your `.vimrc`.
 
-- If you prefer that folds are updated whenever you close or open folds by a
+- If you prefer that folds are not updated whenever you close or open folds by a
   standard keystroke such as `zx`,`zo` or `zc`, then add `let
   g:fastfold_fold_command_suffixes = []` to your `.vimrc`.
 
@@ -115,6 +115,15 @@ folds of a file buffer by `:mkview` and `:loadview`.
 A `CustomFoldText()` function that displays the percentage of the number of buffer lines that the folded text takes up and indents folds according to their nesting level, similar to [that](http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/) by Greg Sexton, is available at
 
 http://www.github.com/Konfekt/FoldText
+
+## NrrwRgn
+
+`FastFold` integrates with the plug-in
+[NrrwRgn](https://github.com/chrisbra/NrrwRgn/) that lets you edit a selection in a new temporary buffer by adding to your `vimrc` the line
+
+```vim
+  autocmd BufWinEnter * let b:nrrw_aucmd_create = "let w:lastfdm = getwinvar(winnr('#'), 'lastfdm')"
+```
 
 ## Fold Text-Object
 
