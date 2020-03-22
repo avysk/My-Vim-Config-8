@@ -4,11 +4,11 @@
 " Given a filetype and a configuration for ignoring linters, return a List of
 " Strings for linter names to ignore.
 function! ale#engine#ignore#GetList(filetype, config) abort
-    if type(a:config) is type([])
+    if type(a:config) is v:t_list
         return a:config
     endif
 
-    if type(a:config) is type({})
+    if type(a:config) is v:t_dict
         let l:names_to_remove = []
 
         for l:part in split(a:filetype , '\.')
@@ -22,7 +22,7 @@ function! ale#engine#ignore#GetList(filetype, config) abort
 endfunction
 
 " Given a List of linter descriptions, exclude the linters to be ignored.
-function! ale#engine#ignore#Exclude(filetype, all_linters, config) abort
+function! ale#engine#ignore#Exclude(filetype, all_linters, config, disable_lsp) abort
     let l:names_to_remove = ale#engine#ignore#GetList(a:filetype, a:config)
     let l:filtered_linters = []
 
@@ -36,6 +36,10 @@ function! ale#engine#ignore#Exclude(filetype, all_linters, config) abort
                 break
             endif
         endfor
+
+        if a:disable_lsp && has_key(l:linter, 'lsp') && l:linter.lsp isnot# ''
+            let l:should_include = 0
+        endif
 
         if l:should_include
             call add(l:filtered_linters, l:linter)
