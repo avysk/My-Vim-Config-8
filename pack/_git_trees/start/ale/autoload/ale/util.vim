@@ -54,6 +54,7 @@ endif
 function! ale#util#JoinNeovimOutput(job, last_line, data, mode, callback) abort
     if a:mode is# 'raw'
         call a:callback(a:job, join(a:data, "\n"))
+
         return ''
     endif
 
@@ -79,24 +80,38 @@ function! ale#util#GetLineCount(buffer) abort
 endfunction
 
 function! ale#util#GetFunction(string_or_ref) abort
-    if type(a:string_or_ref) == type('')
+    if type(a:string_or_ref) is v:t_string
         return function(a:string_or_ref)
     endif
 
     return a:string_or_ref
 endfunction
 
+" Open the file (at the given line).
+" options['open_in'] can be:
+"   current-buffer (default)
+"   tab
+"   vertical-split
+"   horizontal-split
 function! ale#util#Open(filename, line, column, options) abort
-    if get(a:options, 'open_in_tab', 0)
-        call ale#util#Execute('tabedit ' . fnameescape(a:filename))
-    else
+    let l:open_in = get(a:options, 'open_in', 'current-buffer')
+    let l:args_to_open = '+' . a:line . ' ' . fnameescape(a:filename)
+
+    if l:open_in is# 'tab'
+        call ale#util#Execute('tabedit ' . l:args_to_open)
+    elseif l:open_in is# 'horizontal-split'
+        call ale#util#Execute('split ' . l:args_to_open)
+    elseif l:open_in is# 'vertical-split'
+        call ale#util#Execute('vsplit ' . l:args_to_open)
+    elseif bufnr(a:filename) isnot bufnr('')
         " Open another file only if we need to.
-        if bufnr(a:filename) isnot bufnr('')
-            call ale#util#Execute('edit ' . fnameescape(a:filename))
-        endif
+        call ale#util#Execute('edit ' . l:args_to_open)
+    else
+        normal! m`
     endif
 
     call cursor(a:line, a:column)
+    normal! zz
 endfunction
 
 let g:ale#util#error_priority = 5
@@ -268,7 +283,7 @@ endfunction
 " See :help sandbox
 function! ale#util#InSandbox() abort
     try
-        let &equalprg=&equalprg
+        let &l:equalprg=&l:equalprg
     catch /E48/
         " E48 is the sandbox error.
         return 1
@@ -303,8 +318,8 @@ endfunction
 " Only the first pattern which matches a line will be returned.
 function! ale#util#GetMatches(lines, patterns) abort
     let l:matches = []
-    let l:lines = type(a:lines) == type([]) ? a:lines : [a:lines]
-    let l:patterns = type(a:patterns) == type([]) ? a:patterns : [a:patterns]
+    let l:lines = type(a:lines) is v:t_list ? a:lines : [a:lines]
+    let l:patterns = type(a:patterns) is v:t_list ? a:patterns : [a:patterns]
 
     for l:line in l:lines
         for l:pattern in l:patterns
@@ -321,15 +336,11 @@ function! ale#util#GetMatches(lines, patterns) abort
 endfunction
 
 function! s:LoadArgCount(function) abort
-    let l:Function = a:function
-
-    redir => l:output
-        silent! function Function
-    redir END
-
-    if !exists('l:output')
+    try
+        let l:output = execute('function a:function')
+    catch /E123/
         return 0
-    endif
+    endtry
 
     let l:match = matchstr(split(l:output, "\n")[0], '\v\([^)]+\)')[1:-2]
     let l:arg_list = filter(split(l:match, ', '), 'v:val isnot# ''...''')
@@ -382,7 +393,7 @@ function! ale#util#FuzzyJSONDecode(data, default) abort
         return a:default
     endif
 
-    let l:str = type(a:data) == type('') ? a:data : join(a:data, '')
+    let l:str = type(a:data) is v:t_string ? a:data : join(a:data, '')
 
     try
         let l:result = json_decode(l:str)
@@ -404,10 +415,10 @@ endfunction
 " the buffer.
 function! ale#util#Writefile(buffer, lines, filename) abort
     let l:corrected_lines = getbufvar(a:buffer, '&fileformat') is# 'dos'
-    \   ? map(copy(a:lines), 'v:val . "\r"')
+    \   ? map(copy(a:lines), 'substitute(v:val, ''\r*$'', ''\r'', '''')')
     \   : a:lines
 
-    call writefile(l:corrected_lines, a:filename) " no-custom-checks
+    call writefile(l:corrected_lines, a:filename, 'S') " no-custom-checks
 endfunction
 
 if !exists('s:patial_timers')
@@ -450,4 +461,18 @@ function! ale#util#Col(str, chr) abort
     endif
 
     return strlen(join(split(a:str, '\zs')[0:a:chr - 2], '')) + 1
+endfunction
+
+function! ale#util#FindItemAtCursor(buffer) abort
+    let l:info = get(g:ale_buffer_info, a:buffer, {})
+    let l:loclist = get(l:info, 'loclist', [])
+    let l:pos = getpos('.')
+    let l:index = ale#util#BinarySearch(l:loclist, a:buffer, l:pos[1], l:pos[2])
+    let l:loc = l:index >= 0 ? l:loclist[l:index] : {}
+
+    return [l:info, l:loc]
+endfunction
+
+function! ale#util#Input(message, value) abort
+    return input(a:message, a:value)
 endfunction
