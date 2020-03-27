@@ -169,7 +169,8 @@ let g:ale_python_mypy_change_directory = 0
 
 let g:ale_cpp_clangtidy_checks = ['*', '-fuchsia*']
 let g:ale_fixers = {
-      \ 'cpp': ['clang-format'] }
+      \ 'cpp': ['clang-format'],
+      \ 'ocaml': ['ocamlformat']}
 let g:ale_fix_on_save = 1
 
 let g:ale_linters = {
