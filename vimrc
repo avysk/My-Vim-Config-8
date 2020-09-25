@@ -149,10 +149,12 @@ nnoremap <Leader>] :YcmCompleter GoTo<CR>
 nnoremap <Leader>` :YcmCompleter GetDoc<CR>
 "}}}2
 
-"{{{2 VimWiki
+"{{{2 VimWiki && vim-zettel
 let g:vimwiki_list = [{'path': '~/vimwiki', 'list_margin': 2},
       \ {'path': '~/Dropbox/vimwiki', 'list_margin': 2},
-      \ {'path': '~/Dropbox/vimwiki-md', 'list_margin': 2, 'syntax': 'markdown', 'ext': '.mdw'}]
+      \ {'path': '~/Dropbox/vimwiki-md', 'list_margin': 2, 'syntax': 'markdown', 'ext': '.mdw'},
+      \ {'path': '~/OneDrive/ZettelKasten', 'list_margin': 2}]
+let g:zettel_options = [{}, {}, {}, {'disable_front_matter': 1}]
 nmap <leader>tt <Plug>VimwikiToggleListItem
 autocmd FileType vimwiki set tw=80
 autocmd FileType vimwiki set nowrap
