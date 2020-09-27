@@ -131,6 +131,8 @@ nmap <unique> <C-c>r <Plug>SetTmuxVars
 set updatetime=1000
 " Highlight changed lines
 let g:gitgutter_highlight_lines=1
+let g:gitgutter_enabled=0
+nnoremap <Leader>gg :GitGutterToggle<CR>
 "}}}2
 
 "{{{2 Ultisnips
