@@ -3,7 +3,7 @@
 " Description: List the current file's tags in a sidebar, ordered by class etc
 " Author:      Jan Larres <jan@majutsushi.net>
 " Licence:     Vim licence
-" Website:     http://majutsushi.github.com/tagbar/
+" Website:     https://preservim.github.io/tagbar
 " Version:     2.7
 " Note:        This plugin was heavily inspired by the 'Taglist' plugin by
 "              Yegappan Lakshmanan and uses a small amount of code from it.
@@ -879,17 +879,15 @@ function! s:OpenWindow(flags) abort
     endif
 
     let s:window_opening = 1
-    if g:tagbar_vertical == 0
+    if g:tagbar_position =~# 'vertical'
+        let size = g:tagbar_width
         let mode = 'vertical '
-        let openpos = g:tagbar_left ? 'topleft ' : 'botright '
-        let width = g:tagbar_width
     else
+        let size = g:tagbar_height
         let mode = ''
-        let openpos = g:tagbar_left ? 'leftabove ' : 'rightbelow '
-        let width = g:tagbar_vertical
     endif
-    exe 'silent keepalt ' . openpos . mode . width . 'split ' . s:TagbarBufName()
-    exe 'silent ' . mode . 'resize ' . width
+    exe 'silent keepalt ' . g:tagbar_position . size . 'split ' . s:TagbarBufName()
+    exe 'silent ' . mode . 'resize ' . size
     unlet s:window_opening
 
     call s:InitWindow(autoclose)
@@ -956,9 +954,18 @@ function! s:InitWindow(autoclose) abort
     " Window-local options
 
     setlocal nolist
-    setlocal nowrap
     setlocal winfixwidth
     setlocal nospell
+
+    if g:tagbar_wrap == 0
+        setlocal nowrap
+    else
+        setlocal wrap
+        if exists('+linebreak')
+            setlocal breakindent
+            setlocal breakindentopt=shift:4
+        endif
+    endif
 
     if g:tagbar_show_linenumbers == 0
         setlocal nonumber
@@ -1027,6 +1034,7 @@ function! s:CloseWindow() abort
             " Other windows are open, only close the tagbar one
 
             let curfile = tagbar#state#get_current_file(0)
+            let s:is_maximized = 0
 
             close
 
@@ -1182,29 +1190,43 @@ function! s:ProcessFile(fname, ftype) abort
 
     call tagbar#debug#log('typeinfo for file to process: ' . string(typeinfo))
 
-    " Use a temporary files for ctags processing instead of the original one.
-    " This allows using Tagbar for files accessed with netrw, and also doesn't
-    " slow down Tagbar for files that sit on slow network drives.
-    let tempfile = tempname()
-    let ext = fnamemodify(fileinfo.fpath, ':e')
-    if ext !=# ''
-        let tempfile .= '.' . ext
-    endif
-
-    call tagbar#debug#log('Caching file into: ' . tempfile)
-    let templines = getbufline(fileinfo.bufnr, 1, '$')
-    let res = writefile(templines, tempfile)
-
-    if res != 0
-        call tagbar#debug#log('Could not create copy '.tempfile)
+    if g:tagbar_file_size_limit > 0
+                \ && fileinfo.fsize > g:tagbar_file_size_limit
+                \ && !exists('b:tagbar_force_update')
+        call tagbar#debug#log('File size exceeds defined limit')
+        let fileinfo.fsize_exceeded = 1
+        call s:known_files.put(fileinfo)
         return
-    endif
-    let fileinfo.mtime = getftime(tempfile)
+    elseif g:tagbar_use_cache
+        " Use a temporary files for ctags processing instead of the original one.
+        " This allows using Tagbar for files accessed with netrw, and also doesn't
+        " slow down Tagbar for files that sit on slow network drives.
+        let tempfile = tempname()
+        let ext = fnamemodify(fileinfo.fpath, ':e')
+        if ext !=# ''
+            let tempfile .= '.' . ext
+        endif
 
-    let ctags_output = s:ExecuteCtagsOnFile(tempfile, a:fname, typeinfo)
+        call tagbar#debug#log('Caching file into: ' . tempfile)
+        let templines = getbufline(fileinfo.bufnr, 1, '$')
+        let res = writefile(templines, tempfile)
 
-    if !tagbar#debug#enabled()
-        call delete(tempfile)
+        if res != 0
+            call tagbar#debug#log('Could not create copy '.tempfile)
+            return
+        endif
+        let fileinfo.mtime = getftime(tempfile)
+        let fileinfo.fsize_exceeded = 0
+
+        let ctags_output = s:ExecuteCtagsOnFile(tempfile, a:fname, typeinfo)
+
+        if !tagbar#debug#enabled()
+            call delete(tempfile)
+        endif
+    else
+        call tagbar#debug#log('File caching disabled')
+        let fileinfo.fsize_exceeded = 0
+        let ctags_output = s:ExecuteCtagsOnFile(a:fname, a:fname, typeinfo)
     endif
 
     if ctags_output == -1
@@ -1303,9 +1325,9 @@ function! s:ExecuteCtagsOnFile(fname, realfname, typeinfo) abort
 
         " universal-ctags deprecated this argument name
         if s:ctags_is_uctags
-            let ctags_args += [ '--extras=' ]
+            let ctags_args += [ '--extras=+F' ]
         else
-            let ctags_args += [ '--extra=' ]
+            let ctags_args += [ '--extra=', '--file-scope=yes' ]
         endif
 
         let ctags_args  = ctags_args + [
@@ -1314,7 +1336,6 @@ function! s:ExecuteCtagsOnFile(fname, realfname, typeinfo) abort
                           \ '--format=2',
                           \ '--excmd=pattern',
                           \ '--fields=nksSaf',
-                          \ '--file-scope=yes',
                           \ '--sort=no',
                           \ '--append=no'
                           \ ]
@@ -1362,7 +1383,7 @@ function! s:ExecuteCtagsOnFile(fname, realfname, typeinfo) abort
 
     let ctags_output = s:ExecuteCtags(ctags_cmd)
 
-    if v:shell_error || ctags_output =~? 'Warning: cannot open source file'
+    if v:shell_error || ctags_output =~? 'Warning: cannot open \(source\|input\) file'
         call tagbar#debug#log('Command output:')
         call tagbar#debug#log(ctags_output)
         call tagbar#debug#log('Exit code: ' . v:shell_error)
@@ -1845,7 +1866,16 @@ function! s:RenderContent(...) abort
 
     let typeinfo = fileinfo.typeinfo
 
-    if !empty(fileinfo.getTags())
+    if fileinfo.fsize_exceeded == 1
+        if g:tagbar_compact
+            silent 0put ='\" File size [' . fileinfo.fsize . 'B] exceeds limit'
+        else
+            silent put ='\" File size exceeds defined limit'
+            silent put ='\"   File Size [' . fileinfo.fsize . ' bytes]'
+            silent put ='\"   Limit     [' . g:tagbar_file_size_limit . ' bytes]'
+            silent put ='\" Use TagbarForceUpdate override'
+        endif
+    elseif !empty(fileinfo.getTags())
         " Print tags
         call s:PrintKinds(typeinfo, fileinfo)
     else
@@ -2238,7 +2268,7 @@ function! s:JumpToTag(stay_in_tagbar) abort
         call cursor(taginfo.fields.line, taginfo.fields.column)
     else
         call cursor(taginfo.fields.line, 1)
-        call search(taginfo.name, 'c', line('.'))
+        call search('\V' . taginfo.name, 'c', line('.'))
     endif
 
     normal! zv
@@ -2254,6 +2284,9 @@ function! s:JumpToTag(stay_in_tagbar) abort
         " Close the preview window if it was opened by us
         if s:pwin_by_tagbar
             pclose
+        endif
+        if s:is_maximized
+            call s:ZoomWindow()
         endif
         call s:HighlightTag(0)
     endif
@@ -2279,7 +2312,7 @@ function! s:ShowInPreviewWin() abort
     " We want the preview window to be relative to the file window in normal
     " (horizontal) mode, and relative to the Tagbar window in vertical mode,
     " to make the best use of space.
-    if g:tagbar_vertical == 0
+    if g:tagbar_position =~# 'vertical'
         call s:GotoFileWindow(taginfo.fileinfo, 1)
         call s:mark_window()
     endif
@@ -2290,7 +2323,7 @@ function! s:ShowInPreviewWin() abort
         silent execute
             \ g:tagbar_previewwin_pos . ' pedit ' .
             \ fnameescape(taginfo.fileinfo.fpath)
-        if g:tagbar_vertical != 0
+        if g:tagbar_position !~# 'vertical'
             silent execute 'vertical resize ' . g:tagbar_width
         endif
         " Remember that the preview window was opened by Tagbar so we can
@@ -2298,7 +2331,7 @@ function! s:ShowInPreviewWin() abort
         let s:pwin_by_tagbar = 1
     endif
 
-    if g:tagbar_vertical != 0
+    if g:tagbar_position !~# 'vertical'
         call s:GotoFileWindow(taginfo.fileinfo, 1)
         call s:mark_window()
     endif
@@ -2866,6 +2899,39 @@ function! s:EscapeCtagsCmd(ctags_bin, args, ...) abort
     return ctags_cmd
 endfunction
 
+" run shell command in a proper way: prevent temporary window creation
+function! s:run_system(cmd, version) abort
+    if has('win32') && !has('nvim') && a:version > 0 && (has('python3') || has('python2'))
+        if a:version == 3 && has('python3')
+            let pyx = 'py3 '
+            let python_eval = 'py3eval'
+        elseif a:version == 2 && has('python2')
+            let pyx = 'py2 '
+            let python_eval = 'pyeval'
+        else
+            let pyx = 'pyx '
+            let python_eval = 'pyxeval'
+        endif
+        let l:pc = 0
+        exec pyx . 'import subprocess, vim'
+        exec pyx . '__argv = {"args":vim.eval("a:cmd"), "shell":True}'
+        exec pyx . '__argv["stdout"] = subprocess.PIPE'
+        exec pyx . '__argv["stderr"] = subprocess.STDOUT'
+        exec pyx . '__pp = subprocess.Popen(**__argv)'
+        exec pyx . '__return_text = __pp.stdout.read()'
+        exec pyx . '__pp.stdout.close()'
+        exec pyx . '__return_code = __pp.wait()'
+        exec 'let l:hr = '. python_eval .'("__return_text")'
+        exec 'let l:pc = '. python_eval .'("__return_code")'
+        let s:shell_error = l:pc
+        return l:hr
+    endif
+    let hr = system(a:cmd)
+    let s:shell_error = v:shell_error
+    return hr
+endfunction
+
+
 " s:ExecuteCtags() {{{2
 " Execute ctags with necessary shell settings
 " Partially based on the discussion at
@@ -2903,7 +2969,8 @@ function! s:ExecuteCtags(ctags_cmd) abort
         call tagbar#debug#log('Exit code: ' . v:shell_error)
         redraw!
     else
-        silent let ctags_output = system(a:ctags_cmd)
+        let py_version = get(g:, 'tagbar_python', 1)
+        silent let ctags_output = s:run_system(a:ctags_cmd, py_version)
     endif
 
     if &shell =~? 'cmd\.exe'
@@ -3157,7 +3224,7 @@ endfunction
 " s:SetStatusLine() {{{2
 function! s:SetStatusLine() abort
     let tagbarwinnr = bufwinnr(s:TagbarBufName())
-    if tagbarwinnr == -1
+    if tagbarwinnr == -1 || exists('g:tagbar_no_status_line')
         return
     endif
 
@@ -3371,6 +3438,18 @@ endfunction
 
 " s:goto_win() {{{2
 function! s:goto_win(winnr, ...) abort
+    "Do not go to a popup window to avoid errors.
+    "Hence, check first if a:winnr is an integer,
+    "if this integer is equal to 0,
+    "the window is a popup window
+    if has('popupwin')
+        if type(a:winnr) == type(0) && a:winnr == 0
+            return
+        endif
+        if a:winnr ==# 'p' && winnr('#') == 0
+            return
+        endif
+    endif
     let cmd = type(a:winnr) == type(0) ? a:winnr . 'wincmd w'
                                      \ : 'wincmd ' . a:winnr
     let noauto = a:0 > 0 ? a:1 : 0
@@ -3454,6 +3533,32 @@ endfunction
 " Autoload functions {{{1
 
 " Wrappers {{{2
+function! tagbar#GetTagNearLine(lnum, ...) abort
+    if a:0 > 0
+        let fmt = a:1
+        let longsig   = a:2 =~# 's'
+        let fullpath  = a:2 =~# 'f'
+        let prototype = a:2 =~# 'p'
+    else
+        let fmt = '%s'
+        let longsig   = 0
+        let fullpath  = 0
+        let prototype = 0
+    endif
+
+    let taginfo = s:GetNearbyTag(0, 1, a:lnum)
+
+    if empty(taginfo)
+        return ''
+    endif
+
+    if prototype
+        return taginfo.getPrototype(1)
+    else
+        return printf(fmt, taginfo.str(longsig, fullpath))
+    endif
+endfunction
+
 function! tagbar#ToggleWindow(...) abort
     let flags = a:0 > 0 ? a:1 : ''
     call s:ToggleWindow(flags)
@@ -3493,6 +3598,21 @@ function! tagbar#StopAutoUpdate() abort
 endfunction
 
 " }}}2
+
+" tagbar#Update() {{{2
+" Trigger an AutoUpdate() of the currently opened file
+function! tagbar#Update() abort
+    call s:AutoUpdate(fnamemodify(expand('%'), ':p'), 0)
+endfunction
+
+" tagbar#ForceUpdate() {{{2
+function! tagbar#ForceUpdate() abort
+    if !exists('b:tagbar_force_update')
+        let b:tagbar_force_update = 1
+        call s:AutoUpdate(fnamemodify(expand('%'), ':p'), 1)
+        unlet b:tagbar_force_update
+    endif
+endfunction
 
 " tagbar#toggle_pause() {{{2
 function! tagbar#toggle_pause() abort
@@ -3652,7 +3772,11 @@ function! tagbar#currenttagtype(fmt, default) abort
 
     let typeinfo = tag.fileinfo.typeinfo
     let plural = typeinfo.kinds[typeinfo.kinddict[kind]].long
-    let singular = s:singular_types[plural]
+    if has_key(s:singular_types, plural)
+        let singular = s:singular_types[plural]
+    else
+        let singular = plural
+    endif
     return printf(a:fmt, singular)
 endfunction
 
