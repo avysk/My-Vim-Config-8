@@ -23,6 +23,9 @@
 [remote "ultisnips"]
         url = https://github.com/SirVer/ultisnips.git
         fetch = +refs/heads/*:refs/remotes/ultisnips/*
+[remote "vim-colors-pencil"]
+        url = https://github.com/reedes/vim-colors-pencil.git
+        fetch = +refs/heads/*:refs/remotes/vim-colors-pencil/*
 [remote "vim-gitgutter"]
         url = https://github.com/airblade/vim-gitgutter.git
         fetch = +refs/heads/*:refs/remotes/vim-gitgutter/*
