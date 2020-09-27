@@ -151,10 +151,13 @@ nnoremap <Leader>` :YcmCompleter GetDoc<CR>
 "}}}2
 
 "{{{2 VimWiki && vim-zettel
-let g:vimwiki_list = [{'path': '~/vimwiki', 'list_margin': 2},
+let g:vimwiki_list = [
+      \ {'path': '~/vimwiki', 'list_margin': 2},
       \ {'path': '~/Dropbox/vimwiki', 'list_margin': 2},
-      \ {'path': '~/Dropbox/vimwiki-md', 'list_margin': 2, 'syntax': 'markdown', 'ext': '.mdw'},
-      \ {'path': '~/Sync/ZettelKasten', 'list_margin': 2, 'syntax': 'markdown', 'ext': '.md'}]
+      \ {'path': '~/Dropbox/vimwiki-md', 'list_margin': 2,
+      \  'syntax': 'markdown', 'ext': '.mdw'},
+      \ {'path': '~/Sync/ZettelKasten', 'list_margin': 2,
+      \  'syntax': 'markdown', 'ext': '.md'}]
 let g:zettel_options = [{}, {}, {}, {"front_matter": [["tags", ""]] }]
 
 nmap <leader>tt <Plug>VimwikiToggleListItem
