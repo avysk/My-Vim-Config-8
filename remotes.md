@@ -34,6 +34,9 @@
 [remote "vim-graphql"]
         url = https://github.com/jparise/vim-graphql.git
         fetch = +refs/heads/*:refs/remotes/vim-graphql/*
+[remote "vim-markdown"]
+        url = https://github.com/plasticboy/vim-markdown.git
+        fetch = +refs/heads/*:refs/remotes/vim-markdown/*
 [remote "vim-outliner"]
         url = https://github.com/vimoutliner/vimoutliner.git
         fetch = +refs/heads/*:refs/remotes/vim-outliner/*
