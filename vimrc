@@ -167,11 +167,14 @@ nmap <leader><F1> <Plug>VimwikiDiaryIndex
 "}}}2
 
 "{{{2 Vim-markdown
-let g:vim_markdown_math = 1
-let g:vim_markdown_frontmatter = 1
-let g:vim_markdown_strikethrough = 1
-let g:vim_markdown_no_extensions_in_markdown = 1
-let g:vim_markdown_auto_extension_ext = 'mkd'
+let g:vim_markdown_math=1
+let g:vim_markdown_frontmatter=1
+let g:vim_markdown_strikethrough=1
+let g:vim_markdown_no_extensions_in_markdown=1
+let g:vim_markdown_auto_extension_ext='mkd'
+autocmd FileType markdown set conceallevel=2
+autocmd FileType markdown set nowrap
+autocmd FileType markdown set tw=80
 "}}}2
 
 "{{{2 ALE
