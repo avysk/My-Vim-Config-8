@@ -87,11 +87,8 @@ nnoremap <Space> <Nop>
 nmap <Space> <Leader>
 "}}}2
 
-"{{{2 Helpers for working with buffers
-nmap <unique> <Leader>ls :ls<CR>:buf 
-nmap <unique> <Leader>bb :buf 
-nmap <unique> <Leader>vb :vertical sb 
-nmap <unique> <Leader>lv :ls<CR>:vertical sb 
+"{{{2 Helpers for working with buffers, REQUIRES fzf.vim
+nmap <unique> <Leader>bb :Buffers<CR>
 "}}}2
 
 "{{{2 Switching to writing mode
