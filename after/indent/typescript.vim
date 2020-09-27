@@ -21,25 +21,23 @@
 " Language: GraphQL
 " Maintainer: Jon Parise <jon@indelible.org>
 
-if exists('b:current_syntax')
-  let s:current_syntax = b:current_syntax
-  unlet b:current_syntax
+runtime! indent/graphql.vim
+
+" Don't redefine our function and also require the standard Typescript indent
+" function to exist.
+if exists('*GetTypescriptGraphQLIndent') || !exists('*GetTypescriptIndent')
+  finish
 endif
-syn include @GraphQLSyntax syntax/graphql.vim
-if exists('s:current_syntax')
-  let b:current_syntax = s:current_syntax
-endif
 
-let s:tags = '\%(' . join(graphql#javascript_tags(), '\|') . '\)'
+" Set the indentexpr with our own version that will call GetGraphQLIndent when
+" we're inside of a GraphQL string and otherwise defer to GetTypescriptIndent.
+setlocal indentexpr=GetTypescriptGraphQLIndent()
 
-exec 'syntax region graphqlTemplateString start=+' . s:tags . '\@20<=`+ skip=+\\`+ end=+`+ contains=@GraphQLSyntax,typescriptTemplateSubstitution extend'
-exec 'syntax match graphqlTaggedTemplate +' . s:tags . '\ze`+ nextgroup=graphqlTemplateString'
+function GetTypescriptGraphQLIndent()
+  let l:stack = map(synstack(v:lnum, 1), "synIDattr(v:val,'name')")
+  if !empty(l:stack) && l:stack[0] ==# 'graphqlTemplateString'
+    return GetGraphQLIndent()
+  endif
 
-" Support expression interpolation ((${...})) inside template strings.
-syntax region graphqlTemplateExpression start=+${+ end=+}+ contained contains=typescriptTemplateSubstitution containedin=graphqlFold keepend
-
-hi def link graphqlTemplateString typescriptTemplate
-hi def link graphqlTemplateExpression typescriptTemplateSubstitution
-
-syn cluster typescriptExpression add=graphqlTaggedTemplate
-syn cluster graphqlTaggedTemplate add=graphqlTemplateString
+  return GetTypescriptIndent()
+endfunction
