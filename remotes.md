@@ -43,9 +43,6 @@
 [remote "vim-tagbar"]
         url = https://github.com/preservim/tagbar.git
         fetch = +refs/heads/*:refs/remotes/vim-tagbar/*
-[remote "vim-zettel"]
-        url = https://github.com/michal-h21/vim-zettel.git
-        fetch = +refs/heads/*:refs/remotes/vim-zettel/*
 [remote "vimwiki"]
         url = https://github.com/vimwiki/vimwiki.git
         fetch = +refs/heads/*:refs/remotes/vimwiki/*

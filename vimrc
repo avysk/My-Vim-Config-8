@@ -150,15 +150,12 @@ nnoremap <Leader>] :YcmCompleter GoTo<CR>
 nnoremap <Leader>` :YcmCompleter GetDoc<CR>
 "}}}2
 
-"{{{2 VimWiki && vim-zettel
+"{{{2 VimWiki
 let g:vimwiki_list = [
-      \ {'path': '~/Sync/ZettelKasten', 'list_margin': 2,
-      \  'syntax': 'markdown', 'ext': '.md'},
       \ {'path': '~/vimwiki', 'list_margin': 2},
       \ {'path': '~/Dropbox/vimwiki', 'list_margin': 2},
       \ {'path': '~/Dropbox/vimwiki-md', 'list_margin': 2,
       \  'syntax': 'markdown', 'ext': '.mdw'}]
-let g:zettel_options = [{"front_matter": [["tags", ""]]}, {}, {}, {}]
 
 nmap <leader>tt <Plug>VimwikiToggleListItem
 autocmd FileType vimwiki set tw=80
@@ -167,6 +164,14 @@ autocmd FileType vimwiki set nowrap
 nmap <F1> <Plug>VimwikiTabMakeDiaryNote
 nmap <S-F1> <Plug>VimwikiDiaryIndex
 nmap <leader><F1> <Plug>VimwikiDiaryIndex
+"}}}2
+
+"{{{2 Vim-markdown
+let g:vim_markdown_math = 1
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_strikethrough = 1
+let g:vim_markdown_no_extensions_in_markdown = 1
+let g:vim_markdown_auto_extension_ext = 'mkd'
 "}}}2
 
 "{{{2 ALE
