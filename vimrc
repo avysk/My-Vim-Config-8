@@ -2,6 +2,8 @@
 if has("win32")
   language C
   let g:_myvim_configdir=$HOME . '/vimfiles'
+  set fileformat=unix
+  set fileformats=unix,dos
 else
   let g:_myvim_configdir=$HOME . '/.vim'
 endif
