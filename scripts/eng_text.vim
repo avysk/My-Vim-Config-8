@@ -5,5 +5,4 @@ let &l:thesaurus=&l:thesaurus . ',' . g:_myvim_configdir . '/mthesaur.txt'
 
 setlocal complete+=s
 
-
 exec 'source ' . g:_myvim_configdir . '/scripts/text_generic.vim'

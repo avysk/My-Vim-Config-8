@@ -10,6 +10,18 @@ if has("gui_macvim")
         " The IM behaviour is too strange for my taste so
         set imdisable
         map <Leader>font :set guifont=Cousine:h16<C-M>
+
+        amenu <silent> TouchBar.Light :set background=light<CR>
+        amenu <silent> TouchBar.Dark :set background=dark<CR>
+        amenu TouchBar.-space1- <Nop>
+        amenu TouchBar.Lang.Eng :exec g:_myvim_eng_text_script<CR>
+        amenu TouchBar.Lang.Rus :exec g:_myvim_rus_text_script<CR>
+        amenu TouchBar.-flexspace1- <Nop>
+        amenu TouchBar.Scratch :ScratchWindow<CR>
+        amenu TouchBar.-space2- <Nop>
+        amenu <silent> TouchBar.GitGutter :GitGutterToggle<CR>
+        amenu <silent> TouchBar.Tagbar :Tagbar<CR>
+
 endif
 
 if has("gui_gtk3")
