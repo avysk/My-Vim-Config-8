@@ -1,4 +1,8 @@
-/local/
+/local/plugged/
+/local/undo/
+/local/vimrc
+/local/gvimrc
+
 /.netrwhist
 .*.swp
 /spell/

@@ -7,9 +7,12 @@ if has("win32")
 else
   let g:_myvim_configdir=$HOME . '/.vim'
 endif
+"}}}
 
+"{{{ Local paths
 let g:_myvim_localdir=g:_myvim_configdir . '/local'
 let s:scriptsdir=g:_myvim_configdir . '/scripts'
+let s:pluginsdir=g:_myvim_localdir . '/plugged'
 "}}}
 
 "{{{1 General vim behaviour
@@ -126,6 +129,19 @@ nmap <unique> <C-c>r <Plug>SetTmuxVars
 
 "{{{1 Plugins
 
+"{{{2 Vim-plug managed plugins
+call plug#begin(s:pluginsdir)
+"{{{3 Ultisnips + vim-snippets
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsExpandTrigger="<Right>"
+let g:UltiSnipsListSnippets="<Left>"
+let g:UltiSnipsJumpForwardTrigger="<Down>"
+let g:UltiSnipsJumpBackwardTrigger="<Up>"
+"}}}3
+call plug#end()
+"}}}
+
 "{{{2 Gitgutter
 " faster realtime updates
 set updatetime=1000
@@ -133,14 +149,6 @@ set updatetime=1000
 let g:gitgutter_highlight_lines=1
 let g:gitgutter_enabled=0
 nnoremap <Leader>gg :GitGutterToggle<CR>
-"}}}2
-
-"{{{2 Ultisnips
-let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsExpandTrigger="<Right>"
-let g:UltiSnipsListSnippets="<Left>"
-let g:UltiSnipsJumpForwardTrigger="<Down>"
-let g:UltiSnipsJumpBackwardTrigger="<Up>"
 "}}}2
 
 "{{{2 YouCompleteMe
