@@ -8,13 +8,3 @@
 [remote "ale"]
         url = https://github.com/dense-analysis/ale.git
         fetch = +refs/heads/*:refs/remotes/ale/*
-[remote "fzf"]
-        url = https://github.com/junegunn/fzf.git
-        fetch = +refs/heads/*:refs/remotes/fzf/*
-[remote "fzf.vim"]
-        url = https://github.com/junegunn/fzf.vim.git
-        fetch = +refs/heads/*:refs/remotes/fzf.vim/*
-[remote "vim-tagbar"]
-        url = https://github.com/preservim/tagbar.git
-        fetch = +refs/heads/*:refs/remotes/vim-tagbar/*
-```

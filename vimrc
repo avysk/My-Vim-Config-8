@@ -90,10 +90,6 @@ nnoremap <Space> <Nop>
 nmap <Space> <Leader>
 "}}}2
 
-"{{{2 Helpers for working with buffers, REQUIRES fzf.vim
-nmap <unique> <Leader>bb :Buffers<CR>
-"}}}2
-
 "{{{2 Switching to writing mode
 " text in Russian
 let g:_myvim_rus_text_script = "source " . s:scriptsdir . "/rus_text.vim"
@@ -135,6 +131,11 @@ Plug 'reedes/vim-colors-pencil' | Plug 'lifepillar/vim-solarized8'
 "{{{3 FastFold + SimpylFold
 Plug 'Konfekt/FastFold' | Plug 'tmhedberg/SimpylFold', {'for': 'python'}
 "}}}3
+
+"{{{3 fzf
+Plug 'junegunn/fzf' | Plug 'junegunn/fzf.vim'
+nmap <unique><silent><nowait> <Leader>bb :Buffers<CR>
+"}}}
 
 "{{{3 GitGutter
 Plug 'airblade/vim-gitgutter', {'on': 'GitGutterToggle'}
@@ -208,7 +209,6 @@ nnoremap <Leader>] :YcmCompleter GoTo<CR>
 nnoremap <Leader>` :YcmCompleter GetDoc<CR>
 "}}}2
 
-
 "{{{2 ALE
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_python_pylint_change_directory = 0
@@ -223,7 +223,6 @@ let g:ale_fix_on_save = 1
 let g:ale_linters = {
       \ 'cpp': ['clangcheck', 'clangtidy', 'cppcheck'] }
 "}}}
-
 
 "{{{2 vim-black
 let g:black_linelength = 79
