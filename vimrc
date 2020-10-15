@@ -133,11 +133,11 @@ Plug 'reedes/vim-colors-pencil' | Plug 'lifepillar/vim-solarized8'
 "}}}3
 "
 "{{{3 FastFold + SimpylFold
-Plug 'Konfekt/FastFold' | Plug 'tmhedberg/SimpylFold'
+Plug 'Konfekt/FastFold' | Plug 'tmhedberg/SimpylFold', {'for': 'python'}
 "}}}3
 
 "{{{3 GitGutter
-Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter', {'on': 'GitGutterToggle'}
 " faster realtime updates
 set updatetime=1000
 " Highlight changed lines
