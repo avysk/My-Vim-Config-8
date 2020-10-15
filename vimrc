@@ -131,6 +131,16 @@ nmap <unique> <C-c>r <Plug>SetTmuxVars
 
 "{{{2 Vim-plug managed plugins
 call plug#begin(s:pluginsdir)
+"
+"{{{3 GitGutter
+Plug 'airblade/vim-gitgutter'
+" faster realtime updates
+set updatetime=1000
+" Highlight changed lines
+let g:gitgutter_highlight_lines=1
+let g:gitgutter_enabled=0
+nnoremap <silent><nowait> <Leader>gg :GitGutterToggle<CR>
+"}}}3
 
 "{{{3 Ultisnips + vim-snippets
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
@@ -141,27 +151,8 @@ let g:UltiSnipsJumpForwardTrigger="<Down>"
 let g:UltiSnipsJumpBackwardTrigger="<Up>"
 "}}}3
 
-"{{{3 GitGutter
-Plug 'airblade/vim-gitgutter'
-" faster realtime updates
-set updatetime=1000
-" Highlight changed lines
-let g:gitgutter_highlight_lines=1
-let g:gitgutter_enabled=0
-nnoremap <silent><nowait> <Leader>gg :GitGutterToggle<CR>
-"}}}3
-"
-call plug#end()
-"}}}
-
-"{{{2 YouCompleteMe
-" let it work in virtualenv
-let g:ycm_python_binary_path = 'python'
-nnoremap <Leader>] :YcmCompleter GoTo<CR>
-nnoremap <Leader>` :YcmCompleter GetDoc<CR>
-"}}}2
-
-"{{{2 VimWiki
+"{{{3 Vimwiki
+Plug 'vimwiki/vimwiki'
 let g:vimwiki_list = [
       \ {'path': '~/vimwiki', 'list_margin': 2},
       \ {'path': '~/Dropbox/vimwiki', 'list_margin': 2},
@@ -175,6 +166,16 @@ autocmd FileType vimwiki set nowrap
 nmap <F1> <Plug>VimwikiTabMakeDiaryNote
 nmap <S-F1> <Plug>VimwikiDiaryIndex
 nmap <leader><F1> <Plug>VimwikiDiaryIndex
+"}}}
+
+call plug#end()
+"}}}
+
+"{{{2 YouCompleteMe
+" let it work in virtualenv
+let g:ycm_python_binary_path = 'python'
+nnoremap <Leader>] :YcmCompleter GoTo<CR>
+nnoremap <Leader>` :YcmCompleter GetDoc<CR>
 "}}}2
 
 "{{{2 Vim-markdown
@@ -283,8 +284,5 @@ filetype indent on
 
 set encoding=utf-8
 set fileencoding=utf-8
-
-" ...and update documentation, don't complain about anything
-silent! helptags ALL
 
 " vim:sw=2:sts=2:foldmethod=marker
