@@ -131,6 +131,7 @@ nmap <unique> <C-c>r <Plug>SetTmuxVars
 
 "{{{2 Vim-plug managed plugins
 call plug#begin(s:pluginsdir)
+
 "{{{3 Ultisnips + vim-snippets
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 let g:UltiSnipsEditSplit="vertical"
@@ -139,17 +140,19 @@ let g:UltiSnipsListSnippets="<Left>"
 let g:UltiSnipsJumpForwardTrigger="<Down>"
 let g:UltiSnipsJumpBackwardTrigger="<Up>"
 "}}}3
-call plug#end()
-"}}}
 
-"{{{2 Gitgutter
+"{{{3 GitGutter
+Plug 'airblade/vim-gitgutter'
 " faster realtime updates
 set updatetime=1000
 " Highlight changed lines
 let g:gitgutter_highlight_lines=1
 let g:gitgutter_enabled=0
-nnoremap <Leader>gg :GitGutterToggle<CR>
-"}}}2
+nnoremap <silent><nowait> <Leader>gg :GitGutterToggle<CR>
+"}}}3
+"
+call plug#end()
+"}}}
 
 "{{{2 YouCompleteMe
 " let it work in virtualenv
