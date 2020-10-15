@@ -6,6 +6,4 @@ let &l:spellfile=g:_myvim_configdir . '/spell/my.ru.utf-8.add'
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 inoremap <C-BS> <c-g>u<Esc>[s1z=`]a<c-g>u
 
-colo pencil
-
 exec 'source ' . g:_myvim_configdir . '/scripts/text_generic.vim'
