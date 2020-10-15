@@ -150,16 +150,6 @@ let g:gitgutter_enabled=0
 nnoremap <silent><nowait> <Leader>gg :GitGutterToggle<CR>
 "}}}3
 
-"{{{3 Vim-markdown
-Plug 'plasticboy/vim-markdown'
-let g:vim_markdown_math=1
-let g:vim_markdown_frontmatter=1
-let g:vim_markdown_strikethrough=1
-autocmd FileType markdown set conceallevel=2
-autocmd FileType markdown set nowrap
-autocmd FileType markdown set tw=80
-"}}}2
-
 "{{{3 Ultisnips + vim-snippets
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 let g:UltiSnipsEditSplit="vertical"
@@ -168,6 +158,21 @@ let g:UltiSnipsListSnippets="<Left>"
 let g:UltiSnipsJumpForwardTrigger="<Down>"
 let g:UltiSnipsJumpBackwardTrigger="<Up>"
 "}}}3
+
+"{{{3 Vim-markdown
+Plug 'plasticboy/vim-markdown'
+let g:vim_markdown_math=1
+let g:vim_markdown_frontmatter=1
+let g:vim_markdown_strikethrough=1
+autocmd FileType markdown set conceallevel=2
+autocmd FileType markdown set nowrap
+autocmd FileType markdown set tw=80
+"}}}
+
+"{{{3 vimoutliner
+Plug 'vimoutliner/vimoutliner'
+autocmd FileType votl set listchars=tab:\ \ ,trail:∴,extends:→,precedes:←,nbsp:·
+"}}}
 
 "{{{3 Vimwiki
 Plug 'vimwiki/vimwiki'
@@ -214,9 +219,6 @@ let g:ale_linters = {
       \ 'cpp': ['clangcheck', 'clangtidy', 'cppcheck'] }
 "}}}
 
-"{{{2 VimOutliner
-autocmd FileType votl set listchars=tab:\ \ ,trail:∴,extends:→,precedes:←,nbsp:·
-"}}}2
 
 "{{{2 vim-black
 let g:black_linelength = 79
