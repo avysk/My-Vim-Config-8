@@ -14,9 +14,6 @@
 [remote "fzf.vim"]
         url = https://github.com/junegunn/fzf.vim.git
         fetch = +refs/heads/*:refs/remotes/fzf.vim/*
-[remote "vim-graphql"]
-        url = https://github.com/jparise/vim-graphql.git
-        fetch = +refs/heads/*:refs/remotes/vim-graphql/*
 [remote "vim-tagbar"]
         url = https://github.com/preservim/tagbar.git
         fetch = +refs/heads/*:refs/remotes/vim-tagbar/*

@@ -159,7 +159,11 @@ let g:UltiSnipsJumpForwardTrigger="<Down>"
 let g:UltiSnipsJumpBackwardTrigger="<Up>"
 "}}}3
 
-"{{{3 Vim-markdown
+"{{{3 vim-graphql
+Plug 'jparise/vim-graphql'
+"}}}
+
+"{{{3 vim-markdown
 Plug 'plasticboy/vim-markdown'
 let g:vim_markdown_math=1
 let g:vim_markdown_frontmatter=1
@@ -174,7 +178,7 @@ Plug 'vimoutliner/vimoutliner'
 autocmd FileType votl set listchars=tab:\ \ ,trail:∴,extends:→,precedes:←,nbsp:·
 "}}}
 
-"{{{3 Vimwiki
+"{{{3 vimwiki
 Plug 'vimwiki/vimwiki'
 let g:vimwiki_list = [
       \ {'path': '~/vimwiki', 'list_margin': 2},
