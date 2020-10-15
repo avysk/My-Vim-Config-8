@@ -150,6 +150,16 @@ let g:gitgutter_enabled=0
 nnoremap <silent><nowait> <Leader>gg :GitGutterToggle<CR>
 "}}}3
 
+"{{{3 Vim-markdown
+Plug 'plasticboy/vim-markdown'
+let g:vim_markdown_math=1
+let g:vim_markdown_frontmatter=1
+let g:vim_markdown_strikethrough=1
+autocmd FileType markdown set conceallevel=2
+autocmd FileType markdown set nowrap
+autocmd FileType markdown set tw=80
+"}}}2
+
 "{{{3 Ultisnips + vim-snippets
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 let g:UltiSnipsEditSplit="vertical"
@@ -166,6 +176,8 @@ let g:vimwiki_list = [
       \ {'path': '~/Dropbox/vimwiki', 'list_margin': 2},
       \ {'path': '~/Dropbox/vimwiki-md', 'list_margin': 2,
       \  'syntax': 'markdown', 'ext': '.mdw'}]
+
+let g:vimwiki_ext2syntax = {}
 
 nmap <leader>tt <Plug>VimwikiToggleListItem
 autocmd FileType vimwiki set tw=80
@@ -186,15 +198,6 @@ nnoremap <Leader>] :YcmCompleter GoTo<CR>
 nnoremap <Leader>` :YcmCompleter GetDoc<CR>
 "}}}2
 
-"{{{2 Vim-markdown
-let g:vim_markdown_math=1
-let g:vim_markdown_frontmatter=1
-let g:vim_markdown_strikethrough=1
-let g:vim_markdown_auto_extension_ext='mkd'
-autocmd FileType markdown set conceallevel=2
-autocmd FileType markdown set nowrap
-autocmd FileType markdown set tw=80
-"}}}2
 
 "{{{2 ALE
 let g:ale_lint_on_text_changed = 'never'
