@@ -3,8 +3,6 @@
 - [drawit](https://github.com/vim-scripts/DrawIt) didn't change since 2013, so no remote
 - [tslime](https://github.com/jimmyharris/tslime.vim) didn't change sine 2010,
   so no remote
-- [vim-colors-solarized](https://github.com/altercation/vim-colors-solarized)
-  didn't change since 2011, so no remote
 
 ```
 [remote "ale"]
@@ -19,12 +17,6 @@
 [remote "fzf.vim"]
         url = https://github.com/junegunn/fzf.vim.git
         fetch = +refs/heads/*:refs/remotes/fzf.vim/*
-[remote "simplyfold"]
-        url = https://github.com/tmhedberg/SimpylFold
-        fetch = +refs/heads/*:refs/remotes/simplyfold/*
-[remote "vim-colors-pencil"]
-        url = https://github.com/reedes/vim-colors-pencil.git
-        fetch = +refs/heads/*:refs/remotes/vim-colors-pencil/*
 [remote "vim-graphql"]
         url = https://github.com/jparise/vim-graphql.git
         fetch = +refs/heads/*:refs/remotes/vim-graphql/*

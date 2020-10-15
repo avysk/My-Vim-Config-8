@@ -132,6 +132,10 @@ nmap <unique> <C-c>r <Plug>SetTmuxVars
 "{{{2 Vim-plug managed plugins
 call plug#begin(s:pluginsdir)
 
+"{{{3 Colorschemes
+Plug 'reedes/vim-colors-pencil' | Plug 'lifepillar/vim-solarized8'
+"}}}3
+"
 "{{{3 FastFold + SimpylFold
 Plug 'Konfekt/FastFold' | Plug 'tmhedberg/SimpylFold'
 "}}}3
