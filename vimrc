@@ -131,7 +131,11 @@ nmap <unique> <C-c>r <Plug>SetTmuxVars
 
 "{{{2 Vim-plug managed plugins
 call plug#begin(s:pluginsdir)
-"
+
+"{{{3 FastFold + SimpylFold
+Plug 'Konfekt/FastFold' | Plug 'tmhedberg/SimpylFold'
+"}}}3
+
 "{{{3 GitGutter
 Plug 'airblade/vim-gitgutter'
 " faster realtime updates
