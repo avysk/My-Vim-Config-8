@@ -103,10 +103,6 @@ let g:_myvim_eng_text_script = "source " . s:scriptsdir . "/eng_text.vim"
 nmap <Leader>eng :exec g:_myvim_eng_text_script<C-M>
 "}}}2
 
-"{{{2 tagbar
-nmap <F12> :TagbarToggle<CR>
-"}}}2
-
 "{{{2 Remapping arrows and similar keys to something useful
 " Right/Left to move through ALE errors list
 nmap <Down> <Plug>(ale_next_wrap)
@@ -149,6 +145,11 @@ let g:gitgutter_highlight_lines=1
 let g:gitgutter_enabled=0
 nnoremap <silent><nowait> <Leader>gg :GitGutterToggle<CR>
 "}}}3
+
+"{{{3 tagbar
+Plug 'preservim/tagbar', {'on': 'TagbarToggle'}
+nmap <F12> :TagbarToggle<CR>
+"}}}
 
 "{{{3 Ultisnips + vim-snippets
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
