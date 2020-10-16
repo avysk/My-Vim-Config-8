@@ -16,7 +16,8 @@ Make sure you have the following available:
 - optional bat (for fzf.vim); when running on Windows you need `bash` to run WSL
     and to have bat installed inside WSL (as `bat`, not as `batcat`!)
 
-Run `vim +PlugInstall +qall`.
+Run `vim -es -u vimrc -i NONE -c "PlugInstall" -c "qa"` in the vim config
+directory.
 
 If you are running on Windows, edit `local/plugged/fzf.vim/bin/preview.sh` and
 add one line there (around line 25):
