@@ -161,6 +161,16 @@ let g:UltiSnipsJumpForwardTrigger="<Down>"
 let g:UltiSnipsJumpBackwardTrigger="<Up>"
 "}}}3
 
+"{{{3 YouCompleteMe
+Plug 'ycm-core/YouCompleteMe', { 'do': 'python install.py' }
+
+" let it work in virtualenv
+let g:ycm_python_binary_path = 'python'
+
+nnoremap <Leader>] :YcmCompleter GoTo<CR>
+nnoremap <Leader>` :YcmCompleter GetDoc<CR>
+"}}}
+
 "{{{3 vim-graphql
 Plug 'jparise/vim-graphql'
 "}}}
@@ -201,13 +211,6 @@ nmap <leader><F1> <Plug>VimwikiDiaryIndex
 
 call plug#end()
 "}}}
-
-"{{{2 YouCompleteMe
-" let it work in virtualenv
-let g:ycm_python_binary_path = 'python'
-nnoremap <Leader>] :YcmCompleter GoTo<CR>
-nnoremap <Leader>` :YcmCompleter GetDoc<CR>
-"}}}2
 
 "{{{2 ALE
 let g:ale_lint_on_text_changed = 'never'

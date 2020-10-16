@@ -1,3 +1,0 @@
-[submodule "pack/_git_submodules/start/YouCompleteMe"]
-	path = pack/_git_submodules/start/YouCompleteMe
-	url = https://github.com/Valloric/YouCompleteMe
