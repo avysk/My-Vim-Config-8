@@ -124,6 +124,10 @@ nmap <unique> <C-c>r <Plug>SetTmuxVars
 "{{{2 Vim-plug managed plugins
 call plug#begin(s:pluginsdir)
 
+"{{{3 ALE
+Plug 'dense-analysis/ale'
+"}}}
+
 "{{{3 black
 Plug 'psf/black', { 'branch': 'stable' }
 "}}}

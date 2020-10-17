@@ -17,7 +17,8 @@ Make sure you have the following available:
     and to have bat installed inside WSL (as `bat`, not as `batcat`!)
 
 Run `vim -es -u vimrc -i NONE -c "PlugInstall" -c "qa"` in the vim config
-directory.
+directory (it takes time and it is silent; for a more interactive experience
+just start vim, run `:PlugInstall` and then restart vim).
 
 If you are running on Windows, edit `local/plugged/fzf.vim/bin/preview.sh` and
 add one line there (around line 25):
