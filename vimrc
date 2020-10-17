@@ -111,12 +111,6 @@ nnoremap <PageUp> <C-^>
 inoremap <PageUp> <C-O><C-^>
 "}}}2
 
-"{{{2 tslime
-vmap <unique> <C-c><C-c> <Plug>SendSelectionToTmux
-nmap <unique> <C-c><C-c> <Plug>NormalModeSendToTmux
-nmap <unique> <C-c>r <Plug>SetTmuxVars
-"}}}2
-
 "}}}1
 
 "{{{1 Plugins
@@ -135,7 +129,11 @@ Plug 'psf/black', { 'branch': 'stable' }
 "{{{3 Colorschemes
 Plug 'reedes/vim-colors-pencil' | Plug 'lifepillar/vim-solarized8'
 "}}}3
-"
+
+"{{{3 DrawIt
+Plug 'vim-scripts/DrawIt'
+"}}}
+
 "{{{3 FastFold + SimpylFold
 Plug 'Konfekt/FastFold' | Plug 'tmhedberg/SimpylFold'
 "}}}3
@@ -158,6 +156,13 @@ nnoremap <silent><nowait> <Leader>gg :GitGutterToggle<CR>
 "{{{3 tagbar
 Plug 'preservim/tagbar', {'on': 'TagbarToggle'}
 nmap <F12> :TagbarToggle<CR>
+"}}}
+
+"{{{3 tslime
+Plug 'jimmyharris/tslime.vim'
+vmap <unique> <C-c><C-c> <Plug>SendSelectionToTmux
+nmap <unique> <C-c><C-c> <Plug>NormalModeSendToTmux
+nmap <unique> <C-c>r <Plug>SetTmuxVars
 "}}}
 
 "{{{3 Ultisnips + vim-snippets
