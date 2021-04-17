@@ -153,6 +153,11 @@ let g:gitgutter_enabled=0
 nnoremap <silent><nowait> <Leader>gg :GitGutterToggle<CR>
 "}}}3
 
+"{{{3 Julia
+Plug 'JuliaEditorSupport/julia-vim'
+let g:latex_to_unicode_auto = 1
+"}}}3
+
 "{{{3 paredit
 Plug 'kovisoft/paredit', { 'for': ['clojure', 'lisp', 'scheme'] }
 "}}}3
