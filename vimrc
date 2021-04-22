@@ -123,7 +123,7 @@ Plug 'dense-analysis/ale'
 "}}}
 
 "{{{3 black
-Plug 'psf/black', { 'branch': 'stable' }
+Plug 'psf/black', { 'tag': '19.10b0' }
 "}}}
 
 "{{{3 Colorschemes

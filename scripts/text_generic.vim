@@ -12,6 +12,7 @@ setlocal spell
 
 setlocal nolist
 setlocal linebreak
+setlocal breakindent
 
 " Next are unfortunately global
 set showbreak=.\ \ 
