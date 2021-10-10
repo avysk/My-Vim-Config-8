@@ -183,6 +183,14 @@ let g:UltiSnipsJumpForwardTrigger="<Down>"
 let g:UltiSnipsJumpBackwardTrigger="<Up>"
 "}}}3
 
+"{{{3 vim-latex
+let g:tex_flavor='latex'
+if has("win32")
+  set shellslash
+endif
+Plug 'vim-latex/vim-latex'
+"}}}3
+
 "{{{3 YouCompleteMe
 Plug 'ycm-core/YouCompleteMe', { 'do': 'python install.py' }
 
