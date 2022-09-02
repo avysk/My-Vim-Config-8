@@ -103,6 +103,8 @@ nmap <Leader>eng :exec g:_myvim_eng_text_script<C-M>
 " Right/Left to move through ALE errors list
 nmap <Down> <Plug>(ale_next_wrap)
 nmap <Up> <Plug>(ale_previous_wrap)
+" ALE documentation
+nnoremap <F2> <Plug>(ale_documentation)
 " PgDown to drop search highlighting
 nnoremap <PageDown> :nohl<CR>
 inoremap <PageDown> <C-O>:nohl<CR>
