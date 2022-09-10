@@ -2,6 +2,7 @@
 /local/undo/
 /local/vimrc
 /local/gvimrc
+/local/gobin/
 
 /.netrwhist
 .*.swp

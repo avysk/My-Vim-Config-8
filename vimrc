@@ -11,6 +11,7 @@ endif
 
 "{{{ Local paths
 let g:_myvim_localdir=g:_myvim_configdir . '/local'
+let g:go_bin_path = g:_myvim_localdir . '/gobin'
 let s:scriptsdir=g:_myvim_configdir . '/scripts'
 let s:pluginsdir=g:_myvim_localdir . '/plugged'
 "}}}
@@ -205,6 +206,10 @@ nnoremap <Leader>` :YcmCompleter GetDoc<CR>
 
 "{{{3 vim-graphql
 Plug 'jparise/vim-graphql'
+"}}}
+
+"{{{3 vim-go
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 "}}}
 
 "{{{3 vim-markdown
