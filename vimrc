@@ -11,6 +11,7 @@ endif
 
 "{{{ Local paths
 let g:_myvim_localdir=g:_myvim_configdir . '/local'
+let g:go_bin_path = g:_myvim_localdir . '/gobin'
 let s:scriptsdir=g:_myvim_configdir . '/scripts'
 let s:pluginsdir=g:_myvim_localdir . '/plugged'
 "}}}
@@ -103,6 +104,8 @@ nmap <Leader>eng :exec g:_myvim_eng_text_script<C-M>
 " Right/Left to move through ALE errors list
 nmap <Down> <Plug>(ale_next_wrap)
 nmap <Up> <Plug>(ale_previous_wrap)
+" ALE documentation
+nnoremap <F2> <Plug>(ale_documentation)
 " PgDown to drop search highlighting
 nnoremap <PageDown> :nohl<CR>
 inoremap <PageDown> <C-O>:nohl<CR>
@@ -209,6 +212,10 @@ nnoremap <Leader>` :YcmCompleter GetDoc<CR>
 Plug 'jparise/vim-graphql'
 "}}}
 
+"{{{3 vim-go
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+"}}}
+
 "{{{3 vim-markdown
 Plug 'plasticboy/vim-markdown'
 let g:vim_markdown_math=1
@@ -265,7 +272,8 @@ let g:ale_python_mypy_change_directory = 0
 let g:ale_cpp_clangtidy_checks = ['*', '-fuchsia*']
 let g:ale_fixers = {
       \ 'cpp': ['clang-format'],
-      \ 'ocaml': ['ocamlformat']}
+      \ 'ocaml': ['ocamlformat'],
+      \ 'go': ['gofmt', 'goimports']}
 let g:ale_fix_on_save = 1
 
 let g:ale_linters = {
@@ -301,6 +309,10 @@ let fortran_fold_multilinecomments=1
 let fortran_more_precise=1
 let fortran_do_enddo=1
 "}}}2
+
+"{{{2 Go
+autocmd FileType go setlocal nolist
+"}}}
 
 "{{{2 Python
 autocmd FileType python setlocal softtabstop=4
