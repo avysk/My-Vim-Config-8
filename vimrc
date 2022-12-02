@@ -162,6 +162,10 @@ let g:latex_to_unicode_auto = 1
 Plug 'kovisoft/paredit', { 'for': ['clojure', 'lisp', 'scheme'] }
 "}}}3
 
+"{{{ Rust
+Plug 'rust-lang/rust.vim'
+"}}}3
+
 "{{{3 tagbar
 Plug 'preservim/tagbar', {'on': 'TagbarToggle'}
 nmap <F12> :TagbarToggle<CR>
@@ -321,6 +325,10 @@ else
   autocmd FileType ocaml setlocal shiftwidth=2
 
 endif
+"}}}2
+
+"{{{2 Rust
+let g:rustfmt_autosave = 1
 "}}}2
 
 "{{{2 Lisp
