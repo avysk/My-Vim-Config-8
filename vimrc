@@ -108,6 +108,7 @@ nmap <Up> <Plug>(ale_previous_wrap)
 nnoremap <F2> <Plug>(ale_documentation)
 " PgDown to drop search highlighting
 nnoremap <PageDown> :nohl<CR>
+nnoremap <silent><nowait> <Leader>nh :nohl<CR>
 inoremap <PageDown> <C-O>:nohl<CR>
 " PgUp to go to alternate file
 nnoremap <PageUp> <C-^>
