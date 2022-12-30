@@ -348,6 +348,7 @@ endif
 let g:rustfmt_autosave = 1
 let g:rust_conceal = 1
 let g:rust_fold = 1
+autocmd FileType rust setlocal colorcolumn=100
 "}}}2
 
 "{{{2 Lisp
