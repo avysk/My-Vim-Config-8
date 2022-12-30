@@ -151,10 +151,8 @@ nmap <unique><silent><nowait> <Leader>bb :Buffers<CR>
 Plug 'airblade/vim-gitgutter'
 " faster realtime updates
 set updatetime=1000
-" Highlight changed lines
-let g:gitgutter_highlight_lines=1
 let g:gitgutter_enabled=0
-nnoremap <silent><nowait> <Leader>gg :GitGutterToggle<CR>
+nnoremap <silent><nowait> <Leader>gg :GitGutterBufferToggle<CR>
 "}}}3
 
 "{{{3 Julia
