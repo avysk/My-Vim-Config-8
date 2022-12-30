@@ -164,7 +164,11 @@ let g:latex_to_unicode_auto = 1
 Plug 'kovisoft/paredit', { 'for': ['clojure', 'lisp', 'scheme'] }
 "}}}3
 
-"{{{ Rust
+"{{{3 Quickscope
+Plug 'unblevable/quick-scope'
+"}}}3
+
+"{{{3 Rust
 Plug 'rust-lang/rust.vim'
 "}}}3
 
@@ -263,7 +267,6 @@ endfunction
 
 call plug#end()
 "}}}
-
 
 "{{{2 ALE
 let g:ale_lint_on_text_changed = 'never'
