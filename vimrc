@@ -198,13 +198,15 @@ Plug 'vim-latex/vim-latex'
 "}}}3
 
 "{{{3 YouCompleteMe
-Plug 'ycm-core/YouCompleteMe', { 'do': 'python install.py' }
+Plug 'Ycm-core/YouCompleteMe', { 'do': 'python install.py' }
 
 " let it work in virtualenv
 let g:ycm_python_binary_path = 'python'
 
 nnoremap <Leader>] :YcmCompleter GoTo<CR>
 nnoremap <Leader>` :YcmCompleter GetDoc<CR>
+
+let g:ycm_add_preview_to_completeopt = 'popup'
 "}}}
 
 "{{{3 vim-graphql
