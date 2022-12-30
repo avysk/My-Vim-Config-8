@@ -166,6 +166,7 @@ Plug 'kovisoft/paredit', { 'for': ['clojure', 'lisp', 'scheme'] }
 
 "{{{3 Quickscope
 Plug 'unblevable/quick-scope'
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 "}}}3
 
 "{{{3 Rust
