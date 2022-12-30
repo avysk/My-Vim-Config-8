@@ -342,6 +342,8 @@ endif
 
 "{{{2 Rust
 let g:rustfmt_autosave = 1
+let g:rust_conceal = 1
+let g:rust_fold = 1
 "}}}2
 
 "{{{2 Lisp
