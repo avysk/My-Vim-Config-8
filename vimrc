@@ -127,7 +127,7 @@ Plug 'dense-analysis/ale'
 "}}}
 
 "{{{3 black
-Plug 'psf/black', { 'tag': '19.10b0' }
+Plug 'psf/black'
 "}}}
 
 "{{{3 Colorschemes
