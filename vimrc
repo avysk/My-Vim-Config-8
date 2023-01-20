@@ -212,6 +212,16 @@ nnoremap <Leader>] :YcmCompleter GoTo<CR>
 nnoremap <Leader>` :YcmCompleter GetDoc<CR>
 
 let g:ycm_add_preview_to_completeopt = 'popup'
+
+" Haskell language server support
+let g:ycm_language_server = [
+      \ {
+      \   'name': 'haskell-language-server',
+      \   'cmdline': [ 'haskell-language-server-wrapper', '--lsp' ],
+      \     'filetypes': [ 'haskell', 'lhaskell' ],
+      \     'project_root_files': [ 'stack.yaml', 'cabal.project', 'package.yaml', 'hie.yaml' ],
+      \   },
+      \ ]
 "}}}
 
 "{{{3 vim-graphql
@@ -278,6 +288,7 @@ let g:ale_cpp_clangtidy_checks = ['*', '-fuchsia*']
 let g:ale_fixers = {
       \ 'cpp': ['clang-format'],
       \ 'ocaml': ['ocamlformat'],
+      \ 'haskell': ['hindent'],
       \ 'go': ['gofmt', 'goimports']}
 let g:ale_fix_on_save = 1
 
@@ -340,6 +351,10 @@ else
   autocmd FileType ocaml setlocal tw=0
   autocmd FileType ocaml setlocal softtabstop=2
   autocmd FileType ocaml setlocal shiftwidth=2
+
+  autocmd FileType haskell setlocal tw=0
+  autocmd FileType haskell setlocal softtabstop=2
+  autocmd FileType haskell setlocal shiftwidth=2
 
 endif
 "}}}2
