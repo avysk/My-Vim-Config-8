@@ -388,5 +388,4 @@ syntax on
 filetype plugin on
 filetype indent on
 
-:x
 " vim:sw=2:sts=2:foldmethod=marker
