@@ -19,9 +19,6 @@ let s:pluginsdir=g:_myvim_localdir . '/plugged'
 " or GitGutter is enabled
 set signcolumn=yes
 
-" Proper backspace
-" set bs=indent,eol,start
-
 " I don't want no tab characters
 set expandtab
 
@@ -72,12 +69,8 @@ set modeline  " this is off for Debian by default
 set relativenumber
 set number
 
-" if has("win32")
-  " Nothing
-" else
 set list
 set listchars=tab:⇒⋄,trail:∴,extends:→,precedes:←,nbsp:·
-" endif
 set ruler
 set laststatus=2
 set showcmd
@@ -141,10 +134,31 @@ inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-nmap <silent> <Up> :CocDiagnostics<CR>
-nmap <silent> <Down> :lclose<CR>
-nmap <silent> <Left> :call CocActionAsync('quickfixes')<CR>
-nmap <silent> <Right> :call CocActionAsync('codeAction')<CR>
+function! WrapLocation(where)
+  if !exists('b:we_have_coc_list')
+    execute 'CocDiagnostics'
+    execute 'lclose'
+    let b:we_have_coc_list = 'yes'
+    execute 'lfirst'
+    return
+  endif
+  if a:where == 'up'
+    try
+      execute 'lprevious'
+    catch /E553/
+      execute 'llast'
+    endtry
+  else
+    try
+      execute 'lnext'
+    catch /E553/
+      execute 'lfirst'
+    endtry
+  endif
+endfunction
+
+nmap <silent> <Up> :call WrapLocation('up')<CR>
+nmap <silent> <Down> :call WrapLocation('down')<CR>
 
 " These are straight from documentation but I do not think they work. At
 " least, not for Python.
@@ -374,7 +388,5 @@ syntax on
 filetype plugin on
 filetype indent on
 
-" set encoding=utf-8
-" set fileencoding=utf-8
-
+:x
 " vim:sw=2:sts=2:foldmethod=marker
