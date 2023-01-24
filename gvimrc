@@ -1,3 +1,5 @@
+hi ColorColumn guibg=#252525
+
 if has("gui_macvim")
         set background=light
         colorscheme macvim
@@ -33,9 +35,7 @@ if has("gui_gtk3")
 endif
 
 if has("win32")
-        language C
         colorscheme ir_black
-        hi ColorColumn guibg=#252525
         set guifont=Iosevka:h14:cRUSSIAN:qDEFAULT
         set guioptions-=T
         set guioptions-=r

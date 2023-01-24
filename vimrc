@@ -1,25 +1,26 @@
-"{{{ Windows/non-Windows specific settings
+set fileformat=unix
+set fileformats=unix,dos
+language en_US.UTF-8
+
+"{{{ Local paths
 if has("win32")
-  language C
   let g:_myvim_configdir=$HOME . '/vimfiles'
-  set fileformat=unix
-  set fileformats=unix,dos
 else
   let g:_myvim_configdir=$HOME . '/.vim'
 endif
-"}}}
-
-"{{{ Local paths
 let g:_myvim_localdir=g:_myvim_configdir . '/local'
-let g:go_bin_path = g:_myvim_localdir . '/gobin'
 let s:scriptsdir=g:_myvim_configdir . '/scripts'
 let s:pluginsdir=g:_myvim_localdir . '/plugged'
 "}}}
 
 "{{{1 General vim behaviour
 
+" Always show signcolumn that the text does not jump when diagnostics appears
+" or GitGutter is enabled
+set signcolumn=yes
+
 " Proper backspace
-set bs=indent,eol,start
+" set bs=indent,eol,start
 
 " I don't want no tab characters
 set expandtab
@@ -37,11 +38,9 @@ set wildmode=list:longest
 set viminfo='1000,<1000
 
 " Permanent undo
-if has('persistent_undo')
-  set undofile
-  let &undodir=g:_myvim_localdir . "/undo"
-  set undolevels=5000
-endif
+set undofile
+let &undodir=g:_myvim_localdir . "/undo"
+set undolevels=5000
 "}}}2
 
 "{{{2 Search and parens matching
@@ -73,12 +72,12 @@ set modeline  " this is off for Debian by default
 set relativenumber
 set number
 
-if has("win32")
+" if has("win32")
   " Nothing
-else
-  set list
-  set listchars=tab:⇒⋄,trail:∴,extends:→,precedes:←,nbsp:·
-endif
+" else
+set list
+set listchars=tab:⇒⋄,trail:∴,extends:→,precedes:←,nbsp:·
+" endif
 set ruler
 set laststatus=2
 set showcmd
@@ -100,12 +99,7 @@ let g:_myvim_eng_text_script = "source " . s:scriptsdir . "/eng_text.vim"
 nmap <Leader>eng :exec g:_myvim_eng_text_script<C-M>
 "}}}2
 
-"{{{2 Remapping arrows and similar keys to something useful
-" Right/Left to move through ALE errors list
-nmap <Down> <Plug>(ale_next_wrap)
-nmap <Up> <Plug>(ale_previous_wrap)
-" ALE documentation
-nnoremap <F2> <Plug>(ale_documentation)
+"{{{2 Remapping
 " PgDown to drop search highlighting
 nnoremap <PageDown> :nohl<CR>
 nnoremap <silent><nowait> <Leader>nh :nohl<CR>
@@ -113,6 +107,7 @@ inoremap <PageDown> <C-O>:nohl<CR>
 " PgUp to go to alternate file
 nnoremap <PageUp> <C-^>
 inoremap <PageUp> <C-O><C-^>
+" For arrows up and down see Coc section
 "}}}2
 
 "}}}1
@@ -122,13 +117,105 @@ inoremap <PageUp> <C-O><C-^>
 "{{{2 Vim-plug managed plugins
 call plug#begin(s:pluginsdir)
 
-"{{{3 ALE
-Plug 'dense-analysis/ale'
-"}}}
+"{{{3 vim-polyglot
+Plug 'sheerun/vim-polyglot'
+"}}}3
 
-"{{{3 black
-Plug 'psf/black'
-"}}}
+"{{{3 Coc
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1] =~ '\s'
+endfunction
+
+" Use tab for trigger completion with characters ahead
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+nmap <silent> <Up> :CocDiagnostics<CR>
+nmap <silent> <Down> :lclose<CR>
+nmap <silent> <Left> :call CocActionAsync('quickfixes')<CR>
+nmap <silent> <Right> :call CocActionAsync('codeAction')<CR>
+
+" These are straight from documentation but I do not think they work. At
+" least, not for Python.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap keys for applying code actions at the cursor position
+nmap <leader>ac  <Plug>(coc-codeaction-cursor)
+" Remap keys for apply code actions affect whole buffer
+nmap <leader>as  <Plug>(coc-codeaction-source)
+" Apply the most preferred quickfix action to fix diagnostic on the current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Remap keys for applying refactor code actions
+nmap <silent> <leader>re <Plug>(coc-codeaction-refactor)
+nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+
+" Run the Code Lens action on the current line
+nmap <leader>cl  <Plug>(coc-codelens-action)
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" Remap <C-f> and <C-b> to scroll float windows/popups
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
+
+" Use CTRL-S for selections ranges
+" Requires 'textDocument/selectionRange' support of language server
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
+
+let g:coc_global_extensions = ['coc-json', 'coc-pyright', 'coc-rust-analyzer']
+"}}}3
 
 "{{{3 Colorschemes
 Plug 'reedes/vim-colors-pencil' | Plug 'lifepillar/vim-solarized8'
@@ -150,14 +237,9 @@ nmap <unique><silent><nowait> <Leader>bb :Buffers<CR>
 "{{{3 GitGutter
 Plug 'airblade/vim-gitgutter'
 " faster realtime updates
-set updatetime=1000
+" set updatetime=300
 let g:gitgutter_enabled=0
 nnoremap <silent><nowait> <Leader>gg :GitGutterBufferToggle<CR>
-"}}}3
-
-"{{{3 Julia
-Plug 'JuliaEditorSupport/julia-vim'
-let g:latex_to_unicode_auto = 1
 "}}}3
 
 "{{{3 paredit
@@ -167,10 +249,6 @@ Plug 'kovisoft/paredit', { 'for': ['clojure', 'lisp', 'scheme'] }
 "{{{3 Quickscope
 Plug 'unblevable/quick-scope'
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-"}}}3
-
-"{{{3 Rust
-Plug 'rust-lang/rust.vim'
 "}}}3
 
 "{{{3 tagbar
@@ -187,51 +265,12 @@ nmap <unique> <C-c>r <Plug>SetTmuxVars
 
 "{{{3 Ultisnips + vim-snippets
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsEditSplit="context"
 let g:UltiSnipsExpandTrigger="<Right>"
 let g:UltiSnipsListSnippets="<Left>"
 let g:UltiSnipsJumpForwardTrigger="<Down>"
 let g:UltiSnipsJumpBackwardTrigger="<Up>"
 "}}}3
-
-"{{{3 vim-latex
-let g:tex_flavor='latex'
-if has("win32")
-  set shellslash
-endif
-Plug 'vim-latex/vim-latex'
-"}}}3
-
-"{{{3 YouCompleteMe
-Plug 'Ycm-core/YouCompleteMe', { 'do': 'python install.py' }
-
-" let it work in virtualenv
-let g:ycm_python_binary_path = 'python'
-
-nnoremap <Leader>] :YcmCompleter GoTo<CR>
-nnoremap <Leader>` :YcmCompleter GetDoc<CR>
-
-let g:ycm_add_preview_to_completeopt = 'popup'
-
-"}}}
-
-"{{{3 vim-graphql
-Plug 'jparise/vim-graphql'
-"}}}
-
-"{{{3 vim-go
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-"}}}
-
-"{{{3 vim-markdown
-Plug 'plasticboy/vim-markdown'
-let g:vim_markdown_math=1
-let g:vim_markdown_frontmatter=1
-let g:vim_markdown_strikethrough=1
-autocmd FileType markdown set conceallevel=2
-autocmd FileType markdown set nowrap
-autocmd FileType markdown set tw=80
-"}}}
 
 "{{{3 vimoutliner
 Plug 'vimoutliner/vimoutliner'
@@ -270,42 +309,9 @@ endfunction
 call plug#end()
 "}}}
 
-"{{{2 ALE
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_python_pylint_change_directory = 0
-let g:ale_python_mypy_change_directory = 0
-
-let g:ale_cpp_clangtidy_checks = ['*', '-fuchsia*']
-let g:ale_fixers = {
-      \ 'cpp': ['clang-format'],
-      \ 'ocaml': ['ocamlformat'],
-      \ 'go': ['gofmt', 'goimports']}
-let g:ale_fix_on_save = 1
-
-let g:ale_linters = {
-      \ 'cpp': ['clangcheck', 'clangtidy', 'cppcheck'] }
-"}}}
-
-"{{{2 vim-black
-let g:black_linelength = 79
-"}}}2
-
 "}}}1
 
 "{{{1 Languages
-
-"{{{2 INTERCAL
-au BufRead,BufNewFile *.i set syntax=intercal
-"}}}2
-
-"{{{2 C
-set cino=:0
-"}}}2
-
-"{{{2 C++
-autocmd FileType cpp setlocal shiftwidth=2
-autocmd FileType cpp setlocal softtabstop=2
-"}}}
 
 "{{{2 FORTRAN
 let fortran_free_source=1
@@ -321,7 +327,6 @@ autocmd FileType go setlocal nolist
 "}}}
 
 "{{{2 Python
-autocmd FileType python setlocal softtabstop=4
 autocmd FileType python setlocal shiftwidth=4
 "}}}2
 
@@ -339,17 +344,14 @@ else
 
   autocmd FileType ocaml iabbrev <buffer> _ML (*<C-M><BS><BS>vim:sw=2<C-M>*)
   autocmd FileType ocaml setlocal tw=0
-  autocmd FileType ocaml setlocal softtabstop=2
   autocmd FileType ocaml setlocal shiftwidth=2
 
 endif
 "}}}2
 
 "{{{2 Rust
-let g:rustfmt_autosave = 1
-let g:rust_conceal = 1
-let g:rust_fold = 1
 autocmd FileType rust setlocal colorcolumn=100
+autocmd FileType rust setlocal shiftwidth=4
 "}}}2
 
 "{{{2 Lisp
@@ -359,7 +361,7 @@ let g:lisp_rainbow=1
 "}}}1
 
 "{{{1 Built-in packages
-packadd! matchit
+" packadd! matchit
 "}}}1
 
 " KEEP THOSE AT THE BOTTOM
@@ -372,7 +374,7 @@ syntax on
 filetype plugin on
 filetype indent on
 
-set encoding=utf-8
-set fileencoding=utf-8
+" set encoding=utf-8
+" set fileencoding=utf-8
 
 " vim:sw=2:sts=2:foldmethod=marker

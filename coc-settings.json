@@ -1,0 +1,14 @@
+{
+  "coc.preferences.formatOnType": true,
+  "coc.preferences.formatOnSave": true,
+  "python.analysis.typeCheckingMode": "strict",
+  "python.formatting.provider": "black",
+  "python.formatting.blackArgs": [
+    "-l",
+    "79"
+  ],
+  "python.linting.ruffEnabled": true,
+  "python.linting.pylintEnabled": true,
+  "pyright.testing.provider": "pytest",
+  "rust-analyzer.server.path": "rust-analyzer"
+}
