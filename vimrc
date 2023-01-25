@@ -242,6 +242,7 @@ Plug 'vim-scripts/DrawIt'
 
 "{{{3 FastFold + SimpylFold
 Plug 'Konfekt/FastFold' | Plug 'tmhedberg/SimpylFold'
+let g:fastfold_minlines = 0
 "}}}3
 
 "{{{3 fzf
