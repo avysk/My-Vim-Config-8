@@ -159,6 +159,7 @@ endfunction
 
 nmap <silent> <Up> :call WrapLocation('up')<CR>
 nmap <silent> <Down> :call WrapLocation('down')<CR>
+nmap <silent> <Left> :CocCommand<CR>
 
 " These are straight from documentation but I do not think they work. At
 " least, not for Python.
