@@ -112,6 +112,7 @@ call plug#begin(s:pluginsdir)
 
 "{{{3 vim-polyglot
 Plug 'sheerun/vim-polyglot'
+let g:polyglot_disabled = ['ftdetect']
 "}}}3
 
 "{{{3 Coc
