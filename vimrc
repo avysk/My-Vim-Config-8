@@ -102,6 +102,21 @@ inoremap <PageUp> <C-O><C-^>
 " For arrows up and down see Coc section
 "}}}2
 
+"{{{2 Saving files
+nnoremap <unique> <F2> :w<CR>
+inoremap <unique> <F2> <C-\><C-O>:w<CR>
+"}}}2
+
+"{{{2 Closing and opening folders
+nnoremap <unique> <F7> zM
+nnoremap <unique> <F8> zR
+"}}}2
+
+"{{{2 Exiting vim
+nnoremap <unique> <F10> :x<CR>
+nnoremap <unique> <Leader><F4> :qa!<CR>
+"}}}2
+
 "}}}1
 
 "{{{1 Plugins
