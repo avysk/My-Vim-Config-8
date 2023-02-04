@@ -79,8 +79,7 @@ set showcmd
 "{{{1 Bindings
 
 "{{{2 Use space for leader
-nnoremap <Space> <Nop>
-nmap <Space> <Leader>
+let g:mapleader = ' '
 "}}}2
 
 "{{{2 Switching to writing mode
