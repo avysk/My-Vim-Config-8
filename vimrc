@@ -273,10 +273,10 @@ nmap <F12> :TagbarToggle<CR>
 "}}}
 
 "{{{3 tslime
-Plug 'jimmyharris/tslime.vim'
-vmap <unique> <C-c><C-c> <Plug>SendSelectionToTmux
-nmap <unique> <C-c><C-c> <Plug>NormalModeSendToTmux
-nmap <unique> <C-c>r <Plug>SetTmuxVars
+Plug 'jgdavey/tslime.vim'
+vmap <unique> <Leader>cc <Plug>SendSelectionToTmux
+nmap <unique> <Leader>cc <Plug>NormalModeSendToTmux
+nmap <unique> <Leader>cv <Plug>SetTmuxVars
 "}}}
 
 "{{{3 Ultisnips + vim-snippets
