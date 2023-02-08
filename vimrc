@@ -330,12 +330,6 @@ nmap <leader><F1> <Plug>VimwikiDiaryIndex
 
 "{{{3 vlime
 Plug 'vlime/vlime', {'rtp': 'vim/'}
-let g:vlime_cl_impl = 'clisp'
-function! VlimeBuildServerCommandFor_clisp(vlime_loader, vlime_eval)
-  return ['clisp', '-i', a:vlime_loader,
-        \ '-x', a:vlime_eval,
-        \ '-repl']
-endfunction
 "}}}3
 
 call plug#end()
