@@ -378,6 +378,7 @@ endif
 "}}}2
 
 "{{{2 Rust
+" Rust coding style document says so.
 autocmd FileType rust setlocal colorcolumn=100
 autocmd FileType rust setlocal shiftwidth=4
 "}}}2
