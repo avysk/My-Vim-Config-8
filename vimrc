@@ -11,6 +11,7 @@ endif
 let g:_myvim_localdir=g:_myvim_configdir . '/local'
 let s:scriptsdir=g:_myvim_configdir . '/scripts'
 let s:pluginsdir=g:_myvim_localdir . '/plugged'
+set colorcolumn=80
 "}}}
 
 "{{{1 General vim behaviour
