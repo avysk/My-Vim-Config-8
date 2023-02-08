@@ -78,8 +78,9 @@ set showcmd
 
 "{{{1 Bindings
 
-"{{{2 Use space for leader
+"{{{2 Use space for leader and localleader
 let g:mapleader = ' '
+let g:maplocalleader = ' '
 "}}}2
 
 "{{{2 Switching to writing mode
