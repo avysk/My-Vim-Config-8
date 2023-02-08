@@ -354,6 +354,8 @@ autocmd FileType go setlocal nolist
 
 "{{{2 Python
 autocmd FileType python setlocal shiftwidth=4
+" For documentation.
+autocmd FileType python setlocal colorcolumn+=72
 "}}}2
 
 "{{{2 OCaml
