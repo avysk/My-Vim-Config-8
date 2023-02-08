@@ -246,7 +246,7 @@ endif
 nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
 
-let g:coc_global_extensions = ['coc-clojure', 'coc-json', 'coc-pyright', 'coc-rust-analyzer', 'coc-sh', 'coc-toml', 'coc-ultisnips']
+let g:coc_global_extensions = ['coc-clojure', 'coc-json', 'coc-pyright', 'coc-rust-analyzer', 'coc-sh', 'coc-syntax', 'coc-toml', 'coc-ultisnips', 'coc-word']
 "}}}3
 
 "{{{3 Colorschemes
