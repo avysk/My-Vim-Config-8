@@ -11,6 +11,7 @@ endif
 let g:_myvim_localdir=g:_myvim_configdir . '/local'
 let s:scriptsdir=g:_myvim_configdir . '/scripts'
 let s:pluginsdir=g:_myvim_localdir . '/plugged'
+set colorcolumn=80
 "}}}
 
 "{{{1 General vim behaviour
@@ -330,12 +331,6 @@ nmap <leader><F1> <Plug>VimwikiDiaryIndex
 
 "{{{3 vlime
 Plug 'vlime/vlime', {'rtp': 'vim/'}
-let g:vlime_cl_impl = 'clisp'
-function! VlimeBuildServerCommandFor_clisp(vlime_loader, vlime_eval)
-  return ['clisp', '-i', a:vlime_loader,
-        \ '-x', a:vlime_eval,
-        \ '-repl']
-endfunction
 "}}}3
 
 call plug#end()
@@ -360,6 +355,8 @@ autocmd FileType go setlocal nolist
 
 "{{{2 Python
 autocmd FileType python setlocal shiftwidth=4
+" For documentation.
+autocmd FileType python setlocal colorcolumn+=72
 "}}}2
 
 "{{{2 OCaml
@@ -382,6 +379,7 @@ endif
 "}}}2
 
 "{{{2 Rust
+" Rust coding style document says so.
 autocmd FileType rust setlocal colorcolumn=100
 autocmd FileType rust setlocal shiftwidth=4
 "}}}2

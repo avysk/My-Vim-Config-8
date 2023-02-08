@@ -50,7 +50,6 @@ map <Leader>dark :colorscheme ir_black<C-M>
 map <Leader>blue :colorscheme darkblue<C-M>
 
 set columns=87
-set colorcolumn=80
 
 " I always want this in gui
 set list
