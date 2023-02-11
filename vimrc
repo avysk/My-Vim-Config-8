@@ -79,9 +79,12 @@ set showcmd
 
 "{{{1 Bindings
 
-"{{{2 Use space for leader and localleader
+"{{{2 Use space for leader
 let g:mapleader = ' '
-let g:maplocalleader = ' '
+"}}}2
+
+"{{{2 Use double comma for local leader
+let g:maplocalleader = ',,'
 "}}}2
 
 "{{{2 Switching to writing mode
