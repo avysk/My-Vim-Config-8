@@ -249,7 +249,7 @@ endif
 nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
 
-let g:coc_global_extensions = ['coc-clojure', 'coc-json', 'coc-pyright', 'coc-rust-analyzer', 'coc-sh', 'coc-syntax', 'coc-toml', 'coc-ultisnips', 'coc-word']
+let g:coc_global_extensions = ['coc-clojure', 'coc-json', 'coc-lists', 'coc-pyright', 'coc-rust-analyzer', 'coc-sh', 'coc-syntax', 'coc-toml', 'coc-ultisnips', 'coc-word']
 "}}}3
 
 "{{{3 Colorschemes
@@ -264,11 +264,6 @@ Plug 'vim-scripts/DrawIt'
 Plug 'Konfekt/FastFold' | Plug 'tmhedberg/SimpylFold'
 let g:fastfold_minlines = 0
 "}}}3
-
-"{{{3 fzf
-Plug 'junegunn/fzf' | Plug 'junegunn/fzf.vim'
-nmap <unique><silent><nowait> <Leader>bb :Buffers<CR>
-"}}}
 
 "{{{3 GitGutter
 Plug 'airblade/vim-gitgutter'
