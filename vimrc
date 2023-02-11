@@ -249,6 +249,10 @@ endif
 nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
 
+" Some commands for showing files and buffers
+nnoremap <Leader>bb :CocList buffers<CR>
+nnoremap <Leader>ff :CocList --auto-preview files<CR>
+
 let g:coc_global_extensions = ['coc-clojure', 'coc-json', 'coc-lists', 'coc-pyright', 'coc-rust-analyzer', 'coc-sh', 'coc-syntax', 'coc-toml', 'coc-ultisnips', 'coc-word']
 "}}}3
 
