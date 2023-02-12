@@ -359,6 +359,26 @@ autocmd FileType go setlocal nolist
 autocmd FileType python setlocal shiftwidth=4
 " For documentation.
 autocmd FileType python setlocal colorcolumn+=72
+
+function PythonTestFile()
+  let mybufname = bufname()
+  set shellslash
+  let myfilename = fnamemodify(mybufname, ':t')
+  let mydirname = fnamemodify(mybufname, ':.:s?^./??:h')
+  let testdirname = substitute(mydirname, '[^/]\+', 'tests', '')
+  let testname = testdirname .. '/test_' .. myfilename
+  let testbufname=bufname("^" .. testname .. '$')
+  if testbufname == ''
+    silent execute ':e ' .. testname
+  else
+    silent execute ':sb ' .. testname
+  endif
+endfunction
+" Switch to test file
+autocmd FileType python nnoremap <silent> <LocalLeader>t :call PythonTestFile()<CR>
+" Go back
+autocmd FileType python nnoremap <silent> <LocalLeader>b :silent execute ':sb ' . substitute(expand('%:t'), '^test_', '/', '')<CR>
+
 "}}}2
 
 "{{{2 OCaml
