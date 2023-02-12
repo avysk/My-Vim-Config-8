@@ -60,3 +60,6 @@ let s:localrc = g:_myvim_localdir . "/gvimrc"
 if filereadable(s:localrc)
   exec 'source ' . s:localrc
 endif
+
+" Maximize window if editing Python
+autocmd FileType python if has('gui_running') | set lines=999 | set columns=999 | endif
