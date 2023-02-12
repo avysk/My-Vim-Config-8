@@ -27,7 +27,7 @@ set expandtab
 set path+=**
 
 " Proper completion
-set wildmode=list:longest
+set wildmode=list,longest
 
 "{{{2 Information about files
 
