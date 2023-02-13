@@ -291,13 +291,6 @@ Plug 'preservim/tagbar', {'on': 'TagbarToggle'}
 nmap <F12> :TagbarToggle<CR>
 "}}}
 
-"{{{3 tslime
-Plug 'jgdavey/tslime.vim'
-vmap <unique> <Leader>cc <Plug>SendSelectionToTmux
-nmap <unique> <Leader>cc <Plug>NormalModeSendToTmux
-nmap <unique> <Leader>cv <Plug>SetTmuxVars
-"}}}
-
 "{{{3 Ultisnips + vim-snippets
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 let g:UltiSnipsEditSplit="context"
@@ -305,6 +298,17 @@ let g:UltiSnipsExpandTrigger="<Right>"
 let g:UltiSnipsListSnippets="<Left>"
 let g:UltiSnipsJumpForwardTrigger="<Down>"
 let g:UltiSnipsJumpBackwardTrigger="<Up>"
+"}}}3
+
+"{{{3 vim-rainbow
+Plug 'frazrepo/vim-rainbow'
+let g:rainbow_active = 1
+"}}}3
+
+"{{{3 vim-slime
+Plug 'jpalardy/vim-slime'
+let g:slime_target = "vimterminal"
+let g:slime_vimterminal_config = {"term_finish": "close", "vertical": 1}
 "}}}3
 
 "{{{3 vimoutliner
@@ -404,10 +408,6 @@ endif
 " Rust coding style document says so.
 autocmd FileType rust setlocal colorcolumn=100
 autocmd FileType rust setlocal shiftwidth=4
-"}}}2
-
-"{{{2 Lisp
-let g:lisp_rainbow=1
 "}}}2
 
 "}}}1
