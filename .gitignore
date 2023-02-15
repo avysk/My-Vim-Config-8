@@ -5,7 +5,7 @@
 /local/gobin/
 
 /.netrwhist
-*.swp
+*.sw[a-z]
 /spell/
 /black/
 /autoload/plug.vim.old
