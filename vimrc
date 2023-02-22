@@ -112,6 +112,7 @@ call plug#begin(s:pluginsdir)
 
 "{{{3 vim-polyglot
 Plug 'sheerun/vim-polyglot'
+" Prevent vim-polyglot from breaking votl filetype detect
 let g:polyglot_disabled = ['ftdetect']
 "}}}3
 
