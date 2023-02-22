@@ -1,5 +1,4 @@
 set fileformat=unix
-
 set fileformats=unix,dos
 language en_US.UTF-8
 
