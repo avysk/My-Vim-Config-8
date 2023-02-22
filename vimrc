@@ -90,10 +90,10 @@ let g:maplocalleader = ',,'
 "{{{2 Switching to writing mode
 " text in Russian
 let g:_myvim_rus_text_script = "source " . s:scriptsdir . "/rus_text.vim"
-nmap <Leader>rus :exec g:_myvim_rus_text_script<C-M>
+nnoremap <silent> <Leader>rus :exec g:_myvim_rus_text_script<CR>
 " text in English
 let g:_myvim_eng_text_script = "source " . s:scriptsdir . "/eng_text.vim"
-nmap <Leader>eng :exec g:_myvim_eng_text_script<C-M>
+nnoremap <silent> <Leader>eng :exec g:_myvim_eng_text_script<CR>
 "}}}2
 
 "{{{2 Remapping
