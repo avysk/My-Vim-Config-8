@@ -1,0 +1,28 @@
+snippet tf "Start testfile" bA
+"""
+Tests for $1.
+"""
+import pytest
+
+import $1
+
+
+$0
+endsnippet
+
+snippet ptf "PyTest test function" bA
+def test_$1() -> None:
+    """
+    $2
+    """
+    $0
+endsnippet
+
+snippet pptf "Parametrized PyTest test function" bA
+@pytest.mark.parametrize("$1", ($2))
+def test_$3(${1/,/, /g}) -> None:
+    """
+    $4
+    """
+    $0
+endsnippet

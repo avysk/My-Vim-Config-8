@@ -11,6 +11,7 @@ endif
 let g:_myvim_localdir=g:_myvim_configdir . '/local'
 let s:scriptsdir=g:_myvim_configdir . '/scripts'
 let s:pluginsdir=g:_myvim_localdir . '/plugged'
+set colorcolumn=80
 "}}}
 
 "{{{1 General vim behaviour
@@ -26,7 +27,7 @@ set expandtab
 set path+=**
 
 " Proper completion
-set wildmode=list:longest
+set wildmode=list,longest
 
 "{{{2 Information about files
 
@@ -79,17 +80,20 @@ set showcmd
 "{{{1 Bindings
 
 "{{{2 Use space for leader
-nnoremap <Space> <Nop>
-nmap <Space> <Leader>
+let g:mapleader = ' '
+"}}}2
+
+"{{{2 Use double comma for local leader
+let g:maplocalleader = ',,'
 "}}}2
 
 "{{{2 Switching to writing mode
 " text in Russian
 let g:_myvim_rus_text_script = "source " . s:scriptsdir . "/rus_text.vim"
-nmap <Leader>rus :exec g:_myvim_rus_text_script<C-M>
+nnoremap <silent> <Leader>rus :exec g:_myvim_rus_text_script<CR>
 " text in English
 let g:_myvim_eng_text_script = "source " . s:scriptsdir . "/eng_text.vim"
-nmap <Leader>eng :exec g:_myvim_eng_text_script<C-M>
+nnoremap <silent> <Leader>eng :exec g:_myvim_eng_text_script<CR>
 "}}}2
 
 "{{{2 Remapping
@@ -101,6 +105,21 @@ inoremap <PageDown> <C-O>:nohl<CR>
 nnoremap <PageUp> <C-^>
 inoremap <PageUp> <C-O><C-^>
 " For arrows up and down see Coc section
+"}}}2
+
+"{{{2 Saving files
+nnoremap <unique> <F2> :w<CR>
+inoremap <unique> <F2> <C-\><C-O>:w<CR>
+"}}}2
+
+"{{{2 Closing and opening folders
+nnoremap <unique> <F7> zM
+nnoremap <unique> <F8> zR
+"}}}2
+
+"{{{2 Exiting vim
+nnoremap <unique> <F10> :x<CR>
+nnoremap <unique> <Leader><F4> :qa!<CR>
 "}}}2
 
 "}}}1
@@ -231,7 +250,11 @@ endif
 nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
 
-let g:coc_global_extensions = ['coc-json', 'coc-pyright', 'coc-rust-analyzer', 'coc-toml', 'coc-ultisnips']
+" Some commands for showing files and buffers
+nnoremap <Leader>bb :CocList buffers<CR>
+nnoremap <Leader>ff :CocList --auto-preview files<CR>
+
+let g:coc_global_extensions = ['coc-clojure', 'coc-json', 'coc-lists', 'coc-pyright', 'coc-rust-analyzer', 'coc-sh', 'coc-syntax', 'coc-toml', 'coc-ultisnips', 'coc-word']
 "}}}3
 
 "{{{3 Colorschemes
@@ -247,11 +270,6 @@ Plug 'Konfekt/FastFold' | Plug 'tmhedberg/SimpylFold'
 let g:fastfold_minlines = 0
 "}}}3
 
-"{{{3 fzf
-Plug 'junegunn/fzf' | Plug 'junegunn/fzf.vim'
-nmap <unique><silent><nowait> <Leader>bb :Buffers<CR>
-"}}}
-
 "{{{3 GitGutter
 Plug 'airblade/vim-gitgutter'
 " faster realtime updates
@@ -261,7 +279,9 @@ nnoremap <silent><nowait> <Leader>gg :GitGutterBufferToggle<CR>
 "}}}3
 
 "{{{3 paredit
-Plug 'kovisoft/paredit', { 'for': ['clojure', 'lisp', 'scheme'] }
+let g:paredit_electric_return = 1
+let g:paredit_shortmaps = 1
+Plug 'kovisoft/paredit'
 "}}}3
 
 "{{{3 Quickscope
@@ -274,13 +294,6 @@ Plug 'preservim/tagbar', {'on': 'TagbarToggle'}
 nmap <F12> :TagbarToggle<CR>
 "}}}
 
-"{{{3 tslime
-Plug 'jimmyharris/tslime.vim'
-vmap <unique> <C-c><C-c> <Plug>SendSelectionToTmux
-nmap <unique> <C-c><C-c> <Plug>NormalModeSendToTmux
-nmap <unique> <C-c>r <Plug>SetTmuxVars
-"}}}
-
 "{{{3 Ultisnips + vim-snippets
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 let g:UltiSnipsEditSplit="context"
@@ -288,6 +301,17 @@ let g:UltiSnipsExpandTrigger="<Right>"
 let g:UltiSnipsListSnippets="<Left>"
 let g:UltiSnipsJumpForwardTrigger="<Down>"
 let g:UltiSnipsJumpBackwardTrigger="<Up>"
+"}}}3
+
+"{{{3 vim-rainbow
+Plug 'frazrepo/vim-rainbow'
+let g:rainbow_active = 1
+"}}}3
+
+"{{{3 vim-slime
+Plug 'jpalardy/vim-slime'
+let g:slime_target = "vimterminal"
+let g:slime_vimterminal_config = {"term_finish": "close", "vertical": 1}
 "}}}3
 
 "{{{3 vimoutliner
@@ -318,9 +342,9 @@ nmap <leader><F1> <Plug>VimwikiDiaryIndex
 Plug 'vlime/vlime', {'rtp': 'vim/'}
 let g:vlime_cl_impl = 'clisp'
 function! VlimeBuildServerCommandFor_clisp(vlime_loader, vlime_eval)
-  return ['clisp', '-i', a:vlime_loader,
-        \ '-x', a:vlime_eval,
-        \ '-repl']
+    return ['clisp', '-i', a:vlime_loader,
+                   \ '-x', a:vlime_eval,
+                   \ '-repl']
 endfunction
 "}}}3
 
@@ -346,6 +370,28 @@ autocmd FileType go setlocal nolist
 
 "{{{2 Python
 autocmd FileType python setlocal shiftwidth=4
+" For documentation.
+autocmd FileType python setlocal colorcolumn+=72
+
+function PythonTestFile()
+  let mybufname = bufname()
+  set shellslash
+  let myfilename = fnamemodify(mybufname, ':t')
+  let mydirname = fnamemodify(mybufname, ':.:s?^./??:h')
+  let testdirname = substitute(mydirname, '[^/]\+', 'tests', '')
+  let testname = testdirname .. '/test_' .. myfilename
+  let testbufname=bufname("^" .. testname .. '$')
+  if testbufname == ''
+    silent execute ':e ' .. testname
+  else
+    silent execute ':sb ' .. testname
+  endif
+endfunction
+" Switch to test file
+autocmd FileType python nnoremap <silent> <LocalLeader>t :call PythonTestFile()<CR>
+" Go back
+autocmd FileType python nnoremap <silent> <LocalLeader>b :silent execute ':sb ' . substitute(expand('%:t'), '^test_', '/', '')<CR>
+
 "}}}2
 
 "{{{2 OCaml
@@ -368,18 +414,11 @@ endif
 "}}}2
 
 "{{{2 Rust
+" Rust coding style document says so.
 autocmd FileType rust setlocal colorcolumn=100
 autocmd FileType rust setlocal shiftwidth=4
 "}}}2
 
-"{{{2 Lisp
-let g:lisp_rainbow=1
-"}}}2
-
-"}}}1
-
-"{{{1 Built-in packages
-" packadd! matchit
 "}}}1
 
 " KEEP THOSE AT THE BOTTOM

@@ -7,8 +7,16 @@
     "-l",
     "79"
   ],
-  "python.linting.ruffEnabled": true,
+  "python.linting.mypyEnabled": true,
+  "python.linting.mypyArgs": [
+    "--strict",
+    "--no-pretty",
+    "--show-column-number"
+  ],
   "python.linting.pylintEnabled": true,
+  "python.linting.ruffEnabled": true,
+  "pyright.inlayHints.functionReturnTypes": false,
+  "pyright.inlayHints.variableTypes": false,
   "pyright.testing.provider": "pytest",
   "rust-analyzer.server.path": "rust-analyzer"
 }

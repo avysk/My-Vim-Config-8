@@ -28,15 +28,11 @@ if has("gui_macvim")
 endif
 
 if has("gui_gtk3")
-        colorscheme darkblue
-        set guifont=Cousine\ 11
         set guioptions=aegimrLt
         set guioptions=aci
-        map <Leader>font :set guifont=Inconsolata\ Medium\ 16<C-M>
 endif
 
 if has("win32")
-        colorscheme ir_black
         set guifont=Iosevka:h14:cRUSSIAN:qDEFAULT
         set guioptions-=T
         set guioptions-=r
@@ -46,11 +42,7 @@ if has("directx")
         set renderoptions=type:directx
 endif
 
-map <Leader>dark :colorscheme ir_black<C-M>
-map <Leader>blue :colorscheme darkblue<C-M>
-
 set columns=87
-set colorcolumn=80
 
 " I always want this in gui
 set list
@@ -61,3 +53,6 @@ let s:localrc = g:_myvim_localdir . "/gvimrc"
 if filereadable(s:localrc)
   exec 'source ' . s:localrc
 endif
+
+" Maximize window if editing Python
+autocmd FileType python if has('gui_running') | set lines=999 | set columns=999 | endif
