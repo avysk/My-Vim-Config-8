@@ -278,7 +278,9 @@ nnoremap <silent><nowait> <Leader>gg :GitGutterBufferToggle<CR>
 "}}}3
 
 "{{{3 paredit
-Plug 'kovisoft/paredit', { 'for': ['clojure', 'lisp', 'scheme'] }
+let g:paredit_electric_return = 1
+let g:paredit_shortmaps = 1
+Plug 'kovisoft/paredit'
 "}}}3
 
 "{{{3 Quickscope
