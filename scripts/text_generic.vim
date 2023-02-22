@@ -1,7 +1,9 @@
 if has("gui_running")
-        set linespace=5
-        if has("gui_gtk2")
-                set guifont=Cousine\ 12,Andale\ Mono\ 14
+        set background=light
+        colorscheme pencil
+        set linespace=8
+        if has("gui_gtk3")
+                set guifont=Cousine\ 16,Andale\ Mono\ 16
         endif
         if has("gui_macvim")
                 set guifont=Iosevka:h16,Cousine:h12.00,Menlo:h12.00
