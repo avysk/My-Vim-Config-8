@@ -122,6 +122,10 @@ nnoremap <unique> <F10> :x<CR>
 nnoremap <unique> <Leader><F4> :qa!<CR>
 "}}}2
 
+"{{{2 Pasting in terminal
+tnoremap <S-Insert> <C-W>"+
+"
+
 "}}}1
 
 "{{{1 Plugins
