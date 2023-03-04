@@ -90,10 +90,10 @@ let g:maplocalleader = ',,'
 "{{{2 Switching to writing mode
 " text in Russian
 let g:_myvim_rus_text_script = "source " . s:scriptsdir . "/rus_text.vim"
-nmap <Leader>rus :exec g:_myvim_rus_text_script<C-M>
+nnoremap <silent> <Leader>rus :exec g:_myvim_rus_text_script<CR>
 " text in English
 let g:_myvim_eng_text_script = "source " . s:scriptsdir . "/eng_text.vim"
-nmap <Leader>eng :exec g:_myvim_eng_text_script<C-M>
+nnoremap <silent> <Leader>eng :exec g:_myvim_eng_text_script<CR>
 "}}}2
 
 "{{{2 Remapping
@@ -122,6 +122,10 @@ nnoremap <unique> <F10> :x<CR>
 nnoremap <unique> <Leader><F4> :qa!<CR>
 "}}}2
 
+"{{{2 Pasting in terminal
+tnoremap <S-Insert> <C-W>"+
+"
+
 "}}}1
 
 "{{{1 Plugins
@@ -131,6 +135,7 @@ call plug#begin(s:pluginsdir)
 
 "{{{3 vim-polyglot
 Plug 'sheerun/vim-polyglot'
+" Prevent vim-polyglot from breaking votl filetype detect
 let g:polyglot_disabled = ['ftdetect']
 "}}}3
 
@@ -278,7 +283,9 @@ nnoremap <silent><nowait> <Leader>gg :GitGutterBufferToggle<CR>
 "}}}3
 
 "{{{3 paredit
-Plug 'kovisoft/paredit', { 'for': ['clojure', 'lisp', 'scheme'] }
+let g:paredit_electric_return = 1
+let g:paredit_shortmaps = 1
+Plug 'kovisoft/paredit'
 "}}}3
 
 "{{{3 Quickscope
@@ -333,8 +340,6 @@ nmap <S-F1> <Plug>VimwikiDiaryIndex
 nmap <leader><F1> <Plug>VimwikiDiaryIndex
 "}}}
 
-"{{{3 vlime
-Plug 'vlime/vlime', {'rtp': 'vim/'}
 "}}}3
 
 call plug#end()
@@ -408,10 +413,6 @@ autocmd FileType rust setlocal colorcolumn=100
 autocmd FileType rust setlocal shiftwidth=4
 "}}}2
 
-"}}}1
-
-"{{{1 Built-in packages
-" packadd! matchit
 "}}}1
 
 autocmd FileType make setlocal tabstop=8
