@@ -126,6 +126,17 @@ nnoremap <unique> <Leader><F4> :qa!<CR>
 tnoremap <S-Insert> <C-W>"+
 "
 
+"{{{2 Terminal Control Left and Right to switch tabs
+nnoremap [1;5D gT
+tnoremap [1;5D gT
+nnoremap [1;5C gt
+tnoremap [1;5C gt
+"}}}2
+
+"{{{2 Launch clisp in a tab
+autocmd FileType lisp nnoremap <LocalLeader>rr :tab terminal ++close clisp<CR>
+"}}}2
+
 "}}}1
 
 "{{{1 Plugins
