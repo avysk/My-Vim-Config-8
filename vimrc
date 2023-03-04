@@ -313,16 +313,14 @@ let g:slime_vimterminal_config = {"term_finish": "close", "vertical": 1}
 
 "{{{3 vimoutliner
 Plug 'vimoutliner/vimoutliner'
-autocmd FileType votl set listchars=tab:\ \ ,trail:∴,extends:→,precedes:←,nbsp:·
+autocmd FileType votl setlocal listchars=tab:\ \ ,trail:∴,extends:→,precedes:←,nbsp:·
 "}}}
 
 "{{{3 vimwiki
 Plug 'vimwiki/vimwiki'
 let g:vimwiki_list = [
-      \ {'path': '~/vimwiki', 'list_margin': 2},
-      \ {'path': '~/Dropbox/vimwiki', 'list_margin': 2},
-      \ {'path': '~/Dropbox/vimwiki-md', 'list_margin': 2,
-      \  'syntax': 'markdown', 'ext': '.mdw'}]
+      \ {'path': '~/OneDrive/vimwiki', 'list_margin': 2},
+      \ {'path': '~/vimwiki', 'list_margin': 2} ]
 
 let g:vimwiki_ext2syntax = {}
 
