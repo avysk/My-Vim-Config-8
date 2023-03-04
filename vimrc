@@ -414,6 +414,9 @@ autocmd FileType rust setlocal shiftwidth=4
 " packadd! matchit
 "}}}1
 
+autocmd FileType make setlocal tabstop=8
+autocmd FileType make setlocal listchars=tab:⇒\ ,trail:∴,extends:→,precedes:←,nbsp:·
+
 " KEEP THOSE AT THE BOTTOM
 let s:localrc = g:_myvim_localdir . "/vimrc"
 if filereadable(s:localrc)
