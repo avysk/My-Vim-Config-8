@@ -56,3 +56,10 @@ endif
 
 " Maximize window if editing Python
 autocmd FileType python if has('gui_running') | set lines=999 | set columns=999 | endif
+
+
+" Control Left and Right to switch tabs
+nnoremap <C-Left> gT
+tnoremap <C-Left> gT
+nnoremap <C-Right> gt
+tnoremap <C-Right> gt
