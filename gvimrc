@@ -55,7 +55,9 @@ if filereadable(s:localrc)
 endif
 
 " Maximize window if editing Python
-autocmd FileType python if has('gui_running') | set lines=999 | set columns=999 | endif
+autocmd FileType python set lines=999 | set columns=999
+" Rust coding style wants line length 100
+autocmd FileType rust if winwidth('%')<107 | set columns=107 | endif
 
 
 " Control Left and Right to switch tabs
