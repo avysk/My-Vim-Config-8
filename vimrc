@@ -89,6 +89,7 @@ let g:mapleader = ' '
 
 "{{{2 Use double comma for local leader
 let g:maplocalleader = ',,'
+nnoremap <silent> <LocalLeader>T :tab terminal<CR>
 "}}}2
 
 "{{{2 Switching to writing mode
