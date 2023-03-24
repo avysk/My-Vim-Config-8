@@ -127,6 +127,21 @@ nnoremap <unique> <F10> :x<CR>
 nnoremap <unique> <Leader><F4> :qa!<CR>
 "}}}2
 
+"{{{2 Pasting in terminal
+tnoremap <S-Insert> <C-W>"+
+"
+
+"{{{2 Terminal Control Left and Right to switch tabs
+nnoremap [1;5D gT
+tnoremap [1;5D gT
+nnoremap [1;5C gt
+tnoremap [1;5C gt
+"}}}2
+
+"{{{2 Launch clisp in a tab
+autocmd FileType lisp nnoremap <LocalLeader>rr :tab terminal ++close clisp<CR>
+"}}}2
+
 "}}}1
 
 "{{{1 Plugins
@@ -321,16 +336,14 @@ let g:slime_vimterminal_config = {"term_finish": "close", "vertical": 1}
 
 "{{{3 vimoutliner
 Plug 'vimoutliner/vimoutliner'
-autocmd FileType votl set listchars=tab:\ \ ,trail:∴,extends:→,precedes:←,nbsp:·
+autocmd FileType votl setlocal listchars=tab:\ \ ,trail:∴,extends:→,precedes:←,nbsp:·
 "}}}
 
 "{{{3 vimwiki
 Plug 'vimwiki/vimwiki'
 let g:vimwiki_list = [
-      \ {'path': '~/vimwiki', 'list_margin': 2},
-      \ {'path': '~/Dropbox/vimwiki', 'list_margin': 2},
-      \ {'path': '~/Dropbox/vimwiki-md', 'list_margin': 2,
-      \  'syntax': 'markdown', 'ext': '.mdw'}]
+      \ {'path': '~/OneDrive/vimwiki', 'list_margin': 2},
+      \ {'path': '~/vimwiki', 'list_margin': 2} ]
 
 let g:vimwiki_ext2syntax = {}
 
@@ -343,14 +356,6 @@ nmap <S-F1> <Plug>VimwikiDiaryIndex
 nmap <leader><F1> <Plug>VimwikiDiaryIndex
 "}}}
 
-"{{{3 vlime
-Plug 'vlime/vlime', {'rtp': 'vim/'}
-let g:vlime_cl_impl = 'clisp'
-function! VlimeBuildServerCommandFor_clisp(vlime_loader, vlime_eval)
-    return ['clisp', '-i', a:vlime_loader,
-                   \ '-x', a:vlime_eval,
-                   \ '-repl']
-endfunction
 "}}}3
 
 call plug#end()
@@ -425,6 +430,9 @@ autocmd FileType rust setlocal shiftwidth=4
 "}}}2
 
 "}}}1
+
+autocmd FileType make setlocal tabstop=8
+autocmd FileType make setlocal listchars=tab:⇒\ ,trail:∴,extends:→,precedes:←,nbsp:·
 
 " KEEP THOSE AT THE BOTTOM
 let s:localrc = g:_myvim_localdir . "/vimrc"
