@@ -142,6 +142,12 @@ tnoremap [1;5C gt
 autocmd FileType lisp nnoremap <LocalLeader>rr :tab terminal ++close clisp<CR>
 "}}}2
 
+"{{{2 If editing src/*.rs or tests/*.rs, add shortcut to open terminal in the
+" project directory
+autocmd BufReadPost src/*.rs nnoremap <silent><unique> <LocalLeader>rr :let $projectdir=expand('%:p:h:h')<CR>:tab terminal ++close<CR> cd "$projectdir"<CR>
+autocmd BufReadPost tests/*.rs nnoremap <LocalLeader>rr <silent><unique> :let $projectdir=expand('%:p:h:h')<CR>:tab terminal ++close ++kill='term'<CR>cd "$projectdir"<CR>
+"}}}2
+
 "}}}1
 
 "{{{1 Plugins
