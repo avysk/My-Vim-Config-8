@@ -315,6 +315,15 @@ Plug 'unblevable/quick-scope'
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 "}}}3
 
+"{{{3 Neural
+if has('win32')
+  " nothing
+else
+  Plug 'dense-analysis/neural'
+  " API key setting in local vimrc => not published to git
+endif
+"}}}3
+
 "{{{3 tagbar
 Plug 'preservim/tagbar', {'on': 'TagbarToggle'}
 nmap <F12> :TagbarToggle<CR>
