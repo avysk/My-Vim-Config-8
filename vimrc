@@ -5,6 +5,9 @@ language en_US.UTF-8
 "{{{ Local paths
 if has("win32")
   let g:_myvim_configdir=$HOME . '/vimfiles'
+
+  set shell=pwsh
+  set shellcmdflag=-Command
 else
   let g:_myvim_configdir=$HOME . '/.vim'
 endif
@@ -12,6 +15,7 @@ let g:_myvim_localdir=g:_myvim_configdir . '/local'
 let s:scriptsdir=g:_myvim_configdir . '/scripts'
 let s:pluginsdir=g:_myvim_localdir . '/plugged'
 set colorcolumn=80
+
 "}}}
 
 "{{{1 General vim behaviour
@@ -89,6 +93,7 @@ let g:mapleader = ' '
 
 "{{{2 Use double comma for local leader
 let g:maplocalleader = ',,'
+nnoremap <silent> <LocalLeader>T :tab terminal<CR>
 "}}}2
 
 "{{{2 Switching to writing mode
@@ -139,6 +144,12 @@ tnoremap [1;5C gt
 
 "{{{2 Launch clisp in a tab
 autocmd FileType lisp nnoremap <LocalLeader>rr :tab terminal ++close clisp<CR>
+"}}}2
+
+"{{{2 If editing src/*.rs or tests/*.rs, add shortcut to open terminal in the
+" project directory
+autocmd BufReadPost src/*.rs nnoremap <silent><unique> <LocalLeader>rr :let $projectdir=expand('%:p:h:h')<CR>:tab terminal ++close<CR> cd "$projectdir"<CR>
+autocmd BufReadPost tests/*.rs nnoremap <LocalLeader>rr <silent><unique> :let $projectdir=expand('%:p:h:h')<CR>:tab terminal ++close ++kill='term'<CR>cd "$projectdir"<CR>
 "}}}2
 
 "}}}1
@@ -273,7 +284,7 @@ xmap <silent> <C-s> <Plug>(coc-range-select)
 nnoremap <Leader>bb :CocList buffers<CR>
 nnoremap <Leader>ff :CocList --auto-preview files<CR>
 
-let g:coc_global_extensions = ['coc-clojure', 'coc-json', 'coc-lists', 'coc-pyright', 'coc-rust-analyzer', 'coc-sh', 'coc-syntax', 'coc-toml', 'coc-ultisnips', 'coc-word']
+let g:coc_global_extensions = ['coc-clojure', 'coc-json', 'coc-julia', 'coc-lists', 'coc-pyright', 'coc-rust-analyzer', 'coc-sh', 'coc-syntax', 'coc-toml', 'coc-ultisnips', 'coc-word']
 "}}}3
 
 "{{{3 Colorschemes
@@ -306,6 +317,15 @@ Plug 'kovisoft/paredit'
 "{{{3 Quickscope
 Plug 'unblevable/quick-scope'
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+"}}}3
+
+"{{{3 Neural
+if has('win32')
+  " nothing
+else
+  Plug 'dense-analysis/neural'
+  " API key setting in local vimrc => not published to git
+endif
 "}}}3
 
 "{{{3 tagbar
