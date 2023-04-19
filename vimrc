@@ -322,6 +322,10 @@ let g:UltiSnipsJumpForwardTrigger="<Down>"
 let g:UltiSnipsJumpBackwardTrigger="<Up>"
 "}}}3
 
+"{{{3 vim-peekaboo
+Plug 'junegunn/vim-peekaboo'
+"}}}3
+
 "{{{3 vim-rainbow
 Plug 'frazrepo/vim-rainbow'
 let g:rainbow_active = 1
@@ -345,20 +349,26 @@ let g:vimwiki_list = [
       \ {'path': '~/vimwiki', 'list_margin': 2} ]
 
 let g:vimwiki_ext2syntax = {}
+let g:vimwiki_folding = 'syntax'
 
 nmap <leader>tt <Plug>VimwikiToggleListItem
-autocmd FileType vimwiki set tw=80
-autocmd FileType vimwiki set nowrap
+autocmd FileType vimwiki setlocal tw=80
+autocmd FileType vimwiki setlocal nowrap
+autocmd FileType vimwiki setlocal foldmethod=syntax
+autocmd FileType vimwiki setlocal foldlevel=2
 
 nmap <F1> <Plug>VimwikiTabMakeDiaryNote
 nmap <S-F1> <Plug>VimwikiDiaryIndex
 nmap <leader><F1> <Plug>VimwikiDiaryIndex
-"}}}
+
+" Something is broken in my setup
+autocmd FileType vimwiki syntax off
+autocmd FileType vimwiki syntax on
 
 "}}}3
 
 call plug#end()
-"}}}
+"}}}2
 
 "}}}1
 
