@@ -16,6 +16,10 @@ set colorcolumn=80
 
 "{{{1 General vim behaviour
 
+if has("win32")
+  set shell=pwsh " On Windows, use PowerShell Core
+endif
+
 " Always show signcolumn that the text does not jump when diagnostics appears
 " or GitGutter is enabled
 set signcolumn=yes
