@@ -474,4 +474,9 @@ syntax on
 filetype plugin on
 filetype indent on
 
+let s:localconsolecolor = g:_myvim_localdir . "/vimrc-colors"
+if filereadable(s:localconsolecolor)
+  exec 'source ' . s:localconsolecolor
+endif
+
 " vim:sw=2:sts=2:foldmethod=marker
