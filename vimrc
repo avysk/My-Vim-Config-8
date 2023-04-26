@@ -46,6 +46,7 @@ set viminfo='1000,<1000
 " Permanent undo
 set undofile
 let &undodir=g:_myvim_localdir . "/undo"
+call mkdir(&undodir, "p")
 set undolevels=5000
 "}}}2
 
