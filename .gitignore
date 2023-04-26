@@ -1,12 +1,11 @@
 /local/plugged/
 /local/undo/
 /local/vimrc
+/local/vimrc-colors
 /local/gvimrc
-/local/gobin/
 
 /.netrwhist
 *.sw[a-z]
 /spell/
-/black/
 /autoload/plug.vim.old
 /sessions/
