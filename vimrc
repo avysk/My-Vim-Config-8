@@ -453,6 +453,10 @@ else
 endif
 "}}}2
 
+"{{{2 Prolog
+autocmd BufNew,BufNewFile,BufRead *.pl setlocal ft=prolog | syntax on
+"}}}2
+
 "{{{2 Rust
 " Rust coding style document says so.
 autocmd FileType rust setlocal colorcolumn=100
