@@ -1,6 +1,9 @@
 {
   "coc.preferences.formatOnType": true,
   "coc.preferences.formatOnSave": true,
+  "coc.source.omni.filetypes": [
+    "ocaml"
+  ],
   "python.analysis.typeCheckingMode": "strict",
   "python.formatting.provider": "black",
   "python.formatting.blackArgs": [
