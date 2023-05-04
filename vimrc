@@ -452,6 +452,7 @@ else
   function Reformat()
     let curpos = getcurpos()
     execute "w"
+    silent execute "! [[ -a .ocamlformat ]] || touch .ocamlformat"
     silent execute "%!ocamlformat '%'"
     call setpos('.', curpos)
   endfunction
