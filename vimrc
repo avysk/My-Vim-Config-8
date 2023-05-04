@@ -441,8 +441,6 @@ else
   let g:ocaml_folding=1
   let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
 
-  let s:ocp_indent = 'source ' . g:opamshare . '/ocp-indent/vim/indent/ocaml.vim'
-  autocmd FileType ocaml exec s:ocp_indent
   execute "set rtp+=" . g:opamshare . "/merlin/vim"
   " Update merlin documentation
   execute "helptags " . g:opamshare . "/merlin/vim/doc"
@@ -450,6 +448,15 @@ else
   autocmd FileType ocaml iabbrev <buffer> _ML (*<C-M><BS><BS>vim:sw=2<C-M>*)
   autocmd FileType ocaml setlocal tw=0
   autocmd FileType ocaml setlocal shiftwidth=2
+
+  function Reformat()
+    let curpos = getcurpos()
+    execute "w"
+    silent execute "%!ocamlformat '%'"
+    call setpos('.', curpos)
+  endfunction
+
+autocmd FileType ocaml nnoremap <silent><unique> <LocalLeader>f :call Reformat()<CR>
 
 endif
 "}}}2
