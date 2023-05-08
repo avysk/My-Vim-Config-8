@@ -285,7 +285,7 @@ xmap <silent> <C-s> <Plug>(coc-range-select)
 nnoremap <Leader>bb :CocList buffers<CR>
 nnoremap <Leader>ff :CocList --auto-preview files<CR>
 
-let g:coc_global_extensions = ['coc-clojure', 'coc-json', 'coc-julia', 'coc-lists', 'coc-omni', 'coc-pyright', 'coc-rust-analyzer', 'coc-sh', 'coc-syntax', 'coc-toml', 'coc-ultisnips', 'coc-word']
+let g:coc_global_extensions = ['coc-clojure', 'coc-json', 'coc-lists', 'coc-omni', 'coc-pyright', 'coc-rust-analyzer', 'coc-sh', 'coc-syntax', 'coc-toml', 'coc-ultisnips', 'coc-word']
 "}}}3
 
 "{{{3 Colorschemes
