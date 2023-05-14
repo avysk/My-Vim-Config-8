@@ -404,10 +404,6 @@ let fortran_more_precise=1
 let fortran_do_enddo=1
 "}}}2
 
-"{{{2 Go
-autocmd FileType go setlocal nolist
-"}}}
-
 "{{{2 Python
 autocmd FileType python setlocal shiftwidth=4
 " For documentation.
