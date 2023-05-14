@@ -1,6 +1,9 @@
 {
   "coc.preferences.formatOnType": true,
   "coc.preferences.formatOnSave": true,
+  "coc.source.omni.filetypes": [
+    "ocaml"
+  ],
   "python.analysis.typeCheckingMode": "strict",
   "python.formatting.provider": "black",
   "python.formatting.blackArgs": [
@@ -35,6 +38,22 @@
       "filetypes": [
         "haskell",
         "lhaskell"
+      ]
+    },
+    "prolog-lsp": {
+      "command": "swipl",
+      "args": [
+        "-g",
+        "use_module(library(lsp_server)).",
+        "-g",
+        "lsp_server:main",
+        "-t",
+        "halt",
+        "--",
+        "stdio"
+      ],
+      "filetypes": [
+        "prolog"
       ]
     }
   }
