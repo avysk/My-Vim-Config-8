@@ -312,6 +312,14 @@ let g:gitgutter_enabled=0
 nnoremap <silent><nowait> <Leader>gg :GitGutterBufferToggle<CR>
 "}}}3
 
+"{{{3 Neoformat
+Plug 'sbdchd/neoformat'
+augroup fmt
+  autocmd!
+  autocmd BufWritePre *.cs undojoin | Neoformat
+augroup end
+
+
 "{{{3 paredit
 let g:paredit_electric_return = 1
 let g:paredit_shortmaps = 1
@@ -397,6 +405,11 @@ call plug#end()
 "}}}1
 
 "{{{1 Languages
+
+"{{{2 C#
+" Make it agree with CSharpier
+autocmd FileType cs setlocal colorcolumn=100
+"}}}2
 
 "{{{2 FORTRAN
 let fortran_free_source=1

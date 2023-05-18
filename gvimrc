@@ -58,7 +58,8 @@ endif
 autocmd FileType python set lines=999 | set columns=999
 " Rust coding style wants line length 100
 autocmd FileType rust if winwidth('%')<107 | set columns=107 | endif
-
+" CSharpier default printWidth is 100
+autocmd FileType cs if winwidth('%')<107 | set columns=107 | endif
 
 " Control Left and Right to switch tabs
 nnoremap <C-Left> gT
