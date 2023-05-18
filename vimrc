@@ -6,8 +6,8 @@ language en_US.UTF-8
 if has("win32")
   let g:_myvim_configdir=$HOME . '/vimfiles'
 
-  set shell=pwsh
-  set shellcmdflag=-Command
+  set shell=pwsh\ -nop\ -nol
+  set shellcmdflag=-c
 else
   let g:_myvim_configdir=$HOME . '/.vim'
 endif
@@ -19,10 +19,6 @@ set colorcolumn=80
 "}}}
 
 "{{{1 General vim behaviour
-
-if has("win32")
-  set shell=pwsh " On Windows, use PowerShell Core
-endif
 
 " Always show signcolumn that the text does not jump when diagnostics appears
 " or GitGutter is enabled
@@ -94,8 +90,15 @@ let g:mapleader = ' '
 
 "{{{2 Use double comma for local leader
 let g:maplocalleader = ',,'
-nnoremap <silent> <LocalLeader>T :tab terminal<CR>
 "}}}2
+
+"{{{2 Shortcut for terminal
+if has('win32')
+  nnoremap <silent> <LocalLeader>T :tab terminal ++close pwsh -nol<CR>
+else
+  nnoremap <silent> <LocalLeader>T :tab terminal<CR>
+endif
+"}}}
 
 "{{{2 Switching to writing mode
 " text in Russian
