@@ -42,11 +42,21 @@
         "--",
         "stdio"
       ],
-      "filetypes": ["prolog"]
+      "filetypes": [
+        "prolog"
+      ]
     },
     "csharp-ls": {
       "command": "csharp-ls",
-      "filetypes": ["cs"]
+      "filetypes": [
+        "cs"
+      ]
+    },
+    "fortls": {
+      "command": "fortls",
+      "filetypes": [
+        "fortran"
+      ]
     }
   }
 }
