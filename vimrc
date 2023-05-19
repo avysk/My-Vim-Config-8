@@ -313,12 +313,19 @@ nnoremap <silent><nowait> <Leader>gg :GitGutterBufferToggle<CR>
 "}}}3
 
 "{{{3 Neoformat
+let g:neoformat_for_filetypes = ["cs", "fortran"]
+function! MaybeRunNeoformat()
+  if index(g:neoformat_for_filetypes, &filetype) >= 0
+    execute "Neoformat"
+  endif
+endfunction
+
 Plug 'sbdchd/neoformat'
 augroup fmt
   autocmd!
-  autocmd BufWritePre *.cs Neoformat
+  autocmd BufWritePre * call MaybeRunNeoformat()
 augroup end
-
+"}}}3
 
 "{{{3 paredit
 let g:paredit_electric_return = 1
