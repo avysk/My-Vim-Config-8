@@ -316,7 +316,7 @@ nnoremap <silent><nowait> <Leader>gg :GitGutterBufferToggle<CR>
 Plug 'sbdchd/neoformat'
 augroup fmt
   autocmd!
-  autocmd BufWritePre *.cs undojoin | Neoformat
+  autocmd BufWritePre *.cs Neoformat
 augroup end
 
 
