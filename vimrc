@@ -8,9 +8,23 @@ if has("win32")
 
   set shell=pwsh\ -nop\ -nol
   set shellcmdflag=-c
+
 else
   let g:_myvim_configdir=$HOME . '/.vim'
+
 endif
+
+function! MyTagbarToggle()
+  if has("win32") " tagbar is broken with pwsh
+    let l:old_shell=&shell
+    set shell=cmd
+  endif
+  execute "TagbarToggle"
+  if exists("l:old_shell")
+    let &shell=l:old_shell
+  endif
+endfunction
+
 let g:_myvim_localdir=g:_myvim_configdir . '/local'
 let s:scriptsdir=g:_myvim_configdir . '/scripts'
 let s:pluginsdir=g:_myvim_localdir . '/plugged'
@@ -215,6 +229,7 @@ endfunction
 nmap <silent> <Up> :call WrapLocation('up')<CR>
 nmap <silent> <Down> :call WrapLocation('down')<CR>
 nmap <silent> <Left> :CocCommand<CR>
+nnoremap <silent> <Right> :call MyTagbarToggle()<CR>
 
 " These are straight from documentation but I do not think they work. At
 " least, not for Python.
