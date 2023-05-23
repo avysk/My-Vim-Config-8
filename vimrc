@@ -4,29 +4,15 @@ language en_US.UTF-8
 
 "{{{ Local paths
 if has("win32")
-  let g:_myvim_configdir=$HOME . '/vimfiles'
-
-  set shell=pwsh\ -nop\ -nol
-  set shellcmdflag=-c
-
+  let s:configdir=$HOME . '/vimfiles'
+  let g:_myvim_shell="pwsh -nol"
 else
-  let g:_myvim_configdir=$HOME . '/.vim'
-
+  let s:configdir=$HOME . '/.vim'
+  let g:_myvim_shell=""
 endif
-
-function! MyTagbarToggle()
-  if has("win32") " tagbar is broken with pwsh
-    let l:old_shell=&shell
-    set shell=cmd
-  endif
-  execute "TagbarToggle"
-  if exists("l:old_shell")
-    let &shell=l:old_shell
-  endif
-endfunction
-
-let g:_myvim_localdir=g:_myvim_configdir . '/local'
-let s:scriptsdir=g:_myvim_configdir . '/scripts'
+" The following setting is used in gvimrc => global
+let g:_myvim_localdir=s:configdir . '/local'
+let s:scriptsdir=s:configdir . '/scripts'
 let s:pluginsdir=g:_myvim_localdir . '/plugged'
 set colorcolumn=80
 
@@ -45,7 +31,7 @@ set expandtab
 set path+=**
 
 " Proper completion
-set wildmode=list,longest
+set wildmode=longest,list
 
 "{{{2 Information about files
 
@@ -107,46 +93,42 @@ let g:maplocalleader = ',,'
 "}}}2
 
 "{{{2 Shortcut for terminal
-if has('win32')
-  nnoremap <silent> <LocalLeader>T :tab terminal ++close pwsh -nol<CR>
-else
-  nnoremap <silent> <LocalLeader>T :tab terminal<CR>
-endif
+nnoremap <unique><silent> <LocalLeader>T :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
 "}}}
 
 "{{{2 Switching to writing mode
 " text in Russian
 let g:_myvim_rus_text_script = "source " . s:scriptsdir . "/rus_text.vim"
-nnoremap <silent> <Leader>rus :exec g:_myvim_rus_text_script<CR>
+nnoremap <silent><unique> <Leader>rus :exec g:_myvim_rus_text_script<CR>
 " text in English
 let g:_myvim_eng_text_script = "source " . s:scriptsdir . "/eng_text.vim"
-nnoremap <silent> <Leader>eng :exec g:_myvim_eng_text_script<CR>
+nnoremap <silent><unique> <Leader>eng :exec g:_myvim_eng_text_script<CR>
 "}}}2
 
 "{{{2 Remapping
 " PgDown to drop search highlighting
-nnoremap <PageDown> :nohl<CR>
-nnoremap <silent><nowait> <Leader>nh :nohl<CR>
-inoremap <PageDown> <C-O>:nohl<CR>
+nnoremap <silent><unique> <PageDown> :nohl<CR>
+nnoremap <silent><unique> <Leader>nh :nohl<CR>
+inoremap <silent><unique> <PageDown> <C-O>:nohl<CR>
 " PgUp to go to alternate file
-nnoremap <PageUp> <C-^>
-inoremap <PageUp> <C-O><C-^>
+nnoremap <silent><unique> <PageUp> <C-^>
+inoremap <silent><unique> <PageUp> <C-O><C-^>
 " For arrows up and down see Coc section
 "}}}2
 
 "{{{2 Saving files
-nnoremap <unique> <F2> :w<CR>
-inoremap <unique> <F2> <C-\><C-O>:w<CR>
+nnoremap <silent><unique> <F2> :w<CR>
+inoremap <silent><unique> <F2> <C-\><C-O>:w<CR>
 "}}}2
 
 "{{{2 Closing and opening folders
-nnoremap <unique> <F7> zM
-nnoremap <unique> <F8> zR
+nnoremap <silent><unique> <F7> zM
+nnoremap <silent><unique> <F8> zR
 "}}}2
 
 "{{{2 Exiting vim
-nnoremap <unique> <F10> :x<CR>
-nnoremap <unique> <Leader><F4> :qa!<CR>
+nnoremap <silent><unique> <F10> :x<CR>
+nnoremap <silent><unique> <Leader><F4> :qa!<CR>
 "}}}2
 
 "{{{2 Pasting in terminal
@@ -154,20 +136,14 @@ tnoremap <S-Insert> <C-W>"+
 "
 
 "{{{2 Terminal Control Left and Right to switch tabs
-nnoremap [1;5D gT
-tnoremap [1;5D gT
-nnoremap [1;5C gt
-tnoremap [1;5C gt
+nnoremap <silent><unique> [1;5D gT
+tnoremap <silent><unique> [1;5D gT
+nnoremap <silent><unique> [1;5C gt
+tnoremap <silent><unique> [1;5C gt
 "}}}2
 
 "{{{2 Launch clisp in a tab
-autocmd FileType lisp nnoremap <LocalLeader>rr :tab terminal ++close clisp<CR>
-"}}}2
-
-"{{{2 If editing src/*.rs or tests/*.rs, add shortcut to open terminal in the
-" project directory
-autocmd BufReadPost src/*.rs nnoremap <silent><unique> <LocalLeader>rr :let $projectdir=expand('%:p:h:h')<CR>:tab terminal ++close<CR> cd "$projectdir"<CR>
-autocmd BufReadPost tests/*.rs nnoremap <LocalLeader>rr <silent><unique> :let $projectdir=expand('%:p:h:h')<CR>:tab terminal ++close ++kill='term'<CR>cd "$projectdir"<CR>
+autocmd FileType lisp nnoremap <silent><unique> <LocalLeader>rr :tab terminal ++close clisp<CR>
 "}}}2
 
 "}}}1
@@ -207,8 +183,12 @@ function! WrapLocation(where)
   if !exists('b:we_have_coc_list')
     execute 'CocDiagnostics'
     execute 'lclose'
-    let b:we_have_coc_list = 'yes'
-    execute 'lfirst'
+    try
+      execute 'lfirst'
+      let b:we_have_coc_list = 'yes'
+    catch /E42/
+      echo 'No errors.'
+    endtry
     return
   endif
   if a:where == 'up'
@@ -226,24 +206,24 @@ function! WrapLocation(where)
   endif
 endfunction
 
-nmap <silent> <Up> :call WrapLocation('up')<CR>
-nmap <silent> <Down> :call WrapLocation('down')<CR>
-nmap <silent> <Left> :CocCommand<CR>
-nnoremap <silent> <Right> :call MyTagbarToggle()<CR>
+nnoremap <silent><unique> <Up> :call WrapLocation('up')<CR>
+nnoremap <silent><unique> <Down> :call WrapLocation('down')<CR>
+nnoremap <silent><unique> <Left> :CocCommand<CR>
+nnoremap <silent><unique> <Right> :call TagbarToggle()<CR>
 
 " These are straight from documentation but I do not think they work. At
 " least, not for Python.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nnoremap <silent><unique> [g <Plug>(coc-diagnostic-prev)
+nnoremap <silent><unique> ]g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nnoremap <silent><unique> gd <Plug>(coc-definition)
+nnoremap <silent><unique> gy <Plug>(coc-type-definition)
+nnoremap <silent><unique> gi <Plug>(coc-implementation)
+nnoremap <silent><unique> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window
-nnoremap <silent> K :call ShowDocumentation()<CR>
+nnoremap <silent><unique> K :call ShowDocumentation()<CR>
 
 function! ShowDocumentation()
   if CocAction('hasProvider', 'hover')
@@ -257,21 +237,21 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming
-nmap <leader>rn <Plug>(coc-rename)
+nnoremap <leader>rn <Plug>(coc-rename)
 
 " Remap keys for applying code actions at the cursor position
-nmap <leader>ac  <Plug>(coc-codeaction-cursor)
+nnoremap <leader>ac  <Plug>(coc-codeaction-cursor)
 " Remap keys for apply code actions affect whole buffer
-nmap <leader>as  <Plug>(coc-codeaction-source)
+nnoremap <leader>as  <Plug>(coc-codeaction-source)
 " Apply the most preferred quickfix action to fix diagnostic on the current line
-nmap <leader>qf  <Plug>(coc-fix-current)
+nnoremap <leader>qf  <Plug>(coc-fix-current)
 
 " Remap keys for applying refactor code actions
-nmap <silent> <leader>re <Plug>(coc-codeaction-refactor)
-nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+nnoremap <silent><unique> <leader>re <Plug>(coc-codeaction-refactor)
+nnoremap <silent><unique> <leader>r  <Plug>(coc-codeaction-refactor-selected)
 
 " Run the Code Lens action on the current line
-nmap <leader>cl  <Plug>(coc-codelens-action)
+nnoremap <leader>cl  <Plug>(coc-codelens-action)
 
 " Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server
@@ -296,8 +276,8 @@ endif
 
 " Use CTRL-S for selections ranges
 " Requires 'textDocument/selectionRange' support of language server
-nmap <silent> <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
+nnoremap <silent><unique> <C-s> <Plug>(coc-range-select)
+xmap <silent><unique> <C-s> <Plug>(coc-range-select)
 
 " Some commands for showing files and buffers
 nnoremap <Leader>bb :CocList buffers<CR>
@@ -324,7 +304,7 @@ Plug 'airblade/vim-gitgutter'
 " faster realtime updates
 " set updatetime=300
 let g:gitgutter_enabled=0
-nnoremap <silent><nowait> <Leader>gg :GitGutterBufferToggle<CR>
+nnoremap <silent><unique> <Leader>gg :GitGutterBufferToggle<CR>
 "}}}3
 
 "{{{3 Neoformat
@@ -364,7 +344,7 @@ endif
 
 "{{{3 tagbar
 Plug 'preservim/tagbar', {'on': 'TagbarToggle'}
-nmap <F12> :TagbarToggle<CR>
+nnoremap <F12> :TagbarToggle<CR>
 "}}}
 
 "{{{3 Ultisnips + vim-snippets
@@ -389,6 +369,9 @@ let g:rainbow_active = 1
 Plug 'jpalardy/vim-slime'
 let g:slime_target = "vimterminal"
 let g:slime_vimterminal_config = {"term_finish": "close", "vertical": 1}
+if has("win32")
+  let g:slime_vimterminal_cmd = g:_myvim_shell
+endif
 "}}}3
 
 "{{{3 vimoutliner
@@ -405,15 +388,16 @@ let g:vimwiki_list = [
 let g:vimwiki_ext2syntax = {}
 let g:vimwiki_folding = 'syntax'
 
-nmap <leader>tt <Plug>VimwikiToggleListItem
 autocmd FileType vimwiki setlocal tw=80
 autocmd FileType vimwiki setlocal nowrap
 autocmd FileType vimwiki setlocal foldmethod=syntax
 autocmd FileType vimwiki setlocal foldlevel=2
 
-nmap <F1> <Plug>VimwikiTabMakeDiaryNote
-nmap <S-F1> <Plug>VimwikiDiaryIndex
-nmap <leader><F1> <Plug>VimwikiDiaryIndex
+autocmd FileType vimwiki nnoremap <unique><silent> <leader>tt <Plug>VimwikiToggleListItem
+
+nnoremap <F1> <Plug>VimwikiTabMakeDiaryNote
+nnoremap <S-F1> <Plug>VimwikiDiaryIndex
+nnoremap <leader><F1> <Plug>VimwikiDiaryIndex
 
 " Something is broken in my setup
 autocmd FileType vimwiki syntax off
@@ -440,32 +424,6 @@ let fortran_fold_conditionals=1
 let fortran_fold_multilinecomments=1
 let fortran_more_precise=1
 let fortran_do_enddo=1
-"}}}2
-
-"{{{2 Python
-autocmd FileType python setlocal shiftwidth=4
-" For documentation.
-autocmd FileType python setlocal colorcolumn+=72
-
-function PythonTestFile()
-  let mybufname = bufname()
-  set shellslash
-  let myfilename = fnamemodify(mybufname, ':t')
-  let mydirname = fnamemodify(mybufname, ':.:s?^./??:h')
-  let testdirname = substitute(mydirname, '[^/]\+', 'tests', '')
-  let testname = testdirname .. '/test_' .. myfilename
-  let testbufname=bufname("^" .. testname .. '$')
-  if testbufname == ''
-    silent execute ':e ' .. testname
-  else
-    silent execute ':sb ' .. testname
-  endif
-endfunction
-" Switch to test file
-autocmd FileType python nnoremap <silent> <LocalLeader>t :call PythonTestFile()<CR>
-" Go back
-autocmd FileType python nnoremap <silent> <LocalLeader>b :silent execute ':sb ' . substitute(expand('%:t'), '^test_', '/', '')<CR>
-
 "}}}2
 
 "{{{2 OCaml
@@ -500,10 +458,47 @@ endif
 autocmd BufNew,BufNewFile,BufRead *.pl setlocal ft=prolog | syntax on
 "}}}2
 
+"{{{2 Python
+autocmd FileType python setlocal shiftwidth=4
+" For documentation.
+autocmd FileType python setlocal colorcolumn+=72
+
+function PythonTestFile()
+  let mybufname = bufname()
+  set shellslash
+  let myfilename = fnamemodify(mybufname, ':t')
+  let mydirname = fnamemodify(mybufname, ':.:s?^./??:h')
+  let testdirname = substitute(mydirname, '[^/]\+', 'tests', '')
+  let testname = testdirname .. '/test_' .. myfilename
+  let testbufname=bufname("^" .. testname .. '$')
+  if testbufname == ''
+    silent execute ':e ' .. testname
+  else
+    silent execute ':sb ' .. testname
+  endif
+endfunction
+" Switch to test file
+autocmd FileType python nnoremap <silent><unique> <LocalLeader>t :call PythonTestFile()<CR>
+" Go back
+autocmd FileType python nnoremap <silent><unique> <LocalLeader>b :silent execute ':sb ' . substitute(expand('%:t'), '^test_', '/', '')<CR>
+
+"}}}2
+
 "{{{2 Rust
 " Rust coding style document says so.
 autocmd FileType rust setlocal colorcolumn=100
 autocmd FileType rust setlocal shiftwidth=4
+"{{{3 If editing src/*.rs or tests/*.rs, add shortcut to open terminal in the
+" project directory
+autocmd BufReadPost src/*.rs nnoremap <silent><unique> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
+autocmd BufReadPost src\*.rs nnoremap <silent><unique> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
+autocmd BufReadPost ./src/*.rs nnoremap <silent><unique> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
+autocmd BufReadPost .\src\*.rs nnoremap <silent><unique> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
+autocmd BufReadPost tests/*.rs nnoremap <silent><unique> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
+autocmd BufReadPost tests\*.rs nnoremap <silent><unique> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
+autocmd BufReadPost ./tests/*.rs nnoremap <silent><unique> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
+autocmd BufReadPost .\tests\*.rs nnoremap <silent><unique> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
+"}}}3
 "}}}2
 
 "}}}1
