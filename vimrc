@@ -311,7 +311,20 @@ nnoremap <silent><unique> <Leader>gg :GitGutterBufferToggle<CR>
 let g:neoformat_for_filetypes = ["cs", "fortran"]
 function! MaybeRunNeoformat()
   if index(g:neoformat_for_filetypes, &filetype) >= 0
+    if has("win32")
+      if exists("&shell")
+        let s:shell_save = &shell
+      endif
+      let &shell = g:_myvim_shell
+    endif
     execute "Neoformat"
+    if has("win32")
+      if exists("s:shell_save")
+        let &shell = s:shell_save
+      else
+        set shell&
+      endif
+    endif
   endif
 endfunction
 
