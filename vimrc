@@ -1,3 +1,6 @@
+syntax on
+filetype plugin indent on
+
 set fileformat=unix
 set fileformats=unix,dos
 language en_US.UTF-8
@@ -143,7 +146,7 @@ tnoremap <silent><unique> [1;5C gt
 "}}}2
 
 "{{{2 Launch clisp in a tab
-autocmd FileType lisp nnoremap <silent><unique> <LocalLeader>rr :tab terminal ++close clisp<CR>
+autocmd FileType lisp nnoremap <silent> <LocalLeader>rr :tab terminal ++close clisp<CR>
 "}}}2
 
 "}}}1
@@ -155,8 +158,6 @@ call plug#begin(s:pluginsdir)
 
 "{{{3 vim-polyglot
 Plug 'sheerun/vim-polyglot'
-" Prevent vim-polyglot from breaking votl filetype detect
-let g:polyglot_disabled = ['ftdetect']
 "}}}3
 
 "{{{3 Coc
@@ -375,7 +376,6 @@ Plug 'junegunn/vim-peekaboo'
 
 "{{{3 vim-rainbow
 Plug 'frazrepo/vim-rainbow'
-let g:rainbow_active = 1
 "}}}3
 
 "{{{3 vim-slime
@@ -519,19 +519,19 @@ autocmd BufReadPost .\tests\*.rs nnoremap <silent><unique> <LocalLeader>rr :exec
 autocmd FileType make setlocal tabstop=8
 autocmd FileType make setlocal listchars=tab:⇒\ ,trail:∴,extends:→,precedes:←,nbsp:·
 
-" KEEP THOSE AT THE BOTTOM
 let s:localrc = g:_myvim_localdir . "/vimrc"
 if filereadable(s:localrc)
   exec 'source ' . s:localrc
 endif
 
-syntax on
-filetype plugin on
-filetype indent on
-
 let s:localconsolecolor = g:_myvim_localdir . "/vimrc-colors"
 if filereadable(s:localconsolecolor)
   exec 'source ' . s:localconsolecolor
 endif
+
+au FileType clojure call rainbow#load()
+au FileType lisp call rainbow#load()
+au FileType racket call rainbow#load()
+au FileType scheme call rainbow#load()
 
 " vim:sw=2:sts=2:foldmethod=marker
