@@ -54,15 +54,21 @@ if filereadable(s:localrc)
   exec 'source ' . s:localrc
 endif
 
-" Maximize window if editing Python
-autocmd FileType python set lines=999 | set columns=999
-" Rust coding style wants line length 100
-autocmd FileType rust if winwidth('%')<107 | set columns=107 | endif
-" CSharpier default printWidth is 100
-autocmd FileType cs if winwidth('%')<107 | set columns=107 | endif
+augroup WindowSize
+  " Maximize window if editing Python
+  autocmd FileType python set lines=999 | set columns=999
+  " Rust coding style wants line length 100
+  autocmd FileType rust if winwidth('%')<107 | set columns=107 | endif
+  " CSharpier default printWidth is 100
+  autocmd FileType cs if winwidth('%')<107 | set columns=107 | endif
+augroup end
 
 " Control Left and Right to switch tabs
+inoremap <C-Left> <C-O>gT
 nnoremap <C-Left> gT
-tnoremap <C-Left> gT
+tnoremap <C-Left> <C-W>gT
+inoremap <C-Right> <C-O>gt
 nnoremap <C-Right> gt
-tnoremap <C-Right> gt
+tnoremap <C-Right> <C-W>gt
+
+" vim:sw=2:sts=2:foldmethod=marker
