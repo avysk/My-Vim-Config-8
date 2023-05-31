@@ -293,7 +293,12 @@ let g:coc_global_extensions = ['coc-clojure', 'coc-json', 'coc-lists', 'coc-omni
 "}}}3
 
 "{{{3 Colorschemes
-Plug 'reedes/vim-colors-pencil' | Plug 'lifepillar/vim-solarized8'
+Plug 'arcticicestudio/nord-vim' | Plug 'reedes/vim-colors-pencil' | Plug 'lifepillar/vim-solarized8'
+nnoremap <silent><unique> <LocalLeader>cn :set background=dark<CR>:colorscheme nord<CR>
+nnoremap <silent><unique> <LocalLeader>cp :set background=dark<CR>:colorscheme pencil<CR>
+nnoremap <silent><unique> <LocalLeader>cip :set background=light<CR>:colorscheme pencil<CR>
+nnoremap <silent><unique> <LocalLeader>cs :set background=dark<CR>:colorscheme solarized8_flat<CR>
+nnoremap <silent><unique> <LocalLeader>cis :set background=light<CR>:colorscheme solarized8_flat<CR>
 "}}}3
 
 "{{{3 DrawIt
