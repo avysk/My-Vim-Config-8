@@ -391,7 +391,6 @@ endif
 
 "{{{3 vimoutliner
 Plug 'vimoutliner/vimoutliner'
-autocmd FileType votl setlocal listchars=tab:\ \ ,trail:∴,extends:→,precedes:←,nbsp:·
 "}}}
 
 "{{{3 vimwiki
@@ -474,10 +473,6 @@ autocmd BufNew,BufNewFile,BufRead *.pl setlocal ft=prolog | syntax on
 "}}}2
 
 "{{{2 Python
-autocmd FileType python setlocal shiftwidth=4
-" For documentation.
-autocmd FileType python setlocal colorcolumn+=72
-
 function PythonTestFile()
   let mybufname = bufname()
   set shellslash
@@ -492,48 +487,65 @@ function PythonTestFile()
     silent execute ':sb ' .. testname
   endif
 endfunction
-" Switch to test file
-autocmd FileType python nnoremap <silent><unique> <LocalLeader>t :call PythonTestFile()<CR>
-" Go back
-autocmd FileType python nnoremap <silent><unique> <LocalLeader>b :silent execute ':sb ' . substitute(expand('%:t'), '^test_', '/', '')<CR>
+
+augroup Python
+  autocmd!
+  autocmd FileType python setlocal shiftwidth=4
+  " For documentation.
+  autocmd FileType python setlocal colorcolumn+=72
+  " Switch to test file
+  autocmd FileType python nnoremap <silent> <LocalLeader>t :call PythonTestFile()<CR>
+  " Go back
+  autocmd FileType python nnoremap <silent> <LocalLeader>b :silent execute ':sb ' . substitute(expand('%:t'), '^test_', '/', '')<CR>
+augroup end
 
 "}}}2
 
 "{{{2 Rust
-" Rust coding style document says so.
-autocmd FileType rust setlocal colorcolumn=100
-autocmd FileType rust setlocal shiftwidth=4
+augroup RustStyle
+  autocmd!
+  " Rust coding style document says so.
+  autocmd FileType rust setlocal colorcolumn=100
+  autocmd FileType rust setlocal shiftwidth=4
+augroup end
+
 "{{{3 If editing src/*.rs or tests/*.rs, add shortcut to open terminal in the
 " project directory
-autocmd BufReadPost src/*.rs nnoremap <silent><unique> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
-autocmd BufReadPost src\*.rs nnoremap <silent><unique> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
-autocmd BufReadPost ./src/*.rs nnoremap <silent><unique> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
-autocmd BufReadPost .\src\*.rs nnoremap <silent><unique> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
-autocmd BufReadPost tests/*.rs nnoremap <silent><unique> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
-autocmd BufReadPost tests\*.rs nnoremap <silent><unique> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
-autocmd BufReadPost ./tests/*.rs nnoremap <silent><unique> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
-autocmd BufReadPost .\tests\*.rs nnoremap <silent><unique> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
+autocmd BufReadPost src/*.rs nnoremap <silent> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
+autocmd BufReadPost src\*.rs nnoremap <silent> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
+autocmd BufReadPost ./src/*.rs nnoremap <silent> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
+autocmd BufReadPost .\src\*.rs nnoremap <silent> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
+autocmd BufReadPost tests/*.rs nnoremap <silent> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
+autocmd BufReadPost tests\*.rs nnoremap <silent> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
+autocmd BufReadPost ./tests/*.rs nnoremap <silent> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
+autocmd BufReadPost .\tests\*.rs nnoremap <silent> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
 "}}}3
 "}}}2
 
 "}}}1
 
-autocmd FileType make setlocal tabstop=8
-autocmd FileType make setlocal listchars=tab:⇒\ ,trail:∴,extends:→,precedes:←,nbsp:·
+augroup Makefile
+  autocmd!
+  autocmd FileType make setlocal tabstop=8
+  autocmd FileType make setlocal listchars=tab:⇒\ ,trail:∴,extends:→,precedes:←,nbsp:·
+augroup end
 
 let s:localrc = g:_myvim_localdir . "/vimrc"
 if filereadable(s:localrc)
   exec 'source ' . s:localrc
 endif
 
-let s:localconsolecolor = g:_myvim_localdir . "/vimrc-colors"
-if filereadable(s:localconsolecolor)
-  exec 'source ' . s:localconsolecolor
-endif
+augroup Rainbow
+  autocmd!
+  au FileType clojure call rainbow#load()
+  au FileType lisp call rainbow#load()
+  au FileType racket call rainbow#load()
+  au FileType scheme call rainbow#load()
+augroup end
 
-au FileType clojure call rainbow#load()
-au FileType lisp call rainbow#load()
-au FileType racket call rainbow#load()
-au FileType scheme call rainbow#load()
-
+augroup Outliner
+  autocmd!
+  au BufReadPost *.otl setf votl
+  au FileType votl setlocal listchars=tab:\ \ ,trail:∴,extends:→,precedes:←,nbsp:·
+augroup end
 " vim:sw=2:sts=2:foldmethod=marker
