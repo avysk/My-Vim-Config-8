@@ -25,6 +25,9 @@ set colorcolumn=80
 
 set termguicolors
 
+" Sensible backspace
+set backspace=indent,eol,start
+
 " Always show signcolumn that the text does not jump when diagnostics appears
 " or GitGutter is enabled
 set signcolumn=yes
