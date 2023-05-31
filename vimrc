@@ -11,7 +11,7 @@ if has("win32")
   let g:_myvim_shell="pwsh -nol"
 else
   let s:configdir=$HOME . '/.vim'
-  let g:_myvim_shell=""
+  let g:_myvim_shell="bash"
 endif
 " The following setting is used in gvimrc => global
 let g:_myvim_localdir=s:configdir . '/local'
@@ -384,9 +384,7 @@ Plug 'frazrepo/vim-rainbow'
 Plug 'jpalardy/vim-slime'
 let g:slime_target = "vimterminal"
 let g:slime_vimterminal_config = {"term_finish": "close", "vertical": 1}
-if has("win32")
-  let g:slime_vimterminal_cmd = g:_myvim_shell
-endif
+let g:slime_vimterminal_cmd = g:_myvim_shell
 "}}}3
 
 "{{{3 vimoutliner
