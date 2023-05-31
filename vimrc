@@ -78,6 +78,7 @@ set switchbuf=usetab,split
 "}}}1
 
 "{{{1 Decorations
+set cursorcolumn " better see cursor in terminal -- unset in gvimrc
 set modeline  " this is off for Debian by default
 
 set relativenumber
