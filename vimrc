@@ -7,15 +7,15 @@ language en_US.UTF-8
 
 "{{{ Local paths
 if has("win32")
-  let s:configdir=$HOME . '/vimfiles'
+  let g:_myvim_configdir=$HOME . '/vimfiles'
   let g:_myvim_shell="pwsh -nol"
 else
-  let s:configdir=$HOME . '/.vim'
+  let g:_myvim_configdir=$HOME . '/.vim'
   let g:_myvim_shell="bash"
 endif
 " The following setting is used in gvimrc => global
-let g:_myvim_localdir=s:configdir . '/local'
-let s:scriptsdir=s:configdir . '/scripts'
+let g:_myvim_localdir=g:_myvim_configdir . '/local'
+let s:scriptsdir=g:_myvim_configdir . '/scripts'
 let s:pluginsdir=g:_myvim_localdir . '/plugged'
 set colorcolumn=80
 
