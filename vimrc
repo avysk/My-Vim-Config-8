@@ -555,4 +555,17 @@ augroup Outliner
   au BufReadPost *.otl setf votl
   au FileType votl setlocal listchars=tab:\ \ ,trail:∴,extends:→,precedes:←,nbsp:·
 augroup end
+
+if &term =~ "xterm-256color"
+  " Insert mode is green vertical line, Replace mode is blinking green block,
+  " Normal mode is orage solid block
+  let &t_SI = "\<Esc>]12;green\x7"
+  let &t_EI = "\<Esc>]12;orange\x7"
+  let &t_SR="\<Esc>]12;green\x7"
+  let &t_SI .= "\<Esc>[6 q"
+  let &t_EI .= "\<Esc>[2 q"
+  let &t_SR .= "\<Esc>[1 q"
+  " Make sure that at start the cursor is orange block
+  autocmd VimEnter * normal! :startinsert :stopinsert
+endif
 " vim:sw=2:sts=2:foldmethod=marker
