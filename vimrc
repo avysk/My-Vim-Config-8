@@ -419,11 +419,6 @@ autocmd FileType vimwiki nnoremap <unique><silent> <leader>tt <Plug>VimwikiToggl
 nnoremap <F1> <Plug>VimwikiTabMakeDiaryNote
 nnoremap <S-F1> <Plug>VimwikiDiaryIndex
 nnoremap <leader><F1> <Plug>VimwikiDiaryIndex
-
-" Something is broken in my setup
-autocmd FileType vimwiki syntax off
-autocmd FileType vimwiki syntax on
-
 "}}}3
 
 call plug#end()
@@ -568,4 +563,7 @@ if &term =~ "xterm-256color"
   " Make sure that at start the cursor is orange block
   autocmd VimEnter * normal! :startinsert :stopinsert
 endif
+" Something is broken in my setup
+autocmd FileType * syntax off
+autocmd FileType * syntax on
 " vim:sw=2:sts=2:foldmethod=marker
