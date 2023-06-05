@@ -181,9 +181,9 @@ inoremap <silent><expr> <TAB>
       \ coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-" Make <C-h> to accept selected completion item or notify coc.nvim to format
+" Make <C-a> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo
-inoremap <silent><expr> <C-h> coc#pum#visible() ? coc#pum#confirm()
+inoremap <silent><expr> <C-a> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 function! WrapLocation(where)
