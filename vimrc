@@ -386,7 +386,8 @@ Plug 'junegunn/vim-peekaboo'
 "}}}3
 
 "{{{3 vim-rainbow
-Plug 'frazrepo/vim-rainbow'
+Plug 'luochen1990/rainbow'
+let g:rainbow_active = 1
 "}}}3
 
 "{{{3 vim-slime
@@ -537,14 +538,6 @@ if filereadable(s:localrc)
   exec 'source ' . s:localrc
 endif
 
-augroup Rainbow
-  autocmd!
-  au FileType clojure call rainbow#load()
-  au FileType lisp call rainbow#load()
-  au FileType racket call rainbow#load()
-  au FileType scheme call rainbow#load()
-augroup end
-
 augroup Outliner
   autocmd!
   au BufReadPost *.otl setf votl
@@ -563,7 +556,4 @@ if &term =~ "xterm-256color"
   " Make sure that at start the cursor is orange block
   autocmd VimEnter * normal! :startinsert :stopinsert
 endif
-" Something is broken in my setup
-autocmd FileType * syntax off
-autocmd FileType * syntax on
 " vim:sw=2:sts=2:foldmethod=marker
