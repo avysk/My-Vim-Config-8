@@ -556,4 +556,12 @@ if &term =~ "xterm-256color"
   " Make sure that at start the cursor is orange block
   autocmd VimEnter * normal! :startinsert :stopinsert
 endif
+
+packadd termdebug
+let g:termdebug_wide = 1
+augroup TermdebugColors
+  autocmd!
+  autocmd Colorscheme * hi! link debugPC PmenuSbar
+  autocmd Colorscheme * hi! link debugBreakpoint WarningMsg
+augroup end
 " vim:sw=2:sts=2:foldmethod=marker
