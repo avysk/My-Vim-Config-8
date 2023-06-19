@@ -458,9 +458,13 @@ else
   " Update merlin documentation
   execute "helptags " . g:opamshare . "/merlin/vim/doc"
 
-  autocmd FileType ocaml iabbrev <buffer> _ML (*<C-M><BS><BS>vim:sw=2<C-M>*)
-  autocmd FileType ocaml setlocal tw=0
-  autocmd FileType ocaml setlocal shiftwidth=2
+  augroup OCaml
+    autocmd!
+    autocmd FileType ocaml iabbrev <buffer> _ML (*<C-M><BS><BS>vim:sw=2<C-M>*)
+    autocmd FileType ocaml setlocal tw=0
+    autocmd FileType ocaml setlocal shiftwidth=2
+    autocmd FileType ocaml nnoremap <buffer><silent><unique> <LocalLeader>f :call Reformat()<CR>
+  augroup end
 
   function Reformat()
     let curpos = getcurpos()
@@ -469,8 +473,6 @@ else
     silent execute "%!ocamlformat '%'"
     call setpos('.', curpos)
   endfunction
-
-autocmd FileType ocaml nnoremap <silent><unique> <LocalLeader>f :call Reformat()<CR>
 
 endif
 "}}}2
