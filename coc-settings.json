@@ -67,6 +67,12 @@
       "filetypes": [
         "fortran"
       ]
+    },
+    "coffeesense": {
+      "command": "coffeesense-language-server",
+      "filetypes": [
+        "coffee"
+      ]
     }
   }
 }
