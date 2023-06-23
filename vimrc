@@ -381,6 +381,10 @@ let g:UltiSnipsJumpForwardTrigger="<Down>"
 let g:UltiSnipsJumpBackwardTrigger="<Up>"
 "}}}3
 
+"{{{3 vim-fullscreen
+Plug 'lambdalisue/vim-fullscreen'
+"}}}3
+
 "{{{3 vim-msx-colors
 Plug 'avysk/vim-msx-colors'
 "}}}3
