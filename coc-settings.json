@@ -64,6 +64,9 @@
     },
     "fortls": {
       "command": "fortls",
+      "args": [
+        "--lowercase_intrinsics"
+      ],
       "filetypes": [
         "fortran"
       ]
