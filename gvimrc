@@ -72,4 +72,6 @@ inoremap <C-Right> <C-O>gt
 nnoremap <C-Right> gt
 tnoremap <C-Right> <C-W>gt
 
+set guioptions-=L " no scrollbar
+
 " vim:sw=2:sts=2:foldmethod=marker
