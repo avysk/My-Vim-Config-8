@@ -73,5 +73,6 @@ nnoremap <C-Right> gt
 tnoremap <C-Right> <C-W>gt
 
 set guioptions-=L " no scrollbar
+set guioptions-=e " no graphical tabline"
 
 " vim:sw=2:sts=2:foldmethod=marker
