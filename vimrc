@@ -185,6 +185,10 @@ inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 " <C-g>u breaks current undo
 inoremap <silent><expr> <C-a> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" Same for control-space
+inoremap <silent><expr> <C-@> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 
 function! WrapLocation(where)
   if !exists('b:we_have_coc_list')
@@ -216,7 +220,7 @@ endfunction
 nnoremap <silent><unique> <Up> :call WrapLocation('up')<CR>
 nnoremap <silent><unique> <Down> :call WrapLocation('down')<CR>
 nnoremap <silent><unique> <Left> :CocCommand<CR>
-nnoremap <silent><unique> <Right> :call TagbarToggle()<CR>
+nnoremap <silent><unique> <Right> :TagbarToggle "fc"<CR>
 
 " These are straight from documentation but I do not think they work. At
 " least, not for Python.
@@ -369,7 +373,7 @@ endif
 
 "{{{3 tagbar
 Plug 'preservim/tagbar', {'on': 'TagbarToggle'}
-nnoremap <F12> :TagbarToggle<CR>
+nnoremap <silent><unique> <F12> :TagbarToggle "fc"<CR>
 "}}}
 
 "{{{3 Ultisnips + vim-snippets
