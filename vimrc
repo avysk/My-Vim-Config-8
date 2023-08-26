@@ -587,4 +587,21 @@ augroup TermdebugColors
   autocmd Colorscheme * hi! link debugPC PmenuSbar
   autocmd Colorscheme * hi! link debugBreakpoint WarningMsg
 augroup end
+
+if !empty($TMUX)
+  let s:session = system("tmux display-message -p '#{client_session}'")
+  if s:session =~ "msx"
+    " In tmux 'msx' session I want to use 'msx' colorscheme
+    augroup FixRainbow
+      autocmd!
+      au BufEnter * colorscheme msx
+    augroup END
+  else
+    colorscheme nord
+  endif
+else
+  set background=dark
+  colorscheme solarized8_flat
+endif
+
 " vim:sw=2:sts=2:foldmethod=marker
