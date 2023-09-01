@@ -82,6 +82,12 @@
       "filetypes": [
         "coffee"
       ]
+    },
+    "awk-lsp": {
+      "command": "awk-language-server",
+      "filetypes": [
+        "awk"
+      ]
     }
   }
 }
