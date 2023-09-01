@@ -22,6 +22,12 @@
   "pyright.inlayHints.variableTypes": false,
   "pyright.testing.provider": "pytest",
   "rust-analyzer.server.path": "rust-analyzer",
+  "rust-analyzer.check.command": "clippy",
+  "workspace.ignoredFolders": [
+    "$HOME",
+    "$HOME/.cargo/**",
+    "$HOME/.rustup/**"
+  ],
   "languageserver": {
     "haskell": {
       "command": "haskell-language-server-wrapper",
