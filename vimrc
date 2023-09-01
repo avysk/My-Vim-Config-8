@@ -123,6 +123,16 @@ inoremap <silent><unique> <PageDown> <C-O>:nohl<CR>
 nnoremap <silent><unique> <PageUp> <C-^>
 inoremap <silent><unique> <PageUp> <C-O><C-^>
 " For arrows up and down see Coc section
+" Do not enter ex mode by acident
+nnoremap <silent><unique><nowait> Q :
+"}}}2
+
+"{{{2 Convenience mappings
+" Command without shift
+nnoremap <unique><nowait> <Leader>; :
+
+nnoremap <silent><unique><nowait> <Leader>q :q<CR>
+nnoremap <silent><unique><nowait> <Leader>x :x<CR>
 "}}}2
 
 "{{{2 Saving files
@@ -254,8 +264,6 @@ nnoremap <leader>rn <Plug>(coc-rename)
 nnoremap <leader>ac  <Plug>(coc-codeaction-cursor)
 " Remap keys for apply code actions affect whole buffer
 nnoremap <leader>as  <Plug>(coc-codeaction-source)
-" Apply the most preferred quickfix action to fix diagnostic on the current line
-nnoremap <leader>qf  <Plug>(coc-fix-current)
 
 " Remap keys for applying refactor code actions
 nnoremap <silent><unique> <leader>re <Plug>(coc-codeaction-refactor)
