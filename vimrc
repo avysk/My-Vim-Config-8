@@ -102,7 +102,7 @@ let g:maplocalleader = ',,'
 "}}}2
 
 "{{{2 Shortcut for terminal
-nnoremap <unique><silent> <LocalLeader>T :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
+noremap <unique><silent> <Leader>T :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
 "}}}
 
 "{{{2 Switching to writing mode
