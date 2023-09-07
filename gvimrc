@@ -64,7 +64,12 @@ inoremap <C-Right> <C-O>gt
 nnoremap <C-Right> gt
 tnoremap <C-Right> <C-W>gt
 
-set guioptions-=L " no scrollbar
+set guioptions-=L " no  left-hand scrollbar
 set guioptions-=e " no graphical tabline"
 
+" KEEP AT THE BOTTOM
+let s:localrc = g:_myvim_localdir . "/gvimrc"
+if filereadable(s:localrc)
+  exec 'source ' . s:localrc
+endif
 " vim:sw=2:sts=2:foldmethod=marker
