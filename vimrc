@@ -102,7 +102,7 @@ let g:maplocalleader = ',,'
 "}}}2
 
 "{{{2 Shortcut for terminal
-nnoremap <unique><silent> <LocalLeader>T :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
+noremap <unique><silent> <Leader>T :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
 "}}}
 
 "{{{2 Switching to writing mode
@@ -123,6 +123,16 @@ inoremap <silent><unique> <PageDown> <C-O>:nohl<CR>
 nnoremap <silent><unique> <PageUp> <C-^>
 inoremap <silent><unique> <PageUp> <C-O><C-^>
 " For arrows up and down see Coc section
+" Do not enter ex mode by acident
+nnoremap <silent><unique><nowait> Q :
+"}}}2
+
+"{{{2 Convenience mappings
+" Command without shift
+nnoremap <unique><nowait> <Leader>; :
+
+nnoremap <silent><unique><nowait> <Leader>q :q<CR>
+nnoremap <silent><unique><nowait> <Leader>x :x<CR>
 "}}}2
 
 "{{{2 Saving files
@@ -258,8 +268,6 @@ nnoremap <leader>rn <Plug>(coc-rename)
 nnoremap <leader>ac  <Plug>(coc-codeaction-cursor)
 " Remap keys for apply code actions affect whole buffer
 nnoremap <leader>as  <Plug>(coc-codeaction-source)
-" Apply the most preferred quickfix action to fix diagnostic on the current line
-nnoremap <leader>qf  <Plug>(coc-fix-current)
 
 " Remap keys for applying refactor code actions
 nnoremap <silent><unique> <leader>re <Plug>(coc-codeaction-refactor)
@@ -591,4 +599,21 @@ augroup TermdebugColors
   autocmd Colorscheme * hi! link debugPC PmenuSbar
   autocmd Colorscheme * hi! link debugBreakpoint WarningMsg
 augroup end
+
+if !empty($TMUX)
+  let s:session = system("tmux display-message -p '#{client_session}'")
+  if s:session =~ "msx"
+    " In tmux 'msx' session I want to use 'msx' colorscheme
+    augroup FixRainbow
+      autocmd!
+      au BufEnter * colorscheme msx
+    augroup END
+  else
+    colorscheme nord
+  endif
+else
+  set background=dark
+  colorscheme solarized8_flat
+endif
+
 " vim:sw=2:sts=2:foldmethod=marker
