@@ -568,11 +568,6 @@ augroup Makefile
   autocmd FileType make setlocal listchars=tab:⇒\ ,trail:∴,extends:→,precedes:←,nbsp:·
 augroup end
 
-let s:localrc = g:_myvim_localdir . "/vimrc"
-if filereadable(s:localrc)
-  exec 'source ' . s:localrc
-endif
-
 augroup Outliner
   autocmd!
   au BufReadPost *.otl setf votl
@@ -614,6 +609,11 @@ if !empty($TMUX)
 else
   set background=dark
   colorscheme solarized8_flat
+endif
+
+let s:localrc = g:_myvim_localdir . "/vimrc"
+if filereadable(s:localrc)
+  exec 'source ' . s:localrc
 endif
 
 " vim:sw=2:sts=2:foldmethod=marker
