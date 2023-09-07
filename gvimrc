@@ -51,19 +51,9 @@ set columns=87
 set list
 set listchars=tab:⇒…,trail:∴,extends:→,precedes:←,nbsp:·
 
-" KEEP AT THE BOTTOM
-let s:localrc = g:_myvim_localdir . "/gvimrc"
-if filereadable(s:localrc)
-  exec 'source ' . s:localrc
-endif
-
 augroup WindowSize
   " Maximize window if editing Python
-  autocmd FileType python set lines=999 | set columns=999
-  " Rust coding style wants line length 100
-  autocmd FileType rust if winwidth('%')<107 | set columns=107 | endif
-  " CSharpier default printWidth is 100
-  autocmd FileType cs if winwidth('%')<107 | set columns=107 | endif
+  autocmd FileType python if !exists('g:fullscreen#status') || (g:fullscreen#status != 1) | call fullscreen#start() | endif
 augroup end
 
 " Control Left and Right to switch tabs
