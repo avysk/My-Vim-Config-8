@@ -9,11 +9,11 @@ if has("gui_macvim")
         set guifont=Fira\ Code\ Retina:h14
         set columns=164
         set lines=50
-        set guioptions-=r
+        set guioptions-=r " No right-hand scrollbar
         set fuoptions=maxvert,maxhorz
         " The IM behaviour is too strange for my taste so
         set imdisable
-        map <Leader>font :set guifont=Cousine:h16<C-M>
+        nnoremap <unique><silent> <Leader>font :set guifont=Cousine:h16<C-M>
 
         amenu <silent> TouchBar.Light :set background=light<CR>
         amenu <silent> TouchBar.Dark :set background=dark<CR>
@@ -29,14 +29,16 @@ if has("gui_macvim")
 endif
 
 if has("gui_gtk3")
-        set guioptions=aegimrLt
         set guioptions=aci
 endif
 
 if has("win32")
-        set guifont=Iosevka:h14:cRUSSIAN:qDEFAULT
-        set guioptions-=T
-        set guioptions-=r
+        " Rust/C# wants line length of 100. With this font and this size on my
+        " monitor I can have vertical split
+        set guifont=Iosevka:h18:cRUSSIAN:qDEFAULT
+        nnoremap <unique><silent> <Leader>font :set guifont=Iosevka:h18:cRUSSIAN:qDEFAULT<CR>
+        set guioptions-=T " No toolbar
+        set guioptions-=r " No right-hand scrollbar
 endif
 
 if has("directx")
