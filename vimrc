@@ -181,13 +181,17 @@ inoremap <silent><expr> <TAB>
       \ coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-" Make <C-a> to accept selected completion item or notify coc.nvim to format
-" <C-g>u breaks current undo
-inoremap <silent><expr> <C-a> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" Make <C-a> to accept selected completion item
+inoremap <silent><expr> <C-a> coc#pum#visible() ? coc#pum#confirm() : "<C-a>"
 " Same for control-space
-inoremap <silent><expr> <C-@> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <C-@> coc#pum#visible() ? coc#pum#confirm() : "<C-@>"
+" Same for shift-right arrow
+inoremap <silent><expr> <S-Right> coc#pum#visible() ? coc#pum#confirm() : "<S-Right>"
+
+" Alt-Space on Windows
+if has('win32')
+  inoremap <silent><expr>   coc#pum#visible() ? coc#pum#confirm() : " "
+endif
 
 
 function! WrapLocation(where)
@@ -299,11 +303,11 @@ let g:coc_global_extensions = ['coc-clojure', 'coc-json', 'coc-lists', 'coc-omni
 
 "{{{3 Colorschemes
 Plug 'arcticicestudio/nord-vim' | Plug 'reedes/vim-colors-pencil' | Plug 'lifepillar/vim-solarized8'
-nnoremap <silent><unique> <LocalLeader>cn :set background=dark<CR>:colorscheme nord<CR>
-nnoremap <silent><unique> <LocalLeader>cp :set background=dark<CR>:colorscheme pencil<CR>
-nnoremap <silent><unique> <LocalLeader>cip :set background=light<CR>:colorscheme pencil<CR>
-nnoremap <silent><unique> <LocalLeader>cs :set background=dark<CR>:colorscheme solarized8_flat<CR>
-nnoremap <silent><unique> <LocalLeader>cis :set background=light<CR>:colorscheme solarized8_flat<CR>
+nnoremap <silent><unique> <Leader>cn :set background=dark<CR>:colorscheme nord<CR>
+nnoremap <silent><unique> <Leader>cp :set background=dark<CR>:colorscheme pencil<CR>
+nnoremap <silent><unique> <Leader>cip :set background=light<CR>:colorscheme pencil<CR>
+nnoremap <silent><unique> <Leader>cs :set background=dark<CR>:colorscheme solarized8_flat<CR>
+nnoremap <silent><unique> <Leader>cis :set background=light<CR>:colorscheme solarized8_flat<CR>
 "}}}3
 
 "{{{3 DrawIt
