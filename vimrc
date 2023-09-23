@@ -310,12 +310,13 @@ let g:coc_global_extensions = ['coc-clojure', 'coc-json', 'coc-lists', 'coc-omni
 "}}}3
 
 "{{{3 Colorschemes
-Plug 'arcticicestudio/nord-vim' | Plug 'reedes/vim-colors-pencil' | Plug 'lifepillar/vim-solarized8'
+Plug 'arcticicestudio/nord-vim' | Plug 'reedes/vim-colors-pencil' | Plug 'lifepillar/vim-solarized8' | Plug 'avysk/vim-msx-colors'
 nnoremap <silent><unique> <Leader>cn :set background=dark<CR>:colorscheme nord<CR>
 nnoremap <silent><unique> <Leader>cp :set background=dark<CR>:colorscheme pencil<CR>
 nnoremap <silent><unique> <Leader>cip :set background=light<CR>:colorscheme pencil<CR>
 nnoremap <silent><unique> <Leader>cs :set background=dark<CR>:colorscheme solarized8_flat<CR>
 nnoremap <silent><unique> <Leader>cis :set background=light<CR>:colorscheme solarized8_flat<CR>
+nnoremap <silent><unique> <Leader>cm :colorscheme msx<CR>
 "}}}3
 
 "{{{3 DrawIt
@@ -407,10 +408,6 @@ Plug 'avysk/vim-fortran-fpm-msx'
 
 "{{{3 vim-fullscreen
 Plug 'lambdalisue/vim-fullscreen'
-"}}}3
-
-"{{{3 vim-msx-colors
-Plug 'avysk/vim-msx-colors'
 "}}}3
 
 "{{{3 vim-peekaboo
