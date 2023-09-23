@@ -197,6 +197,8 @@ inoremap <silent><expr> <C-a> coc#pum#visible() ? coc#pum#confirm() : "<C-a>"
 inoremap <silent><expr> <C-@> coc#pum#visible() ? coc#pum#confirm() : "<C-@>"
 " Same for shift-right arrow
 inoremap <silent><expr> <S-Right> coc#pum#visible() ? coc#pum#confirm() : "<S-Right>"
+" Same for keypad insert
+inoremap <silent><expr> <kInsert> coc#pum#visible() ? coc#pum#confirm() : "<kInsert>"
 
 " Alt-Space on Windows
 if has('win32')
