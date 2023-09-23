@@ -429,6 +429,10 @@ let g:slime_vimterminal_config = {"term_finish": "close", "vertical": 1}
 let g:slime_vimterminal_cmd = g:_myvim_shell
 "}}}3
 
+"{{{3 vim-surround
+Plug 'tpope/vim-surround'
+"}}}3
+
 "{{{3 vimoutliner
 Plug 'vimoutliner/vimoutliner'
 "}}}
