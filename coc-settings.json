@@ -89,6 +89,12 @@
       "filetypes": [
         "awk"
       ]
+    },
+    "ocamllsp": {
+      "command": "ocamllsp",
+      "filetypes": [
+        "ocaml"
+      ]
     }
   }
 }
