@@ -28,7 +28,6 @@
     "$HOME/.cargo/**",
     "$HOME/.rustup/**"
   ],
-  "sourcekit.commandPath": "sourcekit-lsp",
   "languageserver": {
     "haskell": {
       "command": "haskell-language-server-wrapper",
