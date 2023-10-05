@@ -339,6 +339,7 @@ nnoremap <silent><unique> <Leader>gg :GitGutterBufferToggle<CR>
 "}}}3
 
 "{{{3 Neoformat
+let g:neoformat_enabled_cs = ["csharpier"]
 let g:neoformat_for_filetypes = ["cs", "fortran"]
 function! MaybeRunNeoformat()
   if index(g:neoformat_for_filetypes, &filetype) >= 0
@@ -348,7 +349,7 @@ function! MaybeRunNeoformat()
       endif
       let &shell = g:_myvim_shell
     endif
-    execute "Neoformat"
+    execute "undojoin | Neoformat"
     if has("win32")
       if exists("s:shell_save")
         let &shell = s:shell_save
@@ -465,7 +466,7 @@ call plug#end()
 "{{{1 Languages
 
 "{{{2 C#
-" Make it agree with CSharpier
+" Make it agree with csharpier
 autocmd FileType cs setlocal colorcolumn=100
 "}}}2
 
