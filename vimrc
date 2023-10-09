@@ -93,7 +93,7 @@ set showcmd
 
 "{{{1 Bindings
 
-source mappings.vim
+execute "source " .. g:_myvim_configdir .. "/mappings.vim"
 " text in Russian
 let g:_myvim_rus_text_script = "source " . s:scriptsdir . "/rus_text.vim"
 nnoremap <silent><unique> <Leader>rus :exec g:_myvim_rus_text_script<CR>
@@ -121,7 +121,7 @@ Plug 'sheerun/vim-polyglot'
 
 "{{{3 Coc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-source coc.vim
+execute "source " .. g:_myvim_configdir .. "/coc.vim"
 "}}}3
 
 "{{{3 Colorschemes
