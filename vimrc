@@ -551,6 +551,12 @@ augroup RustStyle
   autocmd FileType rust setlocal shiftwidth=4
 augroup end
 
+augroup RustSetup
+  autocmd!
+  " -> means function type return; I do not want beeps here
+  autocmd FileType rust setlocal mps-=<:>
+augroup END
+
 "{{{3 If editing src/*.rs or tests/*.rs, add shortcut to open terminal in the
 " project directory
 autocmd BufReadPost src/*.rs nnoremap <silent> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
