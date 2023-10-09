@@ -93,19 +93,7 @@ set showcmd
 
 "{{{1 Bindings
 
-"{{{2 Use space for leader
-let g:mapleader = ' '
-"}}}2
-
-"{{{2 Use double comma for local leader
-let g:maplocalleader = ',,'
-"}}}2
-
-"{{{2 Shortcut for terminal
-noremap <unique><silent> <Leader>T :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
-"}}}
-
-"{{{2 Switching to writing mode
+source mappings.vim
 " text in Russian
 let g:_myvim_rus_text_script = "source " . s:scriptsdir . "/rus_text.vim"
 nnoremap <silent><unique> <Leader>rus :exec g:_myvim_rus_text_script<CR>
@@ -114,52 +102,7 @@ let g:_myvim_eng_text_script = "source " . s:scriptsdir . "/eng_text.vim"
 nnoremap <silent><unique> <Leader>eng :exec g:_myvim_eng_text_script<CR>
 "}}}2
 
-"{{{2 Remapping
-" PgDown to drop search highlighting
-nnoremap <silent><unique> <PageDown> :nohl<CR>
-nnoremap <silent><unique> <Leader>nh :nohl<CR>
-inoremap <silent><unique> <PageDown> <C-O>:nohl<CR>
-" PgUp to go to alternate file
-nnoremap <silent><unique> <PageUp> <C-^>
-inoremap <silent><unique> <PageUp> <C-O><C-^>
 " For arrows up and down see Coc section
-" Do not enter ex mode by acident
-nnoremap <silent><unique><nowait> Q :
-"}}}2
-
-"{{{2 Convenience mappings
-" Command without shift
-nnoremap <unique><nowait> <Leader>; :
-
-nnoremap <silent><unique><nowait> <Leader>q :q<CR>
-nnoremap <silent><unique><nowait> <Leader>x :x<CR>
-"}}}2
-
-"{{{2 Saving files
-nnoremap <silent><unique> <F2> :w<CR>
-inoremap <silent><unique> <F2> <C-\><C-O>:w<CR>
-"}}}2
-
-"{{{2 Closing and opening folders
-nnoremap <silent><unique> <F7> zM
-nnoremap <silent><unique> <F8> zR
-"}}}2
-
-"{{{2 Exiting vim
-nnoremap <silent><unique> <F10> :x<CR>
-nnoremap <silent><unique> <Leader><F4> :qa!<CR>
-"}}}2
-
-"{{{2 Pasting in terminal
-tnoremap <S-Insert> <C-W>"+
-"
-
-"{{{2 Terminal Control Left and Right to switch tabs
-nnoremap <silent><unique> [1;5D gT
-tnoremap <silent><unique> [1;5D gT
-nnoremap <silent><unique> [1;5C gt
-tnoremap <silent><unique> [1;5C gt
-"}}}2
 
 "{{{2 Launch clisp in a tab
 autocmd FileType lisp nnoremap <silent> <LocalLeader>rr :tab terminal ++close clisp<CR>
@@ -236,7 +179,6 @@ endfunction
 nnoremap <silent><unique> <Up> :call WrapLocation('up')<CR>
 nnoremap <silent><unique> <Down> :call WrapLocation('down')<CR>
 nnoremap <silent><unique> <Left> :CocCommand<CR>
-nnoremap <silent><unique> <Right> :TagbarToggle "fc"<CR>
 
 " These are straight from documentation but I do not think they work. At
 " least, not for Python.
@@ -304,21 +246,11 @@ endif
 nnoremap <silent><unique> <C-s> <Plug>(coc-range-select)
 xmap <silent><unique> <C-s> <Plug>(coc-range-select)
 
-" Some commands for showing files and buffers
-nnoremap <Leader>bb :CocList buffers<CR>
-nnoremap <Leader>ff :CocList --auto-preview files<CR>
-
 let g:coc_global_extensions = ['coc-clojure', 'coc-json', 'coc-lists', 'coc-omni', 'coc-pyright', 'coc-rust-analyzer', 'coc-sh', 'coc-syntax', 'coc-toml', 'coc-ultisnips', 'coc-vimlsp', 'coc-word']
 "}}}3
 
 "{{{3 Colorschemes
 Plug 'arcticicestudio/nord-vim' | Plug 'reedes/vim-colors-pencil' | Plug 'lifepillar/vim-solarized8' | Plug 'avysk/vim-msx-colors'
-nnoremap <silent><unique> <Leader>cn :set background=dark<CR>:colorscheme nord<CR>
-nnoremap <silent><unique> <Leader>cp :set background=dark<CR>:colorscheme pencil<CR>
-nnoremap <silent><unique> <Leader>cip :set background=light<CR>:colorscheme pencil<CR>
-nnoremap <silent><unique> <Leader>cs :set background=dark<CR>:colorscheme solarized8_flat<CR>
-nnoremap <silent><unique> <Leader>cis :set background=light<CR>:colorscheme solarized8_flat<CR>
-nnoremap <silent><unique> <Leader>cm :colorscheme msx<CR>
 "}}}3
 
 "{{{3 DrawIt
@@ -335,7 +267,6 @@ Plug 'airblade/vim-gitgutter'
 " faster realtime updates
 " set updatetime=300
 let g:gitgutter_enabled=0
-nnoremap <silent><unique> <Leader>gg :GitGutterBufferToggle<CR>
 "}}}3
 
 "{{{3 Neoformat
@@ -389,7 +320,6 @@ endif
 
 "{{{3 tagbar
 Plug 'preservim/tagbar', {'on': 'TagbarToggle'}
-nnoremap <silent><unique> <F12> :TagbarToggle "fc"<CR>
 "}}}
 
 "{{{3 Ultisnips + vim-snippets
