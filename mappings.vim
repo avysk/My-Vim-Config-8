@@ -34,7 +34,5 @@ nnoremap <silent><unique><nowait> <Leader>cip :set background=light<CR>:colorsch
 nnoremap <silent><unique><nowait> <Leader>cs :set background=dark<CR>:colorscheme solarized8_flat<CR>
 nnoremap <silent><unique><nowait> <Leader>cis :set background=light<CR>:colorscheme solarized8_flat<CR>
 nnoremap <silent><unique><nowait> <Leader>cm :colorscheme msx<CR>
-nnoremap <Leader>bb :CocList buffers<CR>
-nnoremap <Leader>ff :CocList --auto-preview files<CR>
 nnoremap <silent><unique><nowait> <F12> :TagbarToggle "fc"<CR>
 nnoremap <silent><unique><nowait> <Right> :TagbarToggle "fc"<CR>
