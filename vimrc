@@ -256,7 +256,7 @@ autocmd FileType vimwiki setlocal nowrap
 autocmd FileType vimwiki setlocal foldmethod=syntax
 autocmd FileType vimwiki setlocal foldlevel=2
 
-autocmd FileType vimwiki nnoremap <unique><silent> <leader>tt <Plug>VimwikiToggleListItem
+autocmd FileType vimwiki ++once nnoremap <unique><silent> <leader>tt <Plug>VimwikiToggleListItem
 
 nnoremap <F1> <Plug>VimwikiTabMakeDiaryNote
 nnoremap <S-F1> <Plug>VimwikiDiaryIndex
