@@ -62,12 +62,6 @@
         "prolog"
       ]
     },
-    "csharp-ls": {
-      "command": "csharp-ls",
-      "filetypes": [
-        "cs"
-      ]
-    },
     "fortls": {
       "command": "fortls",
       "args": [
