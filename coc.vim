@@ -53,6 +53,12 @@ function! WrapLocation(where)
   endif
 endfunction
 
+augroup CocHelper
+  autocmd!
+  autocmd TextChanged * if exists("b:we_have_coc_list") | unlet b:we_have_coc_list | endif
+augroup END
+
+
 nnoremap <silent><unique> <Up> :call WrapLocation('up')<CR>
 nnoremap <silent><unique> <Down> :call WrapLocation('down')<CR>
 nnoremap <silent><unique> <Left> :CocCommand<CR>
