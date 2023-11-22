@@ -18,6 +18,7 @@
   ],
   "python.linting.pylintEnabled": true,
   "python.linting.ruffEnabled": true,
+  "pyright.organizeimports.provider": "ruff",
   "pyright.inlayHints.functionReturnTypes": false,
   "pyright.inlayHints.variableTypes": false,
   "pyright.testing.provider": "pytest",

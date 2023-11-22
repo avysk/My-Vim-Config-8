@@ -344,6 +344,7 @@ augroup Python
   autocmd FileType python nnoremap <silent> <LocalLeader>t :call PythonTestFile()<CR>
   " Go back
   autocmd FileType python nnoremap <silent> <LocalLeader>b :silent execute ':sb ' . substitute(expand('%:t'), '^test_', '/', '')<CR>
+  autocmd BufWritePre *.py CocCommand python.sortImports
 augroup end
 
 "}}}2
