@@ -108,6 +108,6 @@ vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(
 nnoremap <silent><unique> <C-s> <Plug>(coc-range-select)
 xmap <silent><unique> <C-s> <Plug>(coc-range-select)
 
-let g:coc_global_extensions = ['coc-clojure', 'coc-json', 'coc-lists', 'coc-omni', 'coc-pyright', 'coc-rust-analyzer', 'coc-sh', 'coc-syntax', 'coc-toml', 'coc-ultisnips', 'coc-vimlsp', 'coc-word']
+let g:coc_global_extensions = ['coc-clojure', 'coc-json', 'coc-lists', 'coc-omni', 'coc-pyright', 'coc-rust-analyzer', 'coc-sh', 'coc-syntax', 'coc-toml', 'coc-ultisnips', 'coc-vimlsp']
 nnoremap <Leader>bb :CocList buffers<CR>
 nnoremap <Leader>ff :CocList --auto-preview files<CR>
