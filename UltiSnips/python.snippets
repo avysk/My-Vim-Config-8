@@ -1,4 +1,4 @@
-snippet tf "Start testfile" bA
+snippet "^tf" "Start testfile" rbA
 """
 Tests for $1.
 """
@@ -10,19 +10,31 @@ import $1
 $0
 endsnippet
 
-snippet ptf "PyTest test function" bA
-def test_$1() -> None:
+snippet "^ptf" "PyTest test function" rbA
+def test_$1($2) -> None:
     """
-    $2
+    $3
     """
     $0
 endsnippet
 
-snippet pptf "Parametrized PyTest test function" bA
+snippet "^pptf" "Parametrized PyTest test function" rbA
 @pytest.mark.parametrize("$1", ($2))
 def test_$3(${1/,/, /g}) -> None:
     """
     $4
     """
     $0
+endsnippet
+
+snippet !! "Assert" bA
+assert $1
+endsnippet
+
+snippet !e "Assert equal" bA
+assert $1 == $2
+endsnippet
+
+snippet !n "Assert not" bA
+assert not $1
 endsnippet
