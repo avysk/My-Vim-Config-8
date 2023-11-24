@@ -4,27 +4,8 @@ function! CheckBackspace() abort
   return !col || getline('.')[col - 1] =~ '\s'
 endfunction
 
-" Use tab for trigger completion with characters ahead
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-
-" Make <C-a> to accept selected completion item
-inoremap <silent><expr> <C-a> coc#pum#visible() ? coc#pum#confirm() : "<C-a>"
-" Same for control-space
-inoremap <silent><expr> <C-@> coc#pum#visible() ? coc#pum#confirm() : "<C-@>"
-" Same for shift-right arrow
-inoremap <silent><expr> <S-Right> coc#pum#visible() ? coc#pum#confirm() : "<S-Right>"
-" Same for keypad insert
-inoremap <silent><expr> <kInsert> coc#pum#visible() ? coc#pum#confirm() : "<kInsert>"
-
-" Alt-Space on Windows
-if has('win32')
-  inoremap <silent><expr>   coc#pum#visible() ? coc#pum#confirm() : " "
-endif
-
+" Make <Tab> to accept selected completion item
+inoremap <silent><expr> <TAB> coc#pum#visible() ? coc#pum#confirm() : "<TAB>"
 
 function! WrapLocation(where)
   if !exists('b:we_have_coc_list')
