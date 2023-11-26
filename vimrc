@@ -138,7 +138,7 @@ let g:fastfold_minlines = 0
 "}}}3
 
 "{{{3 GitGutter
-Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter', {'branch': 'main'}
 " faster realtime updates
 " set updatetime=300
 let g:gitgutter_enabled=0
