@@ -210,10 +210,6 @@ let g:UltiSnipsJumpBackwardTrigger="<Up>"
 Plug 'avysk/vim-fortran-fpm' | Plug 'avysk/vim-fortran-fpm-msx'
 "}}}3
 
-"{{{3 vim-fortran-fpm-msx
-Plug 'avysk/vim-fortran-fpm-msx'
-"}}}3
-
 "{{{3 vim-fullscreen
 Plug 'lambdalisue/vim-fullscreen'
 "}}}3
