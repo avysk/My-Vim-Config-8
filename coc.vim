@@ -111,3 +111,5 @@ xmap <silent><unique> <C-s> <Plug>(coc-range-select)
 let g:coc_global_extensions = ['coc-clojure', 'coc-json', 'coc-lists', 'coc-omni', 'coc-pyright', 'coc-rust-analyzer', 'coc-sh', 'coc-syntax', 'coc-toml', 'coc-ultisnips', 'coc-vimlsp']
 nnoremap <Leader>bb :CocList buffers<CR>
 nnoremap <Leader>ff :CocList --auto-preview files<CR>
+
+nnoremap <LocalLeader>o :CocOutline<CR>
