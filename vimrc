@@ -415,6 +415,10 @@ if !empty($TMUX)
       autocmd!
       au BufEnter * colorscheme msx
     augroup END
+    " And now fix coc.nvim menu highlight which will be broken
+    augroup FixCoc
+      autocmd!
+      au BufEnter * hi CocMenuSel ctermbg=7 guibg=#3AA241
   else
     colorscheme nord
   endif
