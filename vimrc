@@ -23,6 +23,8 @@ set colorcolumn=80
 
 "{{{1 General vim behaviour
 
+set smoothscroll
+
 set termguicolors
 
 " Sensible backspace
