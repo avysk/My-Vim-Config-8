@@ -140,7 +140,7 @@ let g:fastfold_minlines = 0
 "}}}3
 
 "{{{3 GitGutter
-Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter', {'branch': 'main'}
 " faster realtime updates
 " set updatetime=300
 let g:gitgutter_enabled=0
@@ -210,10 +210,6 @@ let g:UltiSnipsJumpBackwardTrigger="<Up>"
 
 "{{{3 vim-fortran-fpm{,-msx}
 Plug 'avysk/vim-fortran-fpm' | Plug 'avysk/vim-fortran-fpm-msx'
-"}}}3
-
-"{{{3 vim-fortran-fpm-msx
-Plug 'avysk/vim-fortran-fpm-msx'
 "}}}3
 
 "{{{3 vim-fullscreen
@@ -421,6 +417,10 @@ if !empty($TMUX)
       autocmd!
       au BufEnter * colorscheme msx
     augroup END
+    " And now fix coc.nvim menu highlight which will be broken
+    augroup FixCoc
+      autocmd!
+      au BufEnter * hi CocMenuSel ctermbg=7 guibg=#3AA241
   else
     colorscheme nord
   endif
