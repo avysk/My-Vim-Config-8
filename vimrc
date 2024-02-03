@@ -401,6 +401,16 @@ if &term =~ "xterm-256color"
   autocmd VimEnter * normal! :startinsert :stopinsert
 endif
 
+if &term =~ 'win32'
+  " Insert mode is vertical line, Replace mode is blinking green block,
+  " Normal mode is solid block
+  let &t_SI .= "\<Esc>[6 q"
+  let &t_EI .= "\<Esc>[2 q"
+  let &t_SR .= "\<Esc>[1 q"
+  " Make sure that at start the cursor is orange block
+  autocmd VimEnter * normal! :startinsert :stopinsert
+endif
+
 packadd termdebug
 let g:termdebug_wide = 1
 augroup TermdebugColors
