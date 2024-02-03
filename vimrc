@@ -41,7 +41,7 @@ set expandtab
 set path+=**
 
 " Proper completion
-set wildmode=longest,list
+set wildmode=longest:list
 
 "{{{2 Information about files
 
@@ -390,7 +390,7 @@ augroup end
 
 if &term =~ "xterm-256color"
   " Insert mode is green vertical line, Replace mode is blinking green block,
-  " Normal mode is orage solid block
+  " Normal mode is orange solid block
   let &t_SI = "\<Esc>]12;green\x7"
   let &t_EI = "\<Esc>]12;orange\x7"
   let &t_SR="\<Esc>]12;green\x7"
