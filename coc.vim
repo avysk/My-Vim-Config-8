@@ -15,22 +15,28 @@ function! WrapLocation(where)
       execute 'lfirst'
       let b:we_have_coc_list = 'yes'
     catch /E42/
+      redraw!
       echo 'No errors.'
     endtry
-    return
-  endif
-  if a:where == 'up'
-    try
-      execute 'lprevious'
-    catch /E553/
-      execute 'llast'
-    endtry
   else
-    try
-      execute 'lnext'
-    catch /E553/
-      execute 'lfirst'
-    endtry
+    if a:where == 'up'
+      try
+        execute 'lprevious'
+      catch /E553/
+        execute 'llast'
+      catch /E42/
+        redraw!
+        echo 'No errors.'
+      endtry
+    else
+      try
+        execute 'lnext'
+      catch /E553/
+        execute 'lfirst'
+      catch /E42/
+        echo 'No errors.'
+      endtry
+    endif
   endif
 endfunction
 
