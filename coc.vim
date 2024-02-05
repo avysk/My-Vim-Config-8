@@ -8,43 +8,34 @@ endfunction
 inoremap <silent><expr> <TAB> coc#pum#visible() ? coc#pum#confirm() : "<TAB>"
 
 function! WrapLocation(where)
-  if !exists('b:we_have_coc_list')
-    execute 'CocDiagnostics'
-    execute 'lclose'
+  try
+    if a:where == 'up'
+      try
+        execute 'silent lprevious'
+      catch /E553/
+        execute 'silent llast'
+      endtry
+    else
+      try
+        execute 'silent lnext'
+      catch /E553/
+        execute 'silent lfirst'
+      endtry
+    endif
+  catch /E42/
+    echo 'No errors.'
+  catch /E776/
+    CocDiagnostics
+    lclose
     try
-      execute 'lfirst'
-      let b:we_have_coc_list = 'yes'
+      lfirst
     catch /E42/
       redraw!
       echo 'No errors.'
     endtry
-  else
-    if a:where == 'up'
-      try
-        execute 'lprevious'
-      catch /E553/
-        execute 'llast'
-      catch /E42/
-        redraw!
-        echo 'No errors.'
-      endtry
-    else
-      try
-        execute 'lnext'
-      catch /E553/
-        execute 'lfirst'
-      catch /E42/
-        echo 'No errors.'
-      endtry
-    endif
-  endif
+
+  endtry
 endfunction
-
-augroup CocHelper
-  autocmd!
-  autocmd TextChanged * if exists("b:we_have_coc_list") | unlet b:we_have_coc_list | endif
-augroup END
-
 
 nnoremap <silent><unique> <Up> :call WrapLocation('up')<CR>
 nnoremap <silent><unique> <Down> :call WrapLocation('down')<CR>
