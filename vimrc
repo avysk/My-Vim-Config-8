@@ -423,14 +423,16 @@ if !empty($TMUX)
   let s:session = system("tmux display-message -p '#{client_session}'")
   if s:session =~ "msx"
     " In tmux 'msx' session I want to use 'msx' colorscheme
+    colorscheme msx
     augroup FixRainbow
       autocmd!
-      au BufEnter * colorscheme msx
+      au BufEnter * RainbowToggleOn
     augroup END
     " And now fix coc.nvim menu highlight which will be broken
     augroup FixCoc
       autocmd!
       au BufEnter * hi CocMenuSel ctermbg=7 guibg=#3AA241
+    augroup END
   else
     colorscheme nord
   endif
