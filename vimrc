@@ -388,7 +388,7 @@ augroup Outliner
   au FileType votl setlocal listchars=tab:\ \ ,trail:∴,extends:→,precedes:←,nbsp:·
 augroup end
 
-if &term =~ "xterm-256color"
+if &term =~ "-256color"
   " Insert mode is green vertical line, Replace mode is blinking green block,
   " Normal mode is orange solid block
   let &t_SI = "\<Esc>]12;green\x7"
