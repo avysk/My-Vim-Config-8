@@ -183,7 +183,12 @@ Plug 'kovisoft/paredit'
 
 "{{{3 Quickscope
 Plug 'unblevable/quick-scope'
-let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+let g:qs_highlight_on_keys = ['f', 'F']
+augroup QuickscopeColors
+  au!
+  au ColorScheme * hi! QuickScopePrimary cterm=reverse gui=reverse
+  au ColorScheme * hi! QuickScopeSecondary cterm=underline gui=underline
+augroup END
 "}}}3
 
 "{{{3 Neural
