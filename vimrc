@@ -393,7 +393,7 @@ augroup Outliner
   au FileType votl setlocal listchars=tab:\ \ ,trail:∴,extends:→,precedes:←,nbsp:·
 augroup end
 
-if &term =~ "xterm-256color"
+if &term =~ "-256color"
   " Insert mode is green vertical line, Replace mode is blinking green block,
   " Normal mode is orange solid block
   let &t_SI = "\<Esc>]12;green\x7"
@@ -428,14 +428,16 @@ if !empty($TMUX)
   let s:session = system("tmux display-message -p '#{client_session}'")
   if s:session =~ "msx"
     " In tmux 'msx' session I want to use 'msx' colorscheme
+    colorscheme msx
     augroup FixRainbow
       autocmd!
-      au BufEnter * colorscheme msx
+      au BufEnter * RainbowToggleOn
     augroup END
     " And now fix coc.nvim menu highlight which will be broken
     augroup FixCoc
       autocmd!
       au BufEnter * hi CocMenuSel ctermbg=7 guibg=#3AA241
+    augroup END
   else
     colorscheme nord
   endif
