@@ -117,6 +117,8 @@ autocmd FileType lisp nnoremap <silent> <LocalLeader>rr :tab terminal ++close cl
 "{{{2 Vim-plug managed plugins
 call plug#begin(s:pluginsdir)
 
+Plug 'junegunn/vader.vim'
+
 "{{{3 vim-polyglot
 Plug 'sheerun/vim-polyglot'
 "}}}3
@@ -240,7 +242,6 @@ let g:slime_vimterminal_cmd = g:_myvim_shell
 "{{{3 vim-surround
 Plug 'tpope/vim-surround'
 "}}}3
-
 
 "{{{3 vim-z80
 Plug 'samsaga2/vim-z80'
