@@ -241,6 +241,11 @@ let g:slime_vimterminal_cmd = g:_myvim_shell
 Plug 'tpope/vim-surround'
 "}}}3
 
+
+"{{{3 vim-z80
+Plug 'samsaga2/vim-z80'
+"}}}3
+
 "{{{3 vimoutliner
 Plug 'vimoutliner/vimoutliner'
 "}}}
