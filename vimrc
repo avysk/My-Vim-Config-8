@@ -245,6 +245,7 @@ Plug 'tpope/vim-surround'
 
 "{{{3 vim-z80
 Plug 'samsaga2/vim-z80'
+execute "source " .. g:_myvim_configdir .. "/z80.vim"
 "}}}3
 
 "{{{3 vimoutliner
