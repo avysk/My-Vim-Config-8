@@ -120,6 +120,7 @@ call plug#begin(s:pluginsdir)
 Plug 'junegunn/vader.vim'
 
 "{{{3 vim-polyglot
+let g:polyglot_disabled = ['sensible']
 Plug 'sheerun/vim-polyglot'
 "}}}3
 
