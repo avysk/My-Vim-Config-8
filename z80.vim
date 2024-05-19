@@ -8,7 +8,7 @@ augroup END
 
 augroup asMSX
         au!
-        autocmd FileType z80 syn keyword z80PreProc .bios .rom bios rom
+        autocmd FileType z80 syn keyword z80PreProc .bios .endm .msxdos .rom bios endm msxdos rom
         autocmd FileType z80 syn match z80Lbl "\.[A-Z_.?][A-Z_.?0-9]*:\="
         autocmd FileType z80 syn match z80Lbl "@@[A-Z_.?][A-Z_.?0-9]*:\="
         " Indirect register access
