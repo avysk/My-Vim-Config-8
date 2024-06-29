@@ -424,7 +424,7 @@ if &term =~ 'win32'
   autocmd VimEnter * normal! :startinsert :stopinsert
 endif
 
-packadd termdebug
+packadd! termdebug
 let g:termdebug_wide = 1
 augroup TermdebugColors
   autocmd!
