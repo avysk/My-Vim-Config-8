@@ -1,7 +1,5 @@
 snippet "^tf" "Start testfile" rbA
-"""
-Tests for $1.
-"""
+"""Tests for $1."""
 import pytest
 
 import $1
@@ -12,8 +10,7 @@ endsnippet
 
 snippet "^ptf" "PyTest test function" rbA
 def test_$1($2) -> None:
-    """
-    $3
+    """$3
     """
     $0
 endsnippet
@@ -21,8 +18,7 @@ endsnippet
 snippet "^pptf" "Parametrized PyTest test function" rbA
 @pytest.mark.parametrize("$1", ($2))
 def test_$3(${1/,/, /g}) -> None:
-    """
-    $4
+    """$4
     """
     $0
 endsnippet
