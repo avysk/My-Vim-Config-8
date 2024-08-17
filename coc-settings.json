@@ -18,7 +18,7 @@
   ],
   "python.linting.pylintEnabled": true,
   "python.linting.ruffEnabled": true,
-  "pyright.organizeimports.provider": "ruff",
+  "pyright.organizeimports.provider": "isort",
   "pyright.inlayHints.functionReturnTypes": false,
   "pyright.inlayHints.variableTypes": false,
   "pyright.testing.provider": "pytest",
@@ -89,6 +89,15 @@
       "filetypes": [
         "ocaml"
       ]
+    },
+    "unison": {
+      "filetypes": [
+        "unison"
+      ],
+      "host": "localhost",
+      "port": 5757,
+      "trace.server": "verbose",
+      "settings": {}
     }
   }
 }
