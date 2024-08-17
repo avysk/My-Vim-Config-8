@@ -2,11 +2,16 @@ if has("gui_running")
         set background=light
         colorscheme pencil
         set linespace=8
+        if exists('g:text_font')
+                execute(g:text_font)
+        else
         if has("gui_gtk3")
                 set guifont=Cousine\ 16,Andale\ Mono\ 16
-        endif
+        else
         if has("gui_macvim")
                 set guifont=Iosevka:h16,Cousine:h12.00,Menlo:h12.00
+        endif
+        endif
         endif
 endif
 
