@@ -217,9 +217,7 @@ let g:UltiSnipsJumpBackwardTrigger="<Up>"
 "}}}3
 
 "{{{3 Unison
-" No idea why git cloning fails for 'unison' directory
-let g:_my_unison_plugin_dir = s:pluginsdir .. '/blah-unison'
-Plug 'unisonweb/unison', { 'branch': 'trunk', 'dir': g:_my_unison_plugin_dir, 'rtp': 'editor-support/vim' }
+Plug 'unisonweb/unison', { 'branch': 'trunk', 'rtp': 'editor-support/vim' }
 "
 
 "{{{3 vim-fortran-fpm{,-msx}
