@@ -218,7 +218,7 @@ let g:UltiSnipsJumpBackwardTrigger="<Up>"
 
 "{{{3 Unison
 Plug 'unisonweb/unison', { 'branch': 'trunk', 'rtp': 'editor-support/vim' }
-"
+"}}}3
 
 "{{{3 vim-fortran-fpm{,-msx}
 Plug 'avysk/vim-fortran-fpm' | Plug 'avysk/vim-fortran-fpm-msx'
