@@ -30,6 +30,12 @@
     "$HOME/.rustup/**"
   ],
   "languageserver": {
+    "erlang": {
+      "command": "erlang_ls",
+      "filetypes": [
+        "erlang"
+      ]
+    },
     "haskell": {
       "command": "haskell-language-server-wrapper",
       "args": [
