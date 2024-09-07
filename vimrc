@@ -458,6 +458,11 @@ else
   colorscheme solarized8_flat
 endif
 
+augroup c_header
+  autocmd!
+  au BufNewFile *.h let b:guard = toupper(expand('%:t:r'))..'_H' | call setline (1, ['#ifndef '..b:guard, '#define '..b:guard, '', '#endif // '..b:guard]) | 3 | startinsert
+augroup END
+
 let s:localrc = g:_myvim_localdir . "/vimrc"
 if filereadable(s:localrc)
   exec 'source ' . s:localrc
