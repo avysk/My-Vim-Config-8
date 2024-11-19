@@ -1,7 +1,5 @@
 set nocursorcolumn
 set clipboard^=unnamed
-hi ColorColumn guibg=#252525
-
 if has("gui_macvim")
         set background=light
         colorscheme macvim
