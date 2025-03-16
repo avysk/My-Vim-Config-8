@@ -133,6 +133,10 @@ execute "source " .. g:_myvim_configdir .. "/coc.vim"
 Plug 'arcticicestudio/nord-vim' | Plug 'reedes/vim-colors-pencil' | Plug 'lifepillar/vim-solarized8' | Plug 'avysk/vim-msx-colors'
 "}}}3
 
+"{{{3 copilot
+Plug 'github/copilot.vim', { 'tag': '*' }
+"}}}3
+
 "{{{3 DrawIt
 Plug 'vim-scripts/DrawIt'
 "}}}
