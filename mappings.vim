@@ -36,3 +36,6 @@ nnoremap <silent><unique><nowait> <Leader>cis :set background=light<CR>:colorsch
 nnoremap <silent><unique><nowait> <Leader>cm :colorscheme msx<CR>
 nnoremap <silent><unique><nowait> <F12> :TagbarToggle "fc"<CR>
 nnoremap <silent><unique><nowait> <Right> :TagbarToggle "fc"<CR>
+
+imap <silent><script><expr> <M-C-Down> copilot#Accept("\<CR>")
+let g:copilot_no_tab_map = v:true
