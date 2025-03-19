@@ -4,6 +4,7 @@
   "coc.source.omni.filetypes": [
     "ocaml"
   ],
+  "metals.javaHome": "/usr/local/openjdk23",
   "python.analysis.typeCheckingMode": "strict",
   "python.formatting.provider": "black",
   "python.formatting.blackArgs": [
