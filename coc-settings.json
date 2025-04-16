@@ -4,7 +4,11 @@
   "coc.source.omni.filetypes": [
     "ocaml"
   ],
-  "metals.javaHome": "/usr/local/openjdk23",
+  "ada.serverBin": "C:/Users/alexe/Tools/ada_language_server.exe",
+  "eslint.enable": true,
+  "eslint.run": "onSave",
+  "eslint.useESLintClass": true,
+  "eslint.experimental.useFlatConfig": true,
   "python.analysis.typeCheckingMode": "strict",
   "python.formatting.provider": "black",
   "python.formatting.blackArgs": [
