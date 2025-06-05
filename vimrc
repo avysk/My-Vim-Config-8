@@ -304,7 +304,7 @@ let fortran_do_enddo=1
 "}}}2
 
 "{{{2 OCaml
-if has("win32")
+if has("win32") || exists('$NO_OCAML_IN_VIM')
   " Nothing
 else
   let g:ocaml_folding=1
