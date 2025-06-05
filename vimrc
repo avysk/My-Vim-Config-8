@@ -23,7 +23,9 @@ set colorcolumn=80
 
 "{{{1 General vim behaviour
 
-set smoothscroll
+if exists('+smoothscroll') " appeared in version 9.1
+  set smoothscroll
+endif
 
 set termguicolors
 
