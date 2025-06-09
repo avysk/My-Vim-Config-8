@@ -3,7 +3,9 @@
   "coc-qml.qmlformatPath": "${env:QMLFORMAT}",
   "coc.preferences.formatOnType": true,
   "coc.preferences.formatOnSave": true,
-  "coc.source.omni.filetypes": ["ocaml"],
+  "coc.source.omni.filetypes": [
+    "ocaml"
+  ],
   "ada.serverBin": "${env:ADALS}",
   "eslint.enable": true,
   "eslint.run": "onSave",
@@ -11,7 +13,10 @@
   "eslint.experimental.useFlatConfig": true,
   "python.analysis.typeCheckingMode": "strict",
   "python.formatting.provider": "black",
-  "python.formatting.blackArgs": ["-l", "79"],
+  "python.formatting.blackArgs": [
+    "-l",
+    "79"
+  ],
   "python.linting.mypyEnabled": true,
   "python.linting.mypyArgs": [
     "--strict",
@@ -26,15 +31,32 @@
   "pyright.testing.provider": "pytest",
   "rust-analyzer.server.path": "rust-analyzer",
   "rust-analyzer.check.command": "clippy",
-  "workspace.ignoredFolders": ["$HOME", "$HOME/.cargo/**", "$HOME/.rustup/**"],
+  "workspace.ignoredFolders": [
+    "$HOME",
+    "$HOME/.cargo/**",
+    "$HOME/.rustup/**"
+  ],
   "languageserver": {
+    "harper": {
+      "command": "harper-ls",
+      "args": [
+        "--stdio"
+      ],
+      "filetypes": [
+        "markdown"
+      ]
+    },
     "erlang": {
       "command": "erlang_ls",
-      "filetypes": ["erlang"]
+      "filetypes": [
+        "erlang"
+      ]
     },
     "haskell": {
       "command": "haskell-language-server-wrapper",
-      "args": ["--lsp"],
+      "args": [
+        "--lsp"
+      ],
       "rootPatterns": [
         "*.cabal",
         "stack.yaml",
@@ -42,7 +64,10 @@
         "package.yaml",
         "hie.yaml"
       ],
-      "filetypes": ["haskell", "lhaskell"]
+      "filetypes": [
+        "haskell",
+        "lhaskell"
+      ]
     },
     "prolog-lsp": {
       "command": "swipl",
@@ -56,27 +81,41 @@
         "--",
         "stdio"
       ],
-      "filetypes": ["prolog"]
+      "filetypes": [
+        "prolog"
+      ]
     },
     "fortls": {
       "command": "fortls",
-      "args": ["--lowercase_intrinsics"],
-      "filetypes": ["fortran"]
+      "args": [
+        "--lowercase_intrinsics"
+      ],
+      "filetypes": [
+        "fortran"
+      ]
     },
     "coffeesense": {
       "command": "coffeesense-language-server",
-      "filetypes": ["coffee"]
+      "filetypes": [
+        "coffee"
+      ]
     },
     "awk-lsp": {
       "command": "awk-language-server",
-      "filetypes": ["awk"]
+      "filetypes": [
+        "awk"
+      ]
     },
     "ocamllsp": {
       "command": "ocamllsp",
-      "filetypes": ["ocaml"]
+      "filetypes": [
+        "ocaml"
+      ]
     },
     "unison": {
-      "filetypes": ["unison"],
+      "filetypes": [
+        "unison"
+      ],
       "host": "127.0.0.1",
       "port": 5757,
       "settings": {}
