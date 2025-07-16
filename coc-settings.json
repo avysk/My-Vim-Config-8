@@ -12,11 +12,7 @@
   "eslint.useESLintClass": true,
   "eslint.experimental.useFlatConfig": true,
   "python.analysis.typeCheckingMode": "strict",
-  "python.formatting.provider": "black",
-  "python.formatting.blackArgs": [
-    "-l",
-    "79"
-  ],
+  "python.formatting.provider": "ruff",
   "python.linting.mypyEnabled": true,
   "python.linting.mypyArgs": [
     "--strict",
@@ -25,7 +21,7 @@
   ],
   "python.linting.pylintEnabled": true,
   "python.linting.ruffEnabled": true,
-  "pyright.organizeimports.provider": "isort",
+  "pyright.organizeimports.provider": "ruff",
   "pyright.inlayHints.functionReturnTypes": false,
   "pyright.inlayHints.variableTypes": false,
   "pyright.testing.provider": "pytest",
