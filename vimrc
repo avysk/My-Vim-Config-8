@@ -447,10 +447,6 @@ if !empty($TMUX)
   if s:session =~ "msx"
     " In tmux 'msx' session I want to use 'msx' colorscheme
     colorscheme msx
-    augroup FixRainbow
-      autocmd!
-      au BufEnter * RainbowToggleOn
-    augroup END
     " And now fix coc.nvim menu highlight which will be broken
     augroup FixCoc
       autocmd!
@@ -473,5 +469,11 @@ let s:localrc = g:_myvim_localdir . "/vimrc"
 if filereadable(s:localrc)
   exec 'source ' . s:localrc
 endif
+
+augroup FixRainbow
+  autocmd!
+  au BufEnter * execute 'colorscheme ' .. g:colors_name
+  au BufEnter * RainbowToggleOn
+augroup END
 
 " vim:sw=2:sts=2:foldmethod=marker
