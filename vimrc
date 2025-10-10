@@ -298,10 +298,6 @@ else
 endif
 "}}}2
 
-"{{{2 Prolog
-autocmd BufNew,BufNewFile,BufRead *.pl setlocal ft=prolog | syntax on
-"}}}2
-
 "}}}1
 
 augroup Makefile
