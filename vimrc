@@ -407,25 +407,22 @@ augroup Outliner
   au FileType votl setlocal listchars=tab:\ \ ,trail:∴,extends:→,precedes:←,nbsp:·
 augroup end
 
-if &term =~ "-256color"
-  " Insert mode is green vertical line, Replace mode is blinking green block,
-  " Normal mode is orange solid block
-  let &t_SI = "\<Esc>]12;green\x7"
-  let &t_EI = "\<Esc>]12;orange\x7"
-  let &t_SR="\<Esc>]12;green\x7"
-  let &t_SI .= "\<Esc>[6 q"
-  let &t_EI .= "\<Esc>[2 q"
-  let &t_SR .= "\<Esc>[1 q"
-  " Make sure that at start the cursor is orange block
-  autocmd VimEnter * normal! :startinsert :stopinsert
-endif
+" Configure cursor appearance for different terminals
+if &term =~ "-256color" || &term =~ 'win32'
+  " Common cursor shape settings for all supported terminals
+  let &t_SI .= "\<Esc>[6 q"  " Insert mode: vertical line
+  let &t_EI .= "\<Esc>[2 q"  " Normal mode: solid block
+  let &t_SR .= "\<Esc>[1 q"  " Replace mode: blinking block
 
-if &term =~ 'win32'
-  " Insert mode is vertical line, Replace mode is blinking green block,
-  " Normal mode is solid block
-  let &t_SI .= "\<Esc>[6 q"
-  let &t_EI .= "\<Esc>[2 q"
-  let &t_SR .= "\<Esc>[1 q"
+  " Additional color settings for 256color terminals only
+  if &term =~ "-256color"
+    " Insert mode: green vertical line, Replace mode: blinking green block,
+    " Normal mode: orange solid block
+    let &t_SI = "\<Esc>]12;green\x7" . &t_SI
+    let &t_EI = "\<Esc>]12;orange\x7" . &t_EI
+    let &t_SR = "\<Esc>]12;green\x7" . &t_SR
+  endif
+
   " Make sure that at start the cursor is orange block
   autocmd VimEnter * normal! :startinsert :stopinsert
 endif
