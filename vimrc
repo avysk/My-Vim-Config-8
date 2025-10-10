@@ -159,38 +159,9 @@ let g:gitgutter_enabled=0
 let g:neoformat_enabled_cs = ["csharpier"]
 let g:neoformat_for_filetypes = ["cs", "fortran"]
 
-" Utility function for temporarily switching shell on Windows
-" Returns a dictionary with restore function or empty dict on non-Windows
-function! WithTemporaryShell(shell_command)
-  let l:restore = {}
-  if has("win32")
-    if exists("&shell")
-      let l:restore.shell_save = &shell
-    endif
-    let &shell = a:shell_command
-    function! l:restore.call()
-      if has_key(self, 'shell_save')
-        let &shell = self.shell_save
-      else
-        set shell&
-      endif
-    endfunction
-  else
-    " No-op restore function for non-Windows
-    function! l:restore.call()
-    endfunction
-  endif
-  return l:restore
-endfunction
-
 function! MaybeRunNeoformat()
   if index(g:neoformat_for_filetypes, &filetype) >= 0
-    let l:shell_restore = WithTemporaryShell(g:_myvim_shell)
-    try
-      execute "undojoin | Neoformat"
-    finally
-      call l:shell_restore.call()
-    endtry
+    execute "undojoin | Neoformat"
   endif
 endfunction
 
