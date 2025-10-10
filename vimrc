@@ -108,10 +108,6 @@ nnoremap <silent><unique> <Leader>eng :exec g:_myvim_eng_text_script<CR>
 
 " For arrows up and down see Coc section
 
-"{{{2 Launch clisp in a tab
-autocmd FileType lisp nnoremap <silent> <LocalLeader>rr :tab terminal ++close clisp<CR>
-"}}}2
-
 "}}}1
 
 "{{{1 Plugins
@@ -279,11 +275,6 @@ call plug#end()
 
 "{{{1 Languages
 
-"{{{2 C#
-" Make it agree with csharpier
-autocmd FileType cs setlocal colorcolumn=100
-"}}}2
-
 "{{{2 FORTRAN
 let fortran_free_source=1
 let fortran_fold=1
@@ -304,81 +295,11 @@ else
   " Update merlin documentation
   execute "helptags " . g:opamshare . "/merlin/vim/doc"
 
-  augroup OCaml
-    autocmd!
-    autocmd FileType ocaml iabbrev <buffer> _ML (*<C-M><BS><BS>vim:sw=2<C-M>*)
-    autocmd FileType ocaml setlocal tw=0
-    autocmd FileType ocaml setlocal shiftwidth=2
-    autocmd FileType ocaml nnoremap <buffer><silent><unique> <LocalLeader>f :call Reformat()<CR>
-  augroup end
-
-  function Reformat()
-    let curpos = getcurpos()
-    execute "w"
-    silent execute "! [ -f .ocamlformat ] || touch .ocamlformat"
-    silent execute "%!ocamlformat '%'"
-    write
-    call setpos('.', curpos)
-  endfunction
-
 endif
 "}}}2
 
 "{{{2 Prolog
 autocmd BufNew,BufNewFile,BufRead *.pl setlocal ft=prolog | syntax on
-"}}}2
-
-"{{{2 Python
-function PythonTestFile()
-  let mybufname = bufname()
-  set shellslash
-  let myfilename = fnamemodify(mybufname, ':t')
-  let mydirname = fnamemodify(mybufname, ':.:s?^./??:h')
-  let testdirname = substitute(mydirname, '[^/]\+', 'tests', '')
-  let testname = testdirname .. '/test_' .. myfilename
-  let testbufname=bufname("^" .. testname .. '$')
-  if testbufname == ''
-    silent execute ':e ' .. testname
-  else
-    silent execute ':sb ' .. testname
-  endif
-endfunction
-
-augroup Python
-  autocmd!
-  autocmd FileType python setlocal shiftwidth=4
-  " For documentation.
-  autocmd FileType python setlocal colorcolumn+=72
-  " Switch to test file
-  autocmd FileType python nnoremap <silent> <LocalLeader>t :call PythonTestFile()<CR>
-  " Go back
-  autocmd FileType python nnoremap <silent> <LocalLeader>b :silent execute ':sb ' . substitute(expand('%:t'), '^test_', '/', '')<CR>
-  autocmd BufWritePre *.py CocCommand python.sortImports
-augroup end
-
-"}}}2
-
-"{{{2 Rust
-augroup RustStyle
-  autocmd!
-  " Rust coding style document says so.
-  autocmd FileType rust setlocal colorcolumn=100
-  autocmd FileType rust setlocal shiftwidth=4
-augroup end
-
-augroup RustSetup
-  autocmd!
-  " -> means function type return; I do not want beeps here
-  autocmd FileType rust setlocal mps-=<:>
-augroup END
-
-"{{{3 If editing src/*.rs or tests/*.rs, add shortcut to open terminal in the
-" project directory
-augroup RustTerminal
-  autocmd!
-  autocmd BufReadPost **/{src,tests}/*.rs nnoremap <silent> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
-augroup END
-"}}}3
 "}}}2
 
 "}}}1
