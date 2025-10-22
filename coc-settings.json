@@ -113,6 +113,18 @@
         "coffee"
       ]
     },
+    "cmake": {
+      "command": "cmake-language-server",
+      "filetypes": [
+        "cmake"
+      ],
+      "rootPatterns": [
+        "build/"
+      ],
+      "initializationOptions": {
+        "buildDirectory": "build"
+      }
+    },
     "awk-lsp": {
       "command": "awk-language-server",
       "filetypes": [

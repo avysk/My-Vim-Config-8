@@ -47,3 +47,5 @@ inoremap <silent><unique><nowait> <S-F12> <Plug>(copilot-accept-word)
 inoremap <silent><unique><nowait> <C-S-F12> copilot#Accept("\<CR>")
 imap <silent><script><expr> <M-C-Down> copilot#Accept("\<CR>")
 let g:copilot_no_tab_map = v:true
+
+nnoremap <silent><unique><nowait> <Leader>nr <Plug>(neural_buffer)
