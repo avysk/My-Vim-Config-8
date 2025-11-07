@@ -285,16 +285,15 @@ let fortran_do_enddo=1
 "}}}2
 
 "{{{2 OCaml
-if has("win32") || exists('$NO_OCAML_IN_VIM')
-  " Nothing
-else
+if executable('opam')
   let g:ocaml_folding=1
   let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
 
-  execute "set rtp+=" . g:opamshare . "/merlin/vim"
-  " Update merlin documentation
-  execute "helptags " . g:opamshare . "/merlin/vim/doc"
-
+  if executable('merlin')
+    execute "set rtp+=" . g:opamshare . "/merlin/vim"
+    " Update merlin documentation
+    execute "helptags " . g:opamshare . "/merlin/vim/doc"
+  endif
 endif
 "}}}2
 

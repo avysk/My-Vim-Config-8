@@ -5,13 +5,6 @@ Clone this repository:
 git clone https://github.com/avysk/My-Vim-Config-8 <your vim config dir>
 ```
 
-## Note on OCaml support
-
-If you do not need OCaml support, export environment variable `NO_OCAML_IN_VIM`
-setting it to any value before doing anything else. There will be no OCaml
-support on Windows in any case. Otherwise, you need to have `opam` and have
-`merlin` installed in your switch.
-
 Make sure you have the Python and the node available.
 
 ## Notes on node
