@@ -120,6 +120,10 @@ let g:polyglot_disabled = ['sensible']
 Plug 'sheerun/vim-polyglot'
 "}}}3
 
+"{{{3 A.vim
+Plug 'thindil/a.vim'
+"}}}3
+
 "{{{3 Coc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 execute "source " .. g:_myvim_configdir .. "/coc.vim"
