@@ -268,6 +268,12 @@ nnoremap <S-F1> <Plug>VimwikiDiaryIndex
 nnoremap <leader><F1> <Plug>VimwikiDiaryIndex
 "}}}3
 
+"{{{3 zeavim
+if executable('zeal')
+  Plug 'KabbAmine/zeavim.vim'
+endif
+"}}}3
+
 call plug#end()
 "}}}2
 
