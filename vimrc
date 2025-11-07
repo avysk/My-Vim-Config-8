@@ -115,8 +115,6 @@ nnoremap <silent><unique> <Leader>eng :exec g:_myvim_eng_text_script<CR>
 "{{{2 Vim-plug managed plugins
 call plug#begin(s:pluginsdir)
 
-Plug 'junegunn/vader.vim'
-
 "{{{3 vim-polyglot
 let g:polyglot_disabled = ['sensible']
 Plug 'sheerun/vim-polyglot'
