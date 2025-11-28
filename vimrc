@@ -134,7 +134,7 @@ Plug 'arcticicestudio/nord-vim' | Plug 'reedes/vim-colors-pencil' | Plug 'lifepi
 "}}}3
 
 "{{{3 copilot
-Plug 'github/copilot.vim', { 'tag': '*' }
+Plug 'github/copilot.vim', { 'tag': 'v1.56.0' }
 "}}}3
 
 "{{{3 DrawIt
