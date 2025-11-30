@@ -5,6 +5,12 @@ set fileformat=unix
 set fileformats=unix,dos
 language en_US.UTF-8
 
+if has('unix') && !has('linux') && !has('mac')
+  let s:bsd=1
+else
+  let s:bsd=0
+endif
+
 "{{{ Local paths
 if has("win32")
   let g:_myvim_configdir=$HOME . '/vimfiles'
@@ -134,7 +140,12 @@ Plug 'arcticicestudio/nord-vim' | Plug 'reedes/vim-colors-pencil' | Plug 'lifepi
 "}}}3
 
 "{{{3 copilot
-Plug 'github/copilot.vim', { 'tag': 'v1.56.0' }
+
+if s:bsd
+  Plug 'github/copilot.vim', { 'tag': 'v1.56.0' }
+else
+  Plug 'github/copilot.vim', { 'tag': '*' }
+endif
 "}}}3
 
 "{{{3 DrawIt
