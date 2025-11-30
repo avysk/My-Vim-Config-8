@@ -2,6 +2,11 @@
 
 let g:mapleader = ' '
 let g:maplocalleader = ',,'
+augroup NoLeaderInInsert
+        autocmd!
+        autocmd InsertEnter * set timeoutlen=0
+        autocmd InsertLeave * set timeoutlen=1000
+augroup END
 noremap <silent><unique><nowait> <Leader>T :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
 nnoremap <silent><unique><nowait> <PageDown> :nohl<CR>
 nnoremap <silent><unique><nowait> <Leader>nh :nohl<CR>
