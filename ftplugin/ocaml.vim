@@ -13,10 +13,30 @@ nnoremap <buffer><silent><unique> <LocalLeader>f :call Reformat()<CR>
 
 " Function to reformat OCaml code with ocamlformat
 function! Reformat() abort
+  if !executable('ocamlformat')
+    echoerr 'ocamlformat is not available. Please install it.'
+    return
+  endif
+  
   const curpos = getcurpos()
-  write
-  silent execute '! [ -f .ocamlformat ] || touch .ocamlformat'
-  silent execute "%!ocamlformat '%'"
-  write
-  call setpos('.', curpos)
+  try
+    write
+    silent execute '! [ -f .ocamlformat ] || touch .ocamlformat'
+    if v:shell_error != 0
+      echoerr 'Failed to create .ocamlformat file'
+      return
+    endif
+    
+    silent execute "%!ocamlformat '%'"
+    if v:shell_error != 0
+      undo
+      echoerr 'ocamlformat failed. Changes have been reverted.'
+      return
+    endif
+    
+    write
+    call setpos('.', curpos)
+  catch /^Vim\%((\a\+)\)\=:E/
+    echoerr 'Error during reformat: ' .. v:exception
+  endtry
 endfunction

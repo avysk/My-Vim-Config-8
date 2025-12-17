@@ -59,7 +59,13 @@ function! ShowDocumentation() abort
   if CocAction('hasProvider', 'hover')
     call CocActionAsync('doHover')
   else
-    call feedkeys('K', 'in')
+    try
+      call feedkeys('K', 'in')
+    catch /^Vim\%((\a\+)\)\=:E/
+      echohl WarningMsg
+      echom 'Documentation not available'
+      echohl None
+    endtry
   endif
 endfunction
 

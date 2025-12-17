@@ -14,17 +14,21 @@ augroup end
 
 " Fix coc.nvim menu highlight for msx colorscheme in tmux msx session
 if !empty($TMUX)
-  const s:session = trim(system("tmux display-message -p '#{client_session}'"))
-  if s:session =~# 'msx'
-    augroup FixCoc
-      autocmd!
-      autocmd BufEnter * hi CocMenuSel ctermbg=7 guibg=#3AA241
-    augroup END
-  endif
+  try
+    const s:session = trim(system("tmux display-message -p '#{client_session}'"))
+    if v:shell_error == 0 && s:session =~# 'msx'
+      augroup FixCoc
+        autocmd!
+        autocmd BufEnter * hi CocMenuSel ctermbg=7 guibg=#3AA241
+      augroup END
+    endif
+  catch /^Vim\%((\a\+)\)\=:E/
+    " Silently handle tmux command errors
+  endtry
 endif
 
 augroup FixRainbow
   autocmd!
-  autocmd BufEnter * execute 'colorscheme ' .. g:colors_name
-  autocmd BufEnter * RainbowToggleOn
+  autocmd BufEnter * if exists('g:colors_name') | try | execute 'colorscheme ' .. g:colors_name | catch /^Vim\%((\a\+)\)\=:E185/ | endtry | endif
+  autocmd BufEnter * if exists(':RainbowToggleOn') | try | execute 'RainbowToggleOn' | catch /^Vim\%((\a\+)\)\=:E/ | endtry | endif
 augroup END

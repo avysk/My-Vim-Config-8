@@ -60,7 +60,13 @@ set viminfo='1000,<1000
 " Permanent undo
 set undofile
 let &undodir=g:_myvim_localdir . "/undo"
-call mkdir(&undodir, "p")
+try
+  call mkdir(&undodir, "p")
+catch /^Vim\%((\a\+)\)\=:E/
+  echohl WarningMsg
+  echom 'Warning: Could not create undo directory: ' .. &undodir
+  echohl None
+endtry
 set undolevels=5000
 "}}}2
 
@@ -209,13 +215,25 @@ let fortran_do_enddo=1
 "{{{2 OCaml
 if executable('opam')
   let g:ocaml_folding=1
-  let g:opamshare = trim(system('opam config var share'))
-
-  if executable('merlin')
-    execute 'set rtp+=' .. g:opamshare .. '/merlin/vim'
-    " Update merlin documentation
-    execute 'helptags ' .. g:opamshare .. '/merlin/vim/doc'
-  endif
+  try
+    let g:opamshare = trim(system('opam config var share'))
+    if v:shell_error != 0
+      echoerr 'Failed to get opam share directory'
+    elseif executable('merlin')
+      let l:merlin_path = g:opamshare .. '/merlin/vim'
+      if isdirectory(l:merlin_path)
+        execute 'set rtp+=' .. l:merlin_path
+        " Update merlin documentation
+        try
+          execute 'helptags ' .. l:merlin_path .. '/doc'
+        catch /^Vim\%((\a\+)\)\=:E/
+          " Silently ignore helptags errors
+        endtry
+      endif
+    endif
+  catch /^Vim\%((\a\+)\)\=:E/
+    echoerr 'Error initializing OCaml support: ' .. v:exception
+  endtry
 endif
 "}}}2
 
@@ -247,16 +265,36 @@ endif
 packadd! termdebug
 
 if !empty($TMUX)
-  const s:session = trim(system("tmux display-message -p '#{client_session}'"))
-  colorscheme s:session =~# 'msx' ? 'msx' : 'nord'
+  try
+    const s:session = trim(system("tmux display-message -p '#{client_session}'"))
+    if v:shell_error == 0
+      colorscheme s:session =~# 'msx' ? 'msx' : 'nord'
+    else
+      set background=dark
+      colorscheme nord
+    endif
+  catch /^Vim\%((\a\+)\)\=:E185/
+    " Colorscheme not found, use default
+    set background=dark
+  endtry
 else
-  set background=dark
-  colorscheme solarized8_flat
+  try
+    set background=dark
+    colorscheme solarized8_flat
+  catch /^Vim\%((\a\+)\)\=:E185/
+    " Colorscheme not found, use default
+  endtry
 endif
 
 const s:localrc = g:_myvim_localdir .. '/vimrc'
 if filereadable(s:localrc)
-  execute 'source ' .. s:localrc
+  try
+    execute 'source ' .. s:localrc
+  catch /^Vim\%((\a\+)\)\=:E/
+    echohl ErrorMsg
+    echom 'Error loading local vimrc: ' .. v:exception
+    echohl None
+  endtry
 endif
 
 " vim:sw=2:sts=2:foldmethod=marker
