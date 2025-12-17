@@ -239,6 +239,9 @@ endif
 
 "}}}1
 
+" Validate dependencies at startup
+call myvim_validate#ValidateAll()
+
 "{{{1 Autocmd groups
 execute "source " .. g:_myvim_configdir .. "/autocmd/general.vim"
 execute "source " .. g:_myvim_configdir .. "/autocmd/formatting.vim"
