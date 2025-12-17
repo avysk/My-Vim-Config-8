@@ -168,17 +168,7 @@ let g:gitgutter_enabled=0
 let g:neoformat_enabled_cs = ["csharpier"]
 let g:neoformat_for_filetypes = ["cs", "fortran"]
 
-function! MaybeRunNeoformat()
-  if index(g:neoformat_for_filetypes, &filetype) >= 0
-    execute "undojoin | Neoformat"
-  endif
-endfunction
-
 Plug 'sbdchd/neoformat'
-augroup fmt
-  autocmd!
-  autocmd BufWritePre * call MaybeRunNeoformat()
-augroup end
 "}}}3
 
 "{{{3 paredit
@@ -190,11 +180,6 @@ Plug 'kovisoft/paredit'
 "{{{3 Quickscope
 Plug 'unblevable/quick-scope'
 let g:qs_highlight_on_keys = ['f', 'F']
-augroup QuickscopeColors
-  au!
-  au ColorScheme * hi! QuickScopePrimary cterm=reverse gui=reverse
-  au ColorScheme * hi! QuickScopeSecondary cterm=underline gui=underline
-augroup END
 "}}}3
 
 "{{{3 Neural
@@ -269,13 +254,6 @@ let g:vimwiki_list = [
 let g:vimwiki_ext2syntax = {}
 let g:vimwiki_folding = 'syntax'
 
-autocmd FileType vimwiki setlocal tw=80
-autocmd FileType vimwiki setlocal nowrap
-autocmd FileType vimwiki setlocal foldmethod=syntax
-autocmd FileType vimwiki setlocal foldlevel=2
-
-autocmd FileType vimwiki ++once nnoremap <unique><silent> <leader>tt <Plug>VimwikiToggleListItem
-
 nnoremap <F1> <Plug>VimwikiTabMakeDiaryNote
 nnoremap <S-F1> <Plug>VimwikiDiaryIndex
 nnoremap <leader><F1> <Plug>VimwikiDiaryIndex
@@ -318,17 +296,11 @@ endif
 
 "}}}1
 
-augroup Makefile
-  autocmd!
-  autocmd FileType make setlocal tabstop=8
-  autocmd FileType make setlocal listchars=tab:⇒\ ,trail:∴,extends:→,precedes:←,nbsp:·
-augroup end
-
-augroup Outliner
-  autocmd!
-  au BufReadPost *.otl setf votl
-  au FileType votl setlocal listchars=tab:\ \ ,trail:∴,extends:→,precedes:←,nbsp:·
-augroup end
+"{{{1 Autocmd groups
+execute "source " .. g:_myvim_configdir .. "/autocmd/general.vim"
+execute "source " .. g:_myvim_configdir .. "/autocmd/formatting.vim"
+execute "source " .. g:_myvim_configdir .. "/autocmd/colors.vim"
+"}}}1
 
 " Configure cursor appearance for different terminals
 if &term =~ "-256color" || &term =~ 'win32'
@@ -345,29 +317,16 @@ if &term =~ "-256color" || &term =~ 'win32'
     let &t_EI = "\<Esc>]12;orange\x7" . &t_EI
     let &t_SR = "\<Esc>]12;green\x7" . &t_SR
   endif
-
-  " Make sure that at start the cursor is orange block
-  autocmd VimEnter * normal! :startinsert :stopinsert
 endif
 
 packadd! termdebug
 let g:termdebug_wide = 1
-augroup TermdebugColors
-  autocmd!
-  autocmd Colorscheme * hi! link debugPC PmenuSbar
-  autocmd Colorscheme * hi! link debugBreakpoint WarningMsg
-augroup end
 
 if !empty($TMUX)
   let s:session = system("tmux display-message -p '#{client_session}'")
   if s:session =~ "msx"
     " In tmux 'msx' session I want to use 'msx' colorscheme
     colorscheme msx
-    " And now fix coc.nvim menu highlight which will be broken
-    augroup FixCoc
-      autocmd!
-      au BufEnter * hi CocMenuSel ctermbg=7 guibg=#3AA241
-    augroup END
   else
     colorscheme nord
   endif
@@ -376,20 +335,9 @@ else
   colorscheme solarized8_flat
 endif
 
-augroup c_header
-  autocmd!
-  au BufNewFile *.h let b:guard = toupper(expand('%:t:r'))..'_H' | call setline (1, ['#ifndef '..b:guard, '#define '..b:guard, '', '#endif // '..b:guard]) | 3 | startinsert
-augroup END
-
 let s:localrc = g:_myvim_localdir . "/vimrc"
 if filereadable(s:localrc)
   exec 'source ' . s:localrc
 endif
-
-augroup FixRainbow
-  autocmd!
-  au BufEnter * execute 'colorscheme ' .. g:colors_name
-  au BufEnter * RainbowToggleOn
-augroup END
 
 " vim:sw=2:sts=2:foldmethod=marker
