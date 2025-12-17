@@ -1,6 +1,6 @@
 " Formatting autocmds - auto-formatting on save
 
-function! MaybeRunNeoformat() abort
+function! s:MyvimMaybeRunNeoformat() abort
   if !exists(':Neoformat')
     " Neoformat plugin is not loaded
     return
@@ -20,5 +20,5 @@ endfunction
 
 augroup fmt
   autocmd!
-  autocmd BufWritePre * call MaybeRunNeoformat()
+  autocmd BufWritePre * call s:MyvimMaybeRunNeoformat()
 augroup end

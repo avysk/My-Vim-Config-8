@@ -9,10 +9,10 @@ setlocal tw=0
 setlocal shiftwidth=2
 
 " Reformat mapping
-nnoremap <buffer><silent><unique> <LocalLeader>f :call Reformat()<CR>
+nnoremap <buffer><silent><unique> <LocalLeader>f :call <SID>MyvimOcamlReformat()<CR>
 
 " Function to reformat OCaml code with ocamlformat
-function! Reformat() abort
+function! s:MyvimOcamlReformat() abort
   if !executable('ocamlformat')
     echoerr 'ocamlformat is not available. Please install it.'
     return
