@@ -12,10 +12,10 @@ setlocal shiftwidth=2
 nnoremap <buffer><silent><unique> <LocalLeader>f :call Reformat()<CR>
 
 " Function to reformat OCaml code with ocamlformat
-function! Reformat()
-  let curpos = getcurpos()
-  execute "w"
-  silent execute "! [ -f .ocamlformat ] || touch .ocamlformat"
+function! Reformat() abort
+  const curpos = getcurpos()
+  write
+  silent execute '! [ -f .ocamlformat ] || touch .ocamlformat'
   silent execute "%!ocamlformat '%'"
   write
   call setpos('.', curpos)

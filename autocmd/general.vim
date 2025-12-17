@@ -14,7 +14,7 @@ augroup end
 
 augroup c_header
   autocmd!
-  autocmd BufNewFile *.h let b:guard = toupper(expand('%:t:r'))..'_H' | call setline (1, ['#ifndef '..b:guard, '#define '..b:guard, '', '#endif // '..b:guard]) | 3 | startinsert
+  autocmd BufNewFile *.h let b:guard = toupper(expand('%:t:r')) .. '_H' | call setline(1, ['#ifndef ' .. b:guard, '#define ' .. b:guard, '', '#endif // ' .. b:guard]) | 3 | startinsert
 augroup END
 
 augroup VimwikiSettings
@@ -27,7 +27,7 @@ augroup VimwikiSettings
 augroup END
 
 " Configure cursor appearance for different terminals
-if &term =~ "-256color" || &term =~ 'win32'
+if &term =~# "-256color" || &term =~# 'win32'
   augroup CursorAppearance
     autocmd!
     " Make sure that at start the cursor is orange block

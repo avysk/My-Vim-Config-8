@@ -7,9 +7,9 @@ endfunction
 " Make <Tab> to accept selected completion item
 inoremap <silent><expr> <TAB> coc#pum#visible() ? coc#pum#confirm() : "<TAB>"
 
-function! WrapLocation(where)
+function! WrapLocation(where) abort
   try
-    if a:where == 'up'
+    if a:where ==# 'up'
       try
         execute 'silent lprevious'
       catch /E553/
@@ -55,7 +55,7 @@ nnoremap <silent><unique> gr <Plug>(coc-references)
 " Use K to show documentation in preview window
 nnoremap <silent><unique> K :call ShowDocumentation()<CR>
 
-function! ShowDocumentation()
+function! ShowDocumentation() abort
   if CocAction('hasProvider', 'hover')
     call CocActionAsync('doHover')
   else

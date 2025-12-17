@@ -10,5 +10,5 @@ setlocal mps-=<:>
 
 " If editing src/*.rs or tests/*.rs, add shortcut to open terminal in the project directory
 if expand('%:p') =~# '\(src\|tests\)[\\/].*\.rs$'
-  nnoremap <buffer><silent> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
+  nnoremap <buffer><silent> <LocalLeader>rr :execute 'tab terminal ++close ++kill=''term'' ' .. g:_myvim_shell<CR>
 endif

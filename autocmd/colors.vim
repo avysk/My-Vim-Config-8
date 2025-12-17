@@ -14,8 +14,8 @@ augroup end
 
 " Fix coc.nvim menu highlight for msx colorscheme in tmux msx session
 if !empty($TMUX)
-  let s:session = system("tmux display-message -p '#{client_session}'")
-  if s:session =~ "msx"
+  const s:session = trim(system("tmux display-message -p '#{client_session}'"))
+  if s:session =~# 'msx'
     augroup FixCoc
       autocmd!
       autocmd BufEnter * hi CocMenuSel ctermbg=7 guibg=#3AA241
