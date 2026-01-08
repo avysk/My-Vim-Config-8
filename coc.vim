@@ -1,5 +1,5 @@
 " Settings for coc.nvim extension
-function! CheckBackspace() abort
+function! s:MyvimCheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1] =~ '\s'
 endfunction
@@ -7,9 +7,9 @@ endfunction
 " Make <Tab> to accept selected completion item
 inoremap <silent><expr> <TAB> coc#pum#visible() ? coc#pum#confirm() : "<TAB>"
 
-function! WrapLocation(where)
+function! s:MyvimWrapLocation(where) abort
   try
-    if a:where == 'up'
+    if a:where ==# 'up'
       try
         execute 'silent lprevious'
       catch /E553/
@@ -37,8 +37,8 @@ function! WrapLocation(where)
   endtry
 endfunction
 
-nnoremap <silent><unique> <Up> :call WrapLocation('up')<CR>
-nnoremap <silent><unique> <Down> :call WrapLocation('down')<CR>
+nnoremap <silent><unique> <Up> :call <SID>MyvimWrapLocation('up')<CR>
+nnoremap <silent><unique> <Down> :call <SID>MyvimWrapLocation('down')<CR>
 nnoremap <silent><unique> <Left> :CocCommand<CR>
 
 " These are straight from documentation but I do not think they work. At
@@ -53,13 +53,19 @@ nnoremap <silent><unique> gi <Plug>(coc-implementation)
 nnoremap <silent><unique> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window
-nnoremap <silent><unique> K :call ShowDocumentation()<CR>
+nnoremap <silent><unique> K :call <SID>MyvimShowDocumentation()<CR>
 
-function! ShowDocumentation()
+function! s:MyvimShowDocumentation() abort
   if CocAction('hasProvider', 'hover')
     call CocActionAsync('doHover')
   else
-    call feedkeys('K', 'in')
+    try
+      call feedkeys('K', 'in')
+    catch /^Vim\%((\a\+)\)\=:E/
+      echohl WarningMsg
+      echom 'Documentation not available'
+      echohl None
+    endtry
   endif
 endfunction
 

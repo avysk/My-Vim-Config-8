@@ -33,6 +33,23 @@
     "$HOME/.rustup/**"
   ],
   "languageserver": {
+    "millet": {
+      "command": "millet-ls",
+      "filetypes": [
+        "sml"
+      ],
+      "rootPatterns": [
+        "sources.cm",
+        ".git/"
+      ]
+    },
+    "alivelsp": {
+      "filetypes": [
+        "lisp"
+      ],
+      "host": "127.0.0.1",
+      "port": 5000
+    },
     "harper": {
       "command": "harper-ls",
       "args": [
@@ -95,6 +112,18 @@
       "filetypes": [
         "coffee"
       ]
+    },
+    "cmake": {
+      "command": "cmake-language-server",
+      "filetypes": [
+        "cmake"
+      ],
+      "rootPatterns": [
+        "build/"
+      ],
+      "initializationOptions": {
+        "buildDirectory": "build"
+      }
     },
     "awk-lsp": {
       "command": "awk-language-server",

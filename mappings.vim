@@ -2,7 +2,12 @@
 
 let g:mapleader = ' '
 let g:maplocalleader = ',,'
-noremap <silent><unique><nowait> <Leader>T :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
+augroup NoLeaderInInsert
+        autocmd!
+        autocmd InsertEnter * set timeoutlen=0
+        autocmd InsertLeave * set timeoutlen=1000
+augroup END
+noremap <silent><unique><nowait> <Leader>T :execute 'tab terminal ++close ++kill=''term'' ' .. g:_myvim_shell<CR>
 nnoremap <silent><unique><nowait> <PageDown> :nohl<CR>
 nnoremap <silent><unique><nowait> <Leader>nh :nohl<CR>
 inoremap <silent><unique><nowait> <PageDown> <C-\><C-O>:nohl<CR>
@@ -37,5 +42,10 @@ nnoremap <silent><unique><nowait> <Leader>cm :colorscheme msx<CR>
 nnoremap <silent><unique><nowait> <F12> :TagbarToggle "fc"<CR>
 nnoremap <silent><unique><nowait> <Right> :TagbarToggle "fc"<CR>
 
+inoremap <silent><unique><nowait> <F12> <Plug>(copilot-accept-line)
+inoremap <silent><unique><nowait> <S-F12> <Plug>(copilot-accept-word)
+inoremap <silent><unique><nowait> <C-S-F12> copilot#Accept("\<CR>")
 imap <silent><script><expr> <M-C-Down> copilot#Accept("\<CR>")
 let g:copilot_no_tab_map = v:true
+
+nnoremap <silent><unique><nowait> <Leader>nr <Plug>(neural_buffer)

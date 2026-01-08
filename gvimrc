@@ -51,7 +51,7 @@ set listchars=tab:⇒…,trail:∴,extends:→,precedes:←,nbsp:·
 
 augroup WindowSize
   " Maximize window if editing Python
-  autocmd FileType python if !exists('g:fullscreen#status') || (g:fullscreen#status != 1) | call fullscreen#start() | endif
+  autocmd FileType python if exists('*fullscreen#start') && (!exists('g:fullscreen#status') || (g:fullscreen#status != 1)) | call fullscreen#start() | endif
 augroup end
 
 " Control Left and Right to switch tabs
@@ -68,6 +68,12 @@ set guioptions-=e " no graphical tabline"
 " KEEP AT THE BOTTOM
 let s:localrc = g:_myvim_localdir . "/gvimrc"
 if filereadable(s:localrc)
-  exec 'source ' . s:localrc
+  try
+    exec 'source ' . s:localrc
+  catch /^Vim\%((\a\+)\)\=:E/
+    echohl ErrorMsg
+    echom 'Error loading local gvimrc: ' .. v:exception
+    echohl None
+  endtry
 endif
 " vim:sw=2:sts=2:foldmethod=marker

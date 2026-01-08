@@ -5,6 +5,12 @@ set fileformat=unix
 set fileformats=unix,dos
 language en_US.UTF-8
 
+if has('unix') && !has('linux') && !has('mac')
+  let s:bsd=1
+else
+  let s:bsd=0
+endif
+
 "{{{ Local paths
 if has("win32")
   let g:_myvim_configdir=$HOME . '/vimfiles'
@@ -54,7 +60,13 @@ set viminfo='1000,<1000
 " Permanent undo
 set undofile
 let &undodir=g:_myvim_localdir . "/undo"
-call mkdir(&undodir, "p")
+try
+  call mkdir(&undodir, "p")
+catch /^Vim\%((\a\+)\)\=:E/
+  echohl WarningMsg
+  echom 'Warning: Could not create undo directory: ' .. &undodir
+  echohl None
+endtry
 set undolevels=5000
 "}}}2
 
@@ -108,97 +120,41 @@ nnoremap <silent><unique> <Leader>eng :exec g:_myvim_eng_text_script<CR>
 
 " For arrows up and down see Coc section
 
-"{{{2 Launch clisp in a tab
-autocmd FileType lisp nnoremap <silent> <LocalLeader>rr :tab terminal ++close clisp<CR>
-"}}}2
-
 "}}}1
 
 "{{{1 Plugins
 
+" Load plugin configurations
+execute "source " .. g:_myvim_configdir .. "/config/plugins.vim"
+
 "{{{2 Vim-plug managed plugins
 call plug#begin(s:pluginsdir)
 
-Plug 'junegunn/vader.vim'
-
-"{{{3 vim-polyglot
-let g:polyglot_disabled = ['sensible']
 Plug 'sheerun/vim-polyglot'
-"}}}3
+Plug 'thindil/a.vim'
 
 "{{{3 Coc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 execute "source " .. g:_myvim_configdir .. "/coc.vim"
 "}}}3
 
-"{{{3 Colorschemes
 Plug 'arcticicestudio/nord-vim' | Plug 'reedes/vim-colors-pencil' | Plug 'lifepillar/vim-solarized8' | Plug 'avysk/vim-msx-colors'
-"}}}3
 
 "{{{3 copilot
-Plug 'github/copilot.vim', { 'tag': '*' }
+
+if s:bsd
+  Plug 'github/copilot.vim', { 'tag': 'v1.56.0' }
+else
+  Plug 'github/copilot.vim', { 'tag': '*' }
+endif
 "}}}3
 
-"{{{3 DrawIt
 Plug 'vim-scripts/DrawIt'
-"}}}
-
-"{{{3 FastFold + SimpylFold
 Plug 'Konfekt/FastFold' | Plug 'tmhedberg/SimpylFold'
-let g:fastfold_minlines = 0
-"}}}3
-
-"{{{3 GitGutter
 Plug 'airblade/vim-gitgutter', {'branch': 'main'}
-" faster realtime updates
-" set updatetime=300
-let g:gitgutter_enabled=0
-"}}}3
-
-"{{{3 Neoformat
-let g:neoformat_enabled_cs = ["csharpier"]
-let g:neoformat_for_filetypes = ["cs", "fortran"]
-function! MaybeRunNeoformat()
-  if index(g:neoformat_for_filetypes, &filetype) >= 0
-    if has("win32")
-      if exists("&shell")
-        let s:shell_save = &shell
-      endif
-      let &shell = g:_myvim_shell
-    endif
-    execute "undojoin | Neoformat"
-    if has("win32")
-      if exists("s:shell_save")
-        let &shell = s:shell_save
-      else
-        set shell&
-      endif
-    endif
-  endif
-endfunction
-
 Plug 'sbdchd/neoformat'
-augroup fmt
-  autocmd!
-  autocmd BufWritePre * call MaybeRunNeoformat()
-augroup end
-"}}}3
-
-"{{{3 paredit
-let g:paredit_electric_return = 1
-let g:paredit_shortmaps = 1
 Plug 'kovisoft/paredit'
-"}}}3
-
-"{{{3 Quickscope
 Plug 'unblevable/quick-scope'
-let g:qs_highlight_on_keys = ['f', 'F']
-augroup QuickscopeColors
-  au!
-  au ColorScheme * hi! QuickScopePrimary cterm=reverse gui=reverse
-  au ColorScheme * hi! QuickScopeSecondary cterm=underline gui=underline
-augroup END
-"}}}3
 
 "{{{3 Neural
 if has('win32')
@@ -209,79 +165,35 @@ else
 endif
 "}}}3
 
-"{{{3 tagbar
 Plug 'preservim/tagbar', {'on': 'TagbarToggle'}
-"}}}
-
-"{{{3 Ultisnips + vim-snippets
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-let g:UltiSnipsEditSplit="context"
-let g:UltiSnipsExpandTrigger="<Right>"
-let g:UltiSnipsListSnippets="<Left>"
-let g:UltiSnipsJumpForwardTrigger="<Down>"
-let g:UltiSnipsJumpBackwardTrigger="<Up>"
-"}}}3
-
-"{{{3 Unison
 Plug 'unisonweb/unison', { 'branch': 'trunk', 'rtp': 'editor-support/vim' }
-"}}}3
-
-"{{{3 vim-fortran-fpm{,-msx}
 Plug 'avysk/vim-fortran-fpm' | Plug 'avysk/vim-fortran-fpm-msx'
-"}}}3
-
-"{{{3 vim-fullscreen
 Plug 'lambdalisue/vim-fullscreen'
-"}}}3
-
-"{{{3 vim-peekaboo
 Plug 'junegunn/vim-peekaboo'
-"}}}3
-
-"{{{3 vim-rainbow
 Plug 'luochen1990/rainbow'
-let g:rainbow_active = 1
-"}}}3
-
-"{{{3 vim-slime
 Plug 'jpalardy/vim-slime'
-let g:slime_target = "vimterminal"
-let g:slime_vimterminal_config = {"term_finish": "close", "vertical": 1}
-let g:slime_vimterminal_cmd = g:_myvim_shell
-"}}}3
-
-"{{{3 vim-surround
 Plug 'tpope/vim-surround'
-"}}}3
 
 "{{{3 vim-z80
 Plug 'samsaga2/vim-z80'
 execute "source " .. g:_myvim_configdir .. "/z80.vim"
 "}}}3
 
-"{{{3 vimoutliner
 Plug 'vimoutliner/vimoutliner'
-"}}}
 
 "{{{3 vimwiki
 Plug 'vimwiki/vimwiki'
-let g:vimwiki_list = [
-      \ {'path': '~/OneDrive/vimwiki', 'list_margin': 2},
-      \ {'path': '~/vimwiki', 'list_margin': 2} ]
-
-let g:vimwiki_ext2syntax = {}
-let g:vimwiki_folding = 'syntax'
-
-autocmd FileType vimwiki setlocal tw=80
-autocmd FileType vimwiki setlocal nowrap
-autocmd FileType vimwiki setlocal foldmethod=syntax
-autocmd FileType vimwiki setlocal foldlevel=2
-
-autocmd FileType vimwiki ++once nnoremap <unique><silent> <leader>tt <Plug>VimwikiToggleListItem
 
 nnoremap <F1> <Plug>VimwikiTabMakeDiaryNote
 nnoremap <S-F1> <Plug>VimwikiDiaryIndex
 nnoremap <leader><F1> <Plug>VimwikiDiaryIndex
+"}}}3
+
+"{{{3 zeavim
+if executable('zeal')
+  Plug 'KabbAmine/zeavim.vim'
+endif
 "}}}3
 
 call plug#end()
@@ -290,11 +202,6 @@ call plug#end()
 "}}}1
 
 "{{{1 Languages
-
-"{{{2 C#
-" Make it agree with csharpier
-autocmd FileType cs setlocal colorcolumn=100
-"}}}2
 
 "{{{2 FORTRAN
 let fortran_free_source=1
@@ -306,172 +213,91 @@ let fortran_do_enddo=1
 "}}}2
 
 "{{{2 OCaml
-if has("win32") || exists('$NO_OCAML_IN_VIM')
-  " Nothing
-else
+if executable('opam')
   let g:ocaml_folding=1
-  let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
-
-  execute "set rtp+=" . g:opamshare . "/merlin/vim"
-  " Update merlin documentation
-  execute "helptags " . g:opamshare . "/merlin/vim/doc"
-
-  augroup OCaml
-    autocmd!
-    autocmd FileType ocaml iabbrev <buffer> _ML (*<C-M><BS><BS>vim:sw=2<C-M>*)
-    autocmd FileType ocaml setlocal tw=0
-    autocmd FileType ocaml setlocal shiftwidth=2
-    autocmd FileType ocaml nnoremap <buffer><silent><unique> <LocalLeader>f :call Reformat()<CR>
-  augroup end
-
-  function Reformat()
-    let curpos = getcurpos()
-    execute "w"
-    silent execute "! [ -f .ocamlformat ] || touch .ocamlformat"
-    silent execute "%!ocamlformat '%'"
-    write
-    call setpos('.', curpos)
-  endfunction
-
+  try
+    let g:opamshare = trim(system('opam config var share'))
+    if v:shell_error != 0
+      echoerr 'Failed to get opam share directory'
+    elseif executable('merlin')
+      let l:merlin_path = g:opamshare .. '/merlin/vim'
+      if isdirectory(l:merlin_path)
+        execute 'set rtp+=' .. l:merlin_path
+        " Update merlin documentation
+        try
+          execute 'helptags ' .. l:merlin_path .. '/doc'
+        catch /^Vim\%((\a\+)\)\=:E/
+          " Silently ignore helptags errors
+        endtry
+      endif
+    endif
+  catch /^Vim\%((\a\+)\)\=:E/
+    echoerr 'Error initializing OCaml support: ' .. v:exception
+  endtry
 endif
-"}}}2
-
-"{{{2 Prolog
-autocmd BufNew,BufNewFile,BufRead *.pl setlocal ft=prolog | syntax on
-"}}}2
-
-"{{{2 Python
-function PythonTestFile()
-  let mybufname = bufname()
-  set shellslash
-  let myfilename = fnamemodify(mybufname, ':t')
-  let mydirname = fnamemodify(mybufname, ':.:s?^./??:h')
-  let testdirname = substitute(mydirname, '[^/]\+', 'tests', '')
-  let testname = testdirname .. '/test_' .. myfilename
-  let testbufname=bufname("^" .. testname .. '$')
-  if testbufname == ''
-    silent execute ':e ' .. testname
-  else
-    silent execute ':sb ' .. testname
-  endif
-endfunction
-
-augroup Python
-  autocmd!
-  autocmd FileType python setlocal shiftwidth=4
-  " For documentation.
-  autocmd FileType python setlocal colorcolumn+=72
-  " Switch to test file
-  autocmd FileType python nnoremap <silent> <LocalLeader>t :call PythonTestFile()<CR>
-  " Go back
-  autocmd FileType python nnoremap <silent> <LocalLeader>b :silent execute ':sb ' . substitute(expand('%:t'), '^test_', '/', '')<CR>
-  autocmd BufWritePre *.py CocCommand python.sortImports
-augroup end
-
-"}}}2
-
-"{{{2 Rust
-augroup RustStyle
-  autocmd!
-  " Rust coding style document says so.
-  autocmd FileType rust setlocal colorcolumn=100
-  autocmd FileType rust setlocal shiftwidth=4
-augroup end
-
-augroup RustSetup
-  autocmd!
-  " -> means function type return; I do not want beeps here
-  autocmd FileType rust setlocal mps-=<:>
-augroup END
-
-"{{{3 If editing src/*.rs or tests/*.rs, add shortcut to open terminal in the
-" project directory
-autocmd BufReadPost src/*.rs nnoremap <silent> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
-autocmd BufReadPost src\*.rs nnoremap <silent> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
-autocmd BufReadPost ./src/*.rs nnoremap <silent> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
-autocmd BufReadPost .\src\*.rs nnoremap <silent> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
-autocmd BufReadPost tests/*.rs nnoremap <silent> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
-autocmd BufReadPost tests\*.rs nnoremap <silent> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
-autocmd BufReadPost ./tests/*.rs nnoremap <silent> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
-autocmd BufReadPost .\tests\*.rs nnoremap <silent> <LocalLeader>rr :execute "tab terminal ++close ++kill='term' " . g:_myvim_shell<CR>
-"}}}3
 "}}}2
 
 "}}}1
 
-augroup Makefile
-  autocmd!
-  autocmd FileType make setlocal tabstop=8
-  autocmd FileType make setlocal listchars=tab:⇒\ ,trail:∴,extends:→,precedes:←,nbsp:·
-augroup end
+" Validate dependencies at startup
+call myvim_validate#ValidateAll()
 
-augroup Outliner
-  autocmd!
-  au BufReadPost *.otl setf votl
-  au FileType votl setlocal listchars=tab:\ \ ,trail:∴,extends:→,precedes:←,nbsp:·
-augroup end
+"{{{1 Autocmd groups
+execute "source " .. g:_myvim_configdir .. "/autocmd/general.vim"
+execute "source " .. g:_myvim_configdir .. "/autocmd/formatting.vim"
+execute "source " .. g:_myvim_configdir .. "/autocmd/colors.vim"
+"}}}1
 
-if &term =~ "-256color"
-  " Insert mode is green vertical line, Replace mode is blinking green block,
-  " Normal mode is orange solid block
-  let &t_SI = "\<Esc>]12;green\x7"
-  let &t_EI = "\<Esc>]12;orange\x7"
-  let &t_SR="\<Esc>]12;green\x7"
-  let &t_SI .= "\<Esc>[6 q"
-  let &t_EI .= "\<Esc>[2 q"
-  let &t_SR .= "\<Esc>[1 q"
-  " Make sure that at start the cursor is orange block
-  autocmd VimEnter * normal! :startinsert :stopinsert
-endif
+" Configure cursor appearance for different terminals
+if &term =~# "-256color" || &term =~# 'win32'
+  " Common cursor shape settings for all supported terminals
+  let &t_SI .= "\<Esc>[6 q"  " Insert mode: vertical line
+  let &t_EI .= "\<Esc>[2 q"  " Normal mode: solid block
+  let &t_SR .= "\<Esc>[1 q"  " Replace mode: blinking block
 
-if &term =~ 'win32'
-  " Insert mode is vertical line, Replace mode is blinking green block,
-  " Normal mode is solid block
-  let &t_SI .= "\<Esc>[6 q"
-  let &t_EI .= "\<Esc>[2 q"
-  let &t_SR .= "\<Esc>[1 q"
-  " Make sure that at start the cursor is orange block
-  autocmd VimEnter * normal! :startinsert :stopinsert
+  " Additional color settings for 256color terminals only
+  if &term =~# "-256color"
+    " Insert mode: green vertical line, Replace mode: blinking green block,
+    " Normal mode: orange solid block
+    let &t_SI = "\<Esc>]12;green\x7" .. &t_SI
+    let &t_EI = "\<Esc>]12;orange\x7" .. &t_EI
+    let &t_SR = "\<Esc>]12;green\x7" .. &t_SR
+  endif
 endif
 
 packadd! termdebug
-let g:termdebug_wide = 1
-augroup TermdebugColors
-  autocmd!
-  autocmd Colorscheme * hi! link debugPC PmenuSbar
-  autocmd Colorscheme * hi! link debugBreakpoint WarningMsg
-augroup end
 
 if !empty($TMUX)
-  let s:session = system("tmux display-message -p '#{client_session}'")
-  if s:session =~ "msx"
-    " In tmux 'msx' session I want to use 'msx' colorscheme
-    colorscheme msx
-    augroup FixRainbow
-      autocmd!
-      au BufEnter * RainbowToggleOn
-    augroup END
-    " And now fix coc.nvim menu highlight which will be broken
-    augroup FixCoc
-      autocmd!
-      au BufEnter * hi CocMenuSel ctermbg=7 guibg=#3AA241
-    augroup END
-  else
-    colorscheme nord
-  endif
+  try
+    const s:session = trim(system("tmux display-message -p '#{client_session}'"))
+    if v:shell_error == 0
+      colorscheme s:session =~# 'msx' ? 'msx' : 'nord'
+    else
+      set background=dark
+      colorscheme nord
+    endif
+  catch /^Vim\%((\a\+)\)\=:E185/
+    " Colorscheme not found, use default
+    set background=dark
+  endtry
 else
-  set background=dark
-  colorscheme solarized8_flat
+  try
+    set background=dark
+    colorscheme solarized8_flat
+  catch /^Vim\%((\a\+)\)\=:E185/
+    " Colorscheme not found, use default
+  endtry
 endif
 
-augroup c_header
-  autocmd!
-  au BufNewFile *.h let b:guard = toupper(expand('%:t:r'))..'_H' | call setline (1, ['#ifndef '..b:guard, '#define '..b:guard, '', '#endif // '..b:guard]) | 3 | startinsert
-augroup END
-
-let s:localrc = g:_myvim_localdir . "/vimrc"
+const s:localrc = g:_myvim_localdir .. '/vimrc'
 if filereadable(s:localrc)
-  exec 'source ' . s:localrc
+  try
+    execute 'source ' .. s:localrc
+  catch /^Vim\%((\a\+)\)\=:E/
+    echohl ErrorMsg
+    echom 'Error loading local vimrc: ' .. v:exception
+    echohl None
+  endtry
 endif
 
 " vim:sw=2:sts=2:foldmethod=marker
