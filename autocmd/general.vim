@@ -14,7 +14,7 @@ augroup end
 
 augroup c_header
   autocmd!
-  autocmd BufNewFile *.h let b:guard = toupper(expand('%:t:r')) .. '_H' | call setline(1, ['#ifndef ' .. b:guard, '#define ' .. b:guard, '', '#endif // ' .. b:guard]) | 3 | startinsert
+  autocmd BufNewFile *.h call setline(1, ['#pragma once', '', '']) | 3 | startinsert
 augroup END
 
 augroup VimwikiSettings
