@@ -102,6 +102,15 @@
         "awk"
       ]
     },
+    "elmlsp": {
+      "command": "elm-language-server",
+      "filetypes": [
+        "elm"
+      ],
+      "rootPatterns": [
+        "elm.json"
+      ],
+    },
     "ocamllsp": {
       "command": "ocamllsp",
       "filetypes": [
