@@ -39,7 +39,7 @@ nnoremap <silent><unique><nowait> <Leader>cip :set background=light<CR>:colorsch
 nnoremap <silent><unique><nowait> <Leader>cs :set background=dark<CR>:colorscheme solarized8_flat<CR>
 nnoremap <silent><unique><nowait> <Leader>cis :set background=light<CR>:colorscheme solarized8_flat<CR>
 nnoremap <silent><unique><nowait> <Leader>cm :colorscheme msx<CR>
-nnoremap <silent><unique><nowait> <F12> :TagbarToggle "fc"<CR>
+nnoremap <silent><unique><nowait> <C-F12> :TagbarToggle "fc"<CR>
 nnoremap <silent><unique><nowait> <Right> :TagbarToggle "fc"<CR>
 
 inoremap <silent><unique><nowait> <F12> <Plug>(copilot-accept-line)
