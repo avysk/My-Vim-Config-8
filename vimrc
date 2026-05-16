@@ -180,6 +180,8 @@ Plug 'samsaga2/vim-z80'
 execute "source " .. g:_myvim_configdir .. "/z80.vim"
 "}}}3
 
+Plug 'avysk/vim-6502'
+
 Plug 'vimoutliner/vimoutliner'
 
 "{{{3 vimwiki
