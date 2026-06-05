@@ -198,6 +198,19 @@ if executable('zeal')
 endif
 "}}}3
 
+"{{{3 zig
+if executable('zig')
+  Plug 'https://codeberg.org/ziglang/zig.vim'
+  " don't show parse errors in a separate window
+  let g:zig_fmt_parse_errors = 0
+  " disable format-on-save from `ziglang/zig.vim`
+  let g:zig_fmt_autosave = 0
+  augroup Zig
+    autocmd!
+    autocmd BufWritePre *.zig,*.zon call CocActionAsync('organizeImport')
+  augroup END
+endif
+
 call plug#end()
 "}}}2
 

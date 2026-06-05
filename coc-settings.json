@@ -32,6 +32,10 @@
     "$HOME/.cargo/**",
     "$HOME/.rustup/**"
   ],
+  "[zls]": {
+    "coc.preferences.formatOnSave": true,
+    "semanticTokens.enable": true
+  },
   "languageserver": {
     "millet": {
       "command": "millet-ls",
@@ -114,7 +118,8 @@
       ]
     },
     "cmake": {
-      "command": "cmake-language-server",
+      "command": "neocmakelsp",
+      "args": ["stdio"],
       "filetypes": [
         "cmake"
       ],
@@ -153,6 +158,13 @@
       "host": "127.0.0.1",
       "port": 5757,
       "settings": {}
+    },
+    "zls": {
+      "command": "zls",
+      "filetypes": [
+        "zig",
+        "zon"
+      ]
     }
   }
 }
