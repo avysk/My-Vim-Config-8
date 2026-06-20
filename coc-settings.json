@@ -32,11 +32,26 @@
     "$HOME/.cargo/**",
     "$HOME/.rustup/**"
   ],
-  "[zls]": {
+  "[zig]": {
     "coc.preferences.formatOnSave": true,
     "semanticTokens.enable": true
   },
+  "[6502]": {
+    "semanticTokens.enable": true
+  },
   "languageserver": {
+    "merls": {
+      "command": "merls",
+      "args": [
+        "--stdio"
+      ],
+      "rootPatterns": [
+        ".git"
+      ],
+      "filetypes": [
+        "6502"
+      ]
+    },
     "millet": {
       "command": "millet-ls",
       "filetypes": [
@@ -119,7 +134,9 @@
     },
     "cmake": {
       "command": "neocmakelsp",
-      "args": ["stdio"],
+      "args": [
+        "stdio"
+      ],
       "filetypes": [
         "cmake"
       ],

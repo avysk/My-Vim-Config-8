@@ -180,8 +180,6 @@ Plug 'samsaga2/vim-z80'
 execute "source " .. g:_myvim_configdir .. "/z80.vim"
 "}}}3
 
-Plug 'avysk/vim-6502'
-
 Plug 'vimoutliner/vimoutliner'
 
 "{{{3 vimwiki
@@ -314,5 +312,10 @@ if filereadable(s:localrc)
     echohl None
   endtry
 endif
+
+augroup 6502
+  autocmd!
+  autocmd BufRead,BufNewFile *.S :set filetype=6502
+augroup END
 
 " vim:sw=2:sts=2:foldmethod=marker
