@@ -30,5 +30,6 @@ endif
 augroup FixRainbow
   autocmd!
   autocmd BufEnter * if exists('g:colors_name') | try | execute 'colorscheme ' .. g:colors_name | catch /^Vim\%((\a\+)\)\=:E185/ | endtry | endif
-  autocmd BufEnter * if exists(':RainbowToggleOn') | try | execute 'RainbowToggleOn' | catch /^Vim\%((\a\+)\)\=:E/ | endtry | syntax on | endif
+  autocmd BufEnter * if exists(':RainbowToggleOn') | try | execute 'RainbowToggleOn' | catch /^Vim\%((\a\+)\)\=:E/ | endtry | endif
+  autocmd BufEnter * call timer_start(50, {-> execute('if exists("syntax_on") | syntax off | endif | syntax on')})
 augroup END
