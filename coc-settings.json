@@ -39,7 +39,32 @@
   "[6502]": {
     "semanticTokens.enable": true
   },
+  "[ez80]": {
+    "semanticTokens.enable": true
+  },
+  "[z80]": {
+    "semanticTokens.enable": true
+  },
   "languageserver": {
+    "zils_ez80": {
+      "command": "zils",
+      "args": [
+        "--stdio"
+      ],
+      "filetypes": [
+        "ez80"
+      ]
+    },
+    "zils_z80": {
+      "command": "zils",
+      "args": [
+        "--stdio",
+        "--asmsx"
+      ],
+      "filetypes": [
+        "z80"
+      ]
+    },
     "merls": {
       "command": "merls",
       "args": [

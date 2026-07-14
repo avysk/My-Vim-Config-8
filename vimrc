@@ -175,11 +175,6 @@ Plug 'luochen1990/rainbow'
 Plug 'jpalardy/vim-slime'
 Plug 'tpope/vim-surround'
 
-"{{{3 vim-z80
-Plug 'samsaga2/vim-z80'
-execute "source " .. g:_myvim_configdir .. "/z80.vim"
-"}}}3
-
 Plug 'vimoutliner/vimoutliner'
 
 "{{{3 vimwiki
@@ -316,6 +311,19 @@ endif
 augroup 6502
   autocmd!
   autocmd BufRead,BufNewFile *.S :set filetype=6502
+augroup END
+
+let s:template_dir = g:_myvim_configdir .. '/templates'
+let s:msx_template = s:template_dir .. '/z80.asm'
+augroup z80
+  autocmd!
+  autocmd BufRead,BufNewFile *.z80 :set filetype=z80
+  autocmd FileType z80 execute "if !filereadable(expand('%')) | 0r " .. s:msx_template .. " | endif"
+augroup END
+
+augroup ez80
+  autocmd!
+  autocmd BufRead,BufNewFile *.ez80 :set filetype=ez80
 augroup END
 
 " vim:sw=2:sts=2:foldmethod=marker
