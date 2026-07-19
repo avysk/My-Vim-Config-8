@@ -318,4 +318,15 @@ augroup ez80
   autocmd BufRead,BufNewFile *.ez80 :set filetype=ez80
 augroup END
 
+const s:localcolors = g:_myvim_localdir .. '/vimrc-colors'
+if filereadable(s:localcolors)
+  try
+    execute 'source ' .. s:localcolors
+  catch /^Vim\%((\a\+)\)\=:E/
+    echohl ErrorMsg
+    echom 'Error loading local vimrc colors: ' .. v:exception
+    echohl None
+  endtry
+endif
+
 " vim:sw=2:sts=2:foldmethod=marker
