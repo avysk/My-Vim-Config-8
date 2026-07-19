@@ -140,15 +140,6 @@ execute "source " .. g:_myvim_configdir .. "/coc.vim"
 
 Plug 'arcticicestudio/nord-vim' | Plug 'reedes/vim-colors-pencil' | Plug 'lifepillar/vim-solarized8' | Plug 'avysk/vim-msx-colors'
 
-"{{{3 copilot
-
-if s:bsd
-  Plug 'github/copilot.vim', { 'tag': 'v1.56.0' }
-else
-  Plug 'github/copilot.vim', { 'tag': '*' }
-endif
-"}}}3
-
 Plug 'vim-scripts/DrawIt'
 Plug 'Konfekt/FastFold' | Plug 'tmhedberg/SimpylFold'
 Plug 'airblade/vim-gitgutter', {'branch': 'main'}
@@ -174,6 +165,7 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'luochen1990/rainbow'
 Plug 'jpalardy/vim-slime'
 Plug 'tpope/vim-surround'
+Plug 'gergap/vim-ollama'
 
 Plug 'vimoutliner/vimoutliner'
 
