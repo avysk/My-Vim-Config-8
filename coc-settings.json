@@ -185,7 +185,7 @@
       ],
       "rootPatterns": [
         "elm.json"
-      ],
+      ]
     },
     "ocamllsp": {
       "command": "ocamllsp",
