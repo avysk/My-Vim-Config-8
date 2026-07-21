@@ -260,15 +260,14 @@ packadd! termdebug
 if !empty($TMUX)
   try
     const s:session = trim(system("tmux display-message -p '#{client_session}'"))
-    if v:shell_error == 0
-      colorscheme s:session =~# 'msx' ? 'msx' : 'nord'
+    if v:shell_error == 0 && s:session == 'msx'
+      colorscheme msx
     else
       set background=dark
       colorscheme nord
     endif
   catch /^Vim\%((\a\+)\)\=:E185/
     " Colorscheme not found, use default
-    set background=dark
   endtry
 else
   try
