@@ -146,16 +146,16 @@ Plug 'airblade/vim-gitgutter', {'branch': 'main'}
 Plug 'sbdchd/neoformat'
 Plug 'kovisoft/paredit'
 Plug 'unblevable/quick-scope'
+Plug 'luochen1990/rainbow'
 Plug 'preservim/tagbar', {'on': 'TagbarToggle'}
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'unisonweb/unison', { 'branch': 'trunk', 'rtp': 'editor-support/vim' }
 Plug 'avysk/vim-fortran-fpm' | Plug 'avysk/vim-fortran-fpm-msx'
 Plug 'lambdalisue/vim-fullscreen'
+Plug 'gergap/vim-ollama'
 Plug 'junegunn/vim-peekaboo'
-Plug 'luochen1990/rainbow'
 Plug 'jpalardy/vim-slime'
 Plug 'tpope/vim-surround'
-Plug 'gergap/vim-ollama'
 
 Plug 'vimoutliner/vimoutliner'
 
