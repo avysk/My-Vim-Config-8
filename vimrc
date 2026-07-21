@@ -257,26 +257,44 @@ endif
 
 packadd! termdebug
 
-if !empty($TMUX)
+if !has('gui_running')
   try
-    const s:session = trim(system("tmux display-message -p '#{client_session}'"))
-    if v:shell_error == 0 && s:session == 'msx'
-      colorscheme msx
-    else
-      set background=dark
-      colorscheme nord
-    endif
+    if !empty($TMUX) " has tmux
+      try
+        const s:session = trim(system("tmux display-message -p '#{client_session}'"))
+        if v:shell_error == 0 && s:session == 'msx'
+          colorscheme msx
+        else
+          set background=dark
+          colorscheme nord
+        endif " tmux, msx
+      catch /^Vim\%((\a\+)\)\=:E185/
+        " Colorscheme not found, use default
+      endtry
+    else " no tmux
+      if !empty($WT_PROFILE_NAME) " Windows Terminal
+        let s:profile = $WT_PROFILE_NAME
+        if s:profile == 'PowerShell'
+          colorscheme msx
+        else " not PowerShell
+          if s:profile == 'Alternate'
+            set background=light
+            colorscheme solarized8_flat
+          else " not Alternate
+            if s:profile == 'Admin'
+              colorscheme peachpuff
+            endif " Admin
+          endif " Alternate
+        endif " Powershell
+      else " not Windows Terminal either
+        set background=dark
+        colorscheme solarized8_flat
+      endif " Windows Terminal
+    endif " tmux
   catch /^Vim\%((\a\+)\)\=:E185/
     " Colorscheme not found, use default
   endtry
-else
-  try
-    set background=dark
-    colorscheme solarized8_flat
-  catch /^Vim\%((\a\+)\)\=:E185/
-    " Colorscheme not found, use default
-  endtry
-endif
+endif " no gui
 
 const s:localrc = g:_myvim_localdir .. '/vimrc'
 if filereadable(s:localrc)
