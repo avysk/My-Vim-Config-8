@@ -146,16 +146,6 @@ Plug 'airblade/vim-gitgutter', {'branch': 'main'}
 Plug 'sbdchd/neoformat'
 Plug 'kovisoft/paredit'
 Plug 'unblevable/quick-scope'
-
-"{{{3 Neural
-if has('win32')
-  " nothing
-else
-  Plug 'dense-analysis/neural'
-  " API key setting in local vimrc => not published to git
-endif
-"}}}3
-
 Plug 'preservim/tagbar', {'on': 'TagbarToggle'}
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'unisonweb/unison', { 'branch': 'trunk', 'rtp': 'editor-support/vim' }
