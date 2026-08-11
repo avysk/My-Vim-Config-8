@@ -325,6 +325,22 @@ augroup ez80
   autocmd BufRead,BufNewFile *.ez80 :set filetype=ez80
 augroup END
 
+" Function to navigate to Python test file
+function! MyvimPythonTestFile() abort
+  try
+    const mybufname = bufname()
+    set shellslash
+    const myfilename = fnamemodify(mybufname, ':t')
+    const mydirname = fnamemodify(mybufname, ':.:s?^./??:h')
+    const testdirname = substitute(mydirname, '[^/]\+', 'tests', '')
+    const testname = testdirname .. '/test_' .. myfilename
+    const testbufname = bufname('^' .. testname .. '$')
+    silent execute empty(testbufname) ? ':e ' .. testname : ':sb ' .. testname
+  catch /^Vim\%((\a\+)\)\=:E/
+    echoerr 'Error navigating to test file: ' .. v:exception
+  endtry
+endfunction
+
 const s:localcolors = g:_myvim_localdir .. '/vimrc-colors'
 if filereadable(s:localcolors)
   try
