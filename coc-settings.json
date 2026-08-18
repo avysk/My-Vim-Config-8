@@ -208,5 +208,8 @@
         "zon"
       ]
     }
+  },
+  "json.schemaDownload.trustedDomains": {
+    "https://charm.land": true
   }
 }
