@@ -210,6 +210,8 @@
     }
   },
   "json.schemaDownload.trustedDomains": {
-    "https://charm.land": true
+    "https://charm.land": true,
+    "https://raw.githubusercontent.com": true,
+    "https://www.schemastore.org": true
   }
 }
