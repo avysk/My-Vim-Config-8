@@ -152,8 +152,10 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'unisonweb/unison', { 'branch': 'trunk', 'rtp': 'editor-support/vim' }
 Plug 'avysk/vim-fortran-fpm' | Plug 'avysk/vim-fortran-fpm-msx'
 Plug 'lambdalisue/vim-fullscreen'
-let g:ollama_no_tab_map = v:true
-Plug 'gergap/vim-ollama'
+if executable('llama-server')
+  let g:ollama_no_tab_map = v:true
+  Plug 'gergap/vim-ollama'
+endif
 Plug 'junegunn/vim-peekaboo'
 Plug 'jpalardy/vim-slime'
 Plug 'tpope/vim-surround'
